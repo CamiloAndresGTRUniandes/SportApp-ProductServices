@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntityFramework\Configurations\" />
     <Folder Include="EntityFramework\Migrations\" />
     <Folder Include="EntityFramework\ProductService\Repositories\" />
   </ItemGroup>

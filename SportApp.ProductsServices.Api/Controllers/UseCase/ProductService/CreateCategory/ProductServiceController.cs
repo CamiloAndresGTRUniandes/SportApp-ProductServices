@@ -14,7 +14,7 @@
     {
         [HttpPost]
         [Route("category")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class InitialDatabaseCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,10 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -34,12 +33,13 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false)
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -57,8 +57,8 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     State = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -72,11 +72,10 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -90,11 +89,10 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -107,12 +105,14 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<long>(type: "bigint", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false)
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -124,12 +124,12 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false)
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -141,14 +141,15 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false)
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -174,11 +175,10 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     GeographicInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TypeOfNutritionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ServiceTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>

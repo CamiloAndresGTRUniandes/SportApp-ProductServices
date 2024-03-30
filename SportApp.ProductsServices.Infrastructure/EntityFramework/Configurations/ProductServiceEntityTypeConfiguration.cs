@@ -36,8 +36,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
                 .HasMaxLength(36)
                 .IsRequired(false);
 
-            builder.Property(c => c.UpdateBy)
-                .HasColumnName(nameof(ProductService.UpdateBy))
+            builder.Property(c => c.UpdatedBy)
+                .HasColumnName(nameof(ProductService.UpdatedBy))
                 .HasConversion(p => p, p => p)
                 .HasMaxLength(36)
                 .IsRequired(false);
@@ -49,6 +49,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
             // Audit shadow properties
             builder.Property<DateTime>("CreatedAt");
-            builder.Property<DateTime?>("UpdatedAt");
+            builder.Property<DateTime>("UpdatedAt");
         }
     }

@@ -18,9 +18,9 @@ using ValueObjects;
             Name = name;
             Description = description;
             CreatedBy = user;
-            UpdateBy = user;
+            UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
-            UpdateAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             Enabled = true;
         }
 

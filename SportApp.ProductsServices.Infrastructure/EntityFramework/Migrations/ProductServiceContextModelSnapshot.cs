@@ -49,16 +49,13 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
+                    b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UpdateBy");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -106,16 +103,13 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
+                    b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UpdateBy");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -163,16 +157,13 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
+                    b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UpdateBy");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -204,23 +195,39 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Description");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Enabled");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Name");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.ProductService.GeographicInfo", b =>
@@ -250,10 +257,10 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.Property<Guid>("StateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
+                    b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -271,23 +278,44 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Description");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Enabled");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Name");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<long>("Price")
+                        .HasMaxLength(50)
+                        .HasColumnType("bigint")
+                        .HasColumnName("Price");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plans");
+                    b.ToTable("Plans", (string)null);
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.ProductService.ProductService", b =>
@@ -345,16 +373,13 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.Property<Guid>("TypeOfNutritionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
+                    b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UpdateBy");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -382,29 +407,45 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Description");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Enabled");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Name");
 
                     b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ServiceType");
+                    b.ToTable("ServiceType", (string)null);
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.ProductService.TypeOfNutrition", b =>
@@ -417,23 +458,33 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatedBy");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Enabled");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("Name");
 
-                    b.Property<DateTime>("UpdateAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UpdateBy")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeOfNutrition");
+                    b.ToTable("TypeOfNutrition", (string)null);
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.Activities.ProductServiceActivities", b =>

@@ -38,9 +38,9 @@ using ValueObjects;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
             CreatedBy = user;
-            UpdateBy = user;
+            UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
-            UpdateAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             Enabled = true;
         }
 

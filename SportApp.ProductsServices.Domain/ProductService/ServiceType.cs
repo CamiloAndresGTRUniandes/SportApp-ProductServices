@@ -22,9 +22,9 @@ using ValueObjects;
             Picture = picture;
             Category = category;
             CreatedBy = user;
-            UpdateBy = user;
+            UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
-            UpdateAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             Enabled = true;
         }
 

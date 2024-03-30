@@ -40,7 +40,7 @@ using Microsoft.Extensions.Logging;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.UpdateAt = DateTime.Now;
+                        entry.Entity.UpdatedAt = DateTime.Now;
                         break;
                 }
             }
@@ -63,6 +63,10 @@ using Microsoft.Extensions.Logging;
             modelBuilder.Entity<Activity>().Configure();
             modelBuilder.Entity<Goal>().Configure();
             modelBuilder.Entity<NutritionalAllergy>().Configure();
+            modelBuilder.Entity<Category>().Configure();
+            modelBuilder.Entity<Plan>().Configure();
+            modelBuilder.Entity<ServiceType>().Configure();
+            modelBuilder.Entity<TypeOfNutrition>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();

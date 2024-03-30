@@ -18,7 +18,7 @@ using Common;
             StateId = stateId;
             CityId = cityId;
             CreatedAt = DateTime.UtcNow;
-            UpdateAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             Enabled = true;
         }
 

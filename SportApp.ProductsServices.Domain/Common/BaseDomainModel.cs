@@ -12,16 +12,16 @@ using SafeFleet.MediaManagement.Domain.SharedKernel;
         protected BaseDomainModel(
             Guid id,
             DateTime createdAt,
-            DateTime updateAt,
+            DateTime updatedAt,
             Guid? createdBy,
-            Guid? updateBy,
+            Guid? updatedBy,
             bool enabled) : this()
         {
             Id = id;
             CreatedAt = createdAt;
-            UpdateBy = updateBy;
+            UpdatedBy = updatedBy;
             CreatedBy = createdBy;
-            UpdateAt = updateAt;
+            UpdatedAt = updatedAt;
             Enabled = enabled;
         }
 
@@ -32,9 +32,9 @@ using SafeFleet.MediaManagement.Domain.SharedKernel;
 
         public Guid? CreatedBy { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
-        public Guid? UpdateBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
 
         public bool Enabled { get; set; }
 
