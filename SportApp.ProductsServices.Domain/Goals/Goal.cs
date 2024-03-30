@@ -1,0 +1,39 @@
+﻿namespace SportApp.ProductsServices.Domain.Goals ;
+
+using Common;
+using ProductService.ValueObjects;
+
+    public class Goal : BaseDomainModel
+    {
+        private readonly List<ProductServiceGoals> _productServiceGoals = new();
+
+        protected Goal()
+        {
+        }
+
+        private Goal(Guid id,
+            Name name,
+            Guid user)
+        {
+            Id = id;
+            Name = name;
+            CreatedBy = user;
+            UpdateBy = user;
+            CreatedAt = DateTime.UtcNow;
+            UpdateAt = DateTime.UtcNow;
+            Enabled = true;
+        }
+
+        public Name Name { get; set; }
+        public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
+
+        public static Goal Build(
+            Guid id,
+            Name name,
+            Guid user)
+        {
+            var goal = new Goal(id, name, user);
+            goal.SetAdded();
+            return goal;
+        }
+    }

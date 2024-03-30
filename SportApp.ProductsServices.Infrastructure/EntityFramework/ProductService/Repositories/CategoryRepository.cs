@@ -1,0 +1,29 @@
+﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.ProductService.Repositories ;
+using System.Diagnostics.CodeAnalysis;
+using Domain.ProductService;
+using Domain.ProductService.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+    public class CategoryRepository([NotNull] ProductServiceContext context) : ICategoryRepository
+    {
+        public async Task SaveAndPublishAsync(Category category)
+        {
+            if (category.State is EntityState.Added)
+            {
+                await context.Categories.AddAsync(category);
+            }
+            else
+            {
+                context.Categories.Attach(category);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<Category?> GetByIdAsync(Guid id)
+        {
+            var query = context.Categories.AsQueryable();
+            var category = await query.FirstOrDefaultAsync(x => x.Enabled && x.Id == id);
+
+            return category;
+        }
+    }
