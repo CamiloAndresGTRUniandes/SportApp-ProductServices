@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService ;
 
 using Common;
+using Common.ValueObjects;
 using ValueObjects;
 
     public class Plan : BaseDomainModel

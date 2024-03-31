@@ -1,7 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService ;
 
 using Common;
-using ValueObjects;
+using Common.ValueObjects;
 
     public class TypeOfNutrition : BaseDomainModel
     {

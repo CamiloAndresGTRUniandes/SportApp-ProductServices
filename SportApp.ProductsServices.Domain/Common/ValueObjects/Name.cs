@@ -1,6 +1,5 @@
-﻿namespace SportApp.ProductsServices.Domain.ProductService.ValueObjects ;
-using Common;
-using Common.Exceptions;
+﻿namespace SportApp.ProductsServices.Domain.Common.ValueObjects ;
+using Exceptions;
 
     public class Name : StringValueObject
     {

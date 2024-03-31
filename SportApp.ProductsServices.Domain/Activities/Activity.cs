@@ -1,6 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Domain.Activities ;
 using Common;
-using ProductService.ValueObjects;
+using Common.ValueObjects;
 
     public class Activity : BaseDomainModel
     {

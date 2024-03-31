@@ -1,5 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService.Commands ;
 using Common.Commands;
+using Common.ValueObjects;
 using ValueObjects;
 
     public class CreateCategoryCommand : IDomainRequest<Category>

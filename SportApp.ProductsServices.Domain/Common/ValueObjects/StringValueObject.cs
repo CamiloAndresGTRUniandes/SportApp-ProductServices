@@ -1,4 +1,4 @@
-namespace SportApp.ProductsServices.Domain.Common ;
+namespace SportApp.ProductsServices.Domain.Common.ValueObjects ;
 
     public class StringValueObject : IComparable
     {

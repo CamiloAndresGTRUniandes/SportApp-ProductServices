@@ -2,6 +2,7 @@
 using Activities;
 using Allergies;
 using Common;
+using Common.ValueObjects;
 using Goals;
 using ValueObjects;
 

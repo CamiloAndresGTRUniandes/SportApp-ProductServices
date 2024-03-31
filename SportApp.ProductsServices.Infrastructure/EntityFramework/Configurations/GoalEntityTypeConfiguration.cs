@@ -1,6 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Configurations ;
+using Domain.Common.ValueObjects;
 using Domain.Goals;
-using Domain.ProductService.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

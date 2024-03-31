@@ -6,14 +6,14 @@
     using Microsoft.AspNetCore.Mvc;
     using Middleware;
 
-    [Route("api/v1/product_service")]
+    [Route("api/v1/productService")]
     [ApiController]
     public class ProductServiceController(
         [NotNull] IMediator mediator
         ) : ControllerBase
     {
         [HttpPost]
-        [Route("service_type")]
+        [Route("serviceType")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]

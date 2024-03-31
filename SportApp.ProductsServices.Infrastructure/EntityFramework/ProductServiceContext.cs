@@ -3,6 +3,7 @@ using Configurations;
 using Domain.Activities;
 using Domain.Allergies;
 using Domain.Common;
+using Domain.Common.ValueObjects;
 using Domain.Goals;
 using Domain.ProductService;
 using Domain.ProductService.ValueObjects;

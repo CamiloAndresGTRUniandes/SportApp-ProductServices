@@ -1,6 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Configurations ;
 using Domain.Allergies;
-using Domain.ProductService.ValueObjects;
+using Domain.Common.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

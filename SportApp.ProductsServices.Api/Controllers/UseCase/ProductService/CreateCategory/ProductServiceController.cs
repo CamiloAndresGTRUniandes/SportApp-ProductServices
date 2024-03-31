@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Middleware;
 
-    [Route("api/v1/product_service")]
+    [Route("api/v1/productService")]
     [ApiController]
     public class ProductServiceController(
         [NotNull] IMediator mediator

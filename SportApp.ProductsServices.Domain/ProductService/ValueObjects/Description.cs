@@ -1,6 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService.ValueObjects ;
-using Common;
 using Common.Exceptions;
+using Common.ValueObjects;
 
     public class Description : StringValueObject
     {

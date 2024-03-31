@@ -1,6 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Domain.Allergies ;
 using Common;
-using ProductService.ValueObjects;
+using Common.ValueObjects;
 
     public class NutritionalAllergy : BaseDomainModel
     {

@@ -1,7 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.Goals ;
 
 using Common;
-using ProductService.ValueObjects;
+using Common.ValueObjects;
 
     public class Goal : BaseDomainModel
     {
