@@ -29,6 +29,7 @@
             services.AddScoped<ICreateCategory, CreateCategory>();
             services.AddScoped<ICreateProductService, CreateProductService>();
             services.AddScoped<ICreateServiceType, CreateServiceType>();
+            services.AddScoped<ICreatePlan, CreatePlan>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

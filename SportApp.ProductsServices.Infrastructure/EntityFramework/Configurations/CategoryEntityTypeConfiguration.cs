@@ -45,5 +45,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
             // Audit shadow properties
             builder.Property<DateTime>("CreatedAt");
             builder.Property<DateTime>("UpdatedAt");
+
+            //Add Default Data
+            builder.HasData(
+                Category.Build(
+                    Guid.Parse("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"),
+                    "Default Category",
+                    "This is the default category",
+                    Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"))
+                );
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreateServiceType
+﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreatePlan
 {
     using System.Diagnostics.CodeAnalysis;
     using Domain.ProductService.Commands;
@@ -13,21 +13,20 @@
         ) : ControllerBase
     {
         [HttpPost]
-        [Route("serviceType")]
+        [Route("plan")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateServiceTypeAsync([FromBody] RequestCreateServiceType request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreatePlanAsync([FromBody] RequestCreatePlan request, CancellationToken cancellationToken)
         {
-            var command = new CreateServiceTypeCommand
+            var command = new CreatePlanCommand
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
                 User = request.User,
-                Picture = request.Picture,
-                CategoryId = request.CategoryId
+                Price = request.Price
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();
