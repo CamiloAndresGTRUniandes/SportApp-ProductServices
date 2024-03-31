@@ -69,6 +69,7 @@ using Microsoft.Net.Http.Headers;
                 //BadRequest
                 nameof(NameMaxLengthException) => (HttpStatusCode.BadRequest, LoggingEvents.NameMaxLengthException),
                 nameof(DescriptionMaxLengthException) => (HttpStatusCode.BadRequest, LoggingEvents.DescriptionMaxLengthException),
+                nameof(InvalidDisplayNameException) => (HttpStatusCode.BadRequest, LoggingEvents.InvalidDisplayName),
 
                 //Conflict
                 nameof(PlanNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.PlanNotFoundException),

@@ -5,6 +5,7 @@ using Common.ValueObjects;
     public class Activity : BaseDomainModel
     {
         private readonly List<ProductServiceActivities> _productServiceActivities = new();
+        private readonly List<TrainingPlanActivities> _trainingPlanActivities = new();
 
         protected Activity()
         {
@@ -26,6 +27,7 @@ using Common.ValueObjects;
 
         public Name Name { get; private set; }
         public IReadOnlyCollection<ProductServiceActivities> ProductServiceActivities => _productServiceActivities;
+        public IReadOnlyCollection<TrainingPlanActivities> TrainingPlanActivities => _trainingPlanActivities;
 
         public static Activity Build(
             Guid id,

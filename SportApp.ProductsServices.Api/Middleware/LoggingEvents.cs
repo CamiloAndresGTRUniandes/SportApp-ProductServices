@@ -32,4 +32,9 @@ namespace SportApp.ProductsServices.Api.Middleware ;
 
         public static readonly int PlanNotFoundException = 7001;
         public static readonly int CategoryNotFoundException = 8001;
+
+        /// <summary>
+        /// Invalid Display Name
+        /// </summary>
+        public static readonly int InvalidDisplayName = 9000;
     }
