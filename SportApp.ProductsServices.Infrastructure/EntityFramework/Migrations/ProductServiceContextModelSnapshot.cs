@@ -17,7 +17,7 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("latin1_swedish_ci")
+                //.UseCollation("latin1_swedish_ci")
                 .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 

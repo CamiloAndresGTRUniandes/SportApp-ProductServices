@@ -58,7 +58,7 @@ using Microsoft.Extensions.Logging;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.UseCollation("latin1_swedish_ci");
+            //modelBuilder.UseCollation("latin1_swedish_ci");
             modelBuilder.Ignore<Description>();
             modelBuilder.Ignore<Price>();
             modelBuilder.Ignore<Set>();
