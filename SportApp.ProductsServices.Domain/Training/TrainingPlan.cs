@@ -11,6 +11,7 @@ using ValueObjects;
     {
         private readonly List<TrainingPlanActivities> _trainingPlanActivities = new();
         private readonly List<TrainingPlanGoals> _trainingPlanGoals = new();
+        private readonly List<TrainingPlanUserTrainingPlans> _trainingPlanUserTrainingPlans = new();
         private readonly List<Training> _trainings = new();
 
         protected TrainingPlan()
@@ -46,6 +47,7 @@ using ValueObjects;
         public SportLevel SportLevel { get; set; }
         public IReadOnlyCollection<TrainingPlanActivities> TrainingPlanActivities => _trainingPlanActivities;
         public IReadOnlyCollection<TrainingPlanGoals> TrainingPlanGoals => _trainingPlanGoals;
+        public IReadOnlyCollection<TrainingPlanUserTrainingPlans> TrainingPlanUserTrainingPlans => _trainingPlanUserTrainingPlans;
         public IReadOnlyCollection<Training> Training => _trainings;
 
         public static TrainingPlan Build(

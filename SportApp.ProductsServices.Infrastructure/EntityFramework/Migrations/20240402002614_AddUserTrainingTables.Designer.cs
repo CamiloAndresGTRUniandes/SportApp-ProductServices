@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportApp.ProductsServices.Infrastructure.EntityFramework;
 
@@ -11,9 +12,11 @@ using SportApp.ProductsServices.Infrastructure.EntityFramework;
 namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(ProductServiceContext))]
-    partial class ProductServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20240402002614_AddUserTrainingTables")]
+    partial class AddUserTrainingTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,12 +265,12 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"),
-                            CreatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(1819),
+                            CreatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 69, DateTimeKind.Utc).AddTicks(5119),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "This is the default category",
                             Enabled = true,
                             Name = "Default Category",
-                            UpdatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(1820),
+                            UpdatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 69, DateTimeKind.Utc).AddTicks(5121),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });
@@ -363,37 +366,37 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("672d4087-ac82-42b5-846e-64905d1a09b3"),
-                            CreatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(8224),
+                            CreatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 70, DateTimeKind.Utc).AddTicks(1937),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Basic Plan",
                             Enabled = true,
                             Name = "Basic",
                             Price = 0L,
-                            UpdatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(8224),
+                            UpdatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 70, DateTimeKind.Utc).AddTicks(1938),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("2c312559-173d-4239-a03d-2fdb3f219fa5"),
-                            CreatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(8228),
+                            CreatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 70, DateTimeKind.Utc).AddTicks(1941),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Intermediate Plan",
                             Enabled = true,
                             Name = "Intermediate",
                             Price = 50L,
-                            UpdatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(8228),
+                            UpdatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 70, DateTimeKind.Utc).AddTicks(1941),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"),
-                            CreatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(8231),
+                            CreatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 70, DateTimeKind.Utc).AddTicks(1944),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Premium Plan",
                             Enabled = true,
                             Name = "Premium",
                             Price = 150L,
-                            UpdatedAt = new DateTime(2024, 4, 2, 0, 34, 4, 179, DateTimeKind.Utc).AddTicks(8231),
+                            UpdatedAt = new DateTime(2024, 4, 2, 0, 26, 13, 70, DateTimeKind.Utc).AddTicks(1944),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });
@@ -767,32 +770,23 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatedBy");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Enabled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Enabled");
+                        .HasColumnType("bit");
 
-                    b.Property<Guid>("SubscribedUser")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("SubscribedUser");
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("UpdatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UpdatedBy");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserTrainingPlans", (string)null);
+                    b.ToTable("UserTrainingPlan");
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.Activities.ProductServiceActivities", b =>

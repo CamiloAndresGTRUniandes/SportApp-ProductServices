@@ -80,6 +80,7 @@ using Microsoft.Extensions.Logging;
             modelBuilder.Entity<Exercise>().Configure();
             modelBuilder.Entity<Training>().Configure();
             modelBuilder.Entity<TrainingPlan>().Configure();
+            modelBuilder.Entity<UserTrainingPlan>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();
@@ -87,5 +88,6 @@ using Microsoft.Extensions.Logging;
             modelBuilder.Entity<ProductServiceAllergies>().Configure();
             modelBuilder.Entity<TrainingPlanGoals>().Configure();
             modelBuilder.Entity<TrainingPlanActivities>().Configure();
+            modelBuilder.Entity<TrainingPlanUserTrainingPlans>().Configure();
         }
     }
