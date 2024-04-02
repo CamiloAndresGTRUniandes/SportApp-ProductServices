@@ -33,6 +33,10 @@ namespace SportApp.ProductsServices.Api.Middleware ;
         public static readonly int PlanNotFoundException = 7001;
         public static readonly int CategoryNotFoundException = 8001;
         public static readonly int CategoryAlreadyExistException = 8002;
+        public static readonly int TypeOfNutritionAlreadyExistException = 6001;
+        public static readonly int TypeOfNutritionNotFoundException = 6002;
+        public static readonly int GeographicInfoNotFoundException = 5001;
+        public static readonly int ServiceTypeNotFoundException = 4001;
 
         /// <summary>
         /// Invalid Display Name

@@ -1,7 +1,7 @@
-﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreatePlan ;
+﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreateTypeOfNutrition ;
 using System.ComponentModel.DataAnnotations;
 
-    public class RequestCreatePlan
+    public class RequestCreateTypeOfNutrition
     {
         [Required]
         public string Name { get; set; }
@@ -10,7 +10,4 @@ using System.ComponentModel.DataAnnotations;
 
         [Required]
         public Guid User { get; set; }
-
-        [Required]
-        public long Price { get; set; }
     }

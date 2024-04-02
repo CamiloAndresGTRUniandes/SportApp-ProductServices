@@ -24,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IPlanRepository, PlanRepository>();
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
             services.AddScoped<IGeographicInfoRepository, GeographicInfoRepository>();
+            services.AddScoped<ITypeOfNutritionRepository, TypeOfNutritionRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
@@ -31,6 +32,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<ICreateServiceType, CreateServiceTypeUseCase>();
             services.AddScoped<ICreatePlan, CreatePlanUseCase>();
             services.AddScoped<ICreateGeographicInfo, CreateGeographicInfoUseCase>();
+            services.AddScoped<ICreateTypeOfNutrition, CreateTypeOfNutritionUseCase>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

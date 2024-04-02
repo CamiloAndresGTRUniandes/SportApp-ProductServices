@@ -8,21 +8,43 @@ using Interfaces;
 
     public class CreateProductServiceUseCase(
         [NotNull] IProductServiceRepository productServiceRepository,
-        [NotNull] IPlanRepository planRepository) : ICreateProductService
+        [NotNull] IPlanRepository planRepository,
+        [NotNull] ITypeOfNutritionRepository typeOfNutritionRepository,
+        [NotNull] IGeographicInfoRepository geographicInfoRepository,
+        [NotNull] IServiceTypeRepository serviceTypeRepository) : ICreateProductService
     {
         public async ValueTask<ProductService> ExecuteAsync(CreateProductServiceCommand request)
         {
             Plan? plan = null;
+            TypeOfNutrition? typOfNutrition = null;
             if (request.PlanId.HasValue)
             {
                 plan = await planRepository.GetByIdAsync(request.PlanId.Value);
-                if (plan == null)
+                if (plan is null)
                 {
                     throw new PlanNotFoundConflictException(request.PlanId.Value);
                 }
             }
-            var productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, null, plan, null,
-                null, request.User);
+
+            if (request.TypeOfNutritionId.HasValue)
+            {
+                typOfNutrition = await typeOfNutritionRepository.GetByIdAsync(request.TypeOfNutritionId.Value);
+                if (typOfNutrition is null)
+                {
+                    throw new TypeOfNutritionNotFoundConflictException(request.TypeOfNutritionId.Value);
+                }
+            }
+
+            var geographicInfo = await geographicInfoRepository.GetByIdAsync(request.GeographicInfoId) ??
+                                 throw new GeographicInfoNotFoundConflictException(request.GeographicInfoId);
+
+            var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
+                              throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
+
+            var productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
+                plan,
+                typOfNutrition,
+                serviceType, request.User);
 
             await productServiceRepository.SaveAndPublishAsync(productService);
             return productService;

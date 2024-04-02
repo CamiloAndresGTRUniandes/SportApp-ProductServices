@@ -75,6 +75,10 @@ using Microsoft.Net.Http.Headers;
                 nameof(PlanNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.PlanNotFoundException),
                 nameof(CategoryNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.CategoryNotFoundException),
                 nameof(CategoryAlreadyExistConflictException) => (HttpStatusCode.Conflict, LoggingEvents.CategoryAlreadyExistException),
+                nameof(TypeOfNutritionAlreadyExistConflictException) => (HttpStatusCode.Conflict, LoggingEvents.TypeOfNutritionAlreadyExistException),
+                nameof(TypeOfNutritionNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.TypeOfNutritionNotFoundException),
+                nameof(GeographicInfoNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.GeographicInfoNotFoundException),
+                nameof(ServiceTypeNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ServiceTypeNotFoundException),
 
                 //Service Unavailable
 
