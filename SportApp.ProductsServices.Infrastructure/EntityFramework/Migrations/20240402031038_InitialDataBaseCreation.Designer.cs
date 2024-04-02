@@ -12,15 +12,14 @@ using SportApp.ProductsServices.Infrastructure.EntityFramework;
 namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(ProductServiceContext))]
-    [Migration("20240331074552_AddPlanDefaultData")]
-    partial class AddPlanDefaultData
+    [Migration("20240402031038_InitialDataBaseCreation")]
+    partial class InitialDataBaseCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("latin1_swedish_ci")
                 .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -261,6 +260,19 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"),
+                            CreatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 868, DateTimeKind.Utc).AddTicks(7242),
+                            CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
+                            Description = "This is the default category",
+                            Enabled = true,
+                            Name = "Default Category",
+                            UpdatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 868, DateTimeKind.Utc).AddTicks(7247),
+                            UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
+                        });
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.ProductService.GeographicInfo", b =>
@@ -354,37 +366,37 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("672d4087-ac82-42b5-846e-64905d1a09b3"),
-                            CreatedAt = new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5443),
+                            CreatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3630),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Basic Plan",
                             Enabled = true,
                             Name = "Basic",
                             Price = 0L,
-                            UpdatedAt = new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5447),
+                            UpdatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3631),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("2c312559-173d-4239-a03d-2fdb3f219fa5"),
-                            CreatedAt = new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451),
+                            CreatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3634),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Intermediate Plan",
                             Enabled = true,
                             Name = "Intermediate",
                             Price = 50L,
-                            UpdatedAt = new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451),
+                            UpdatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3634),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"),
-                            CreatedAt = new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5454),
+                            CreatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3637),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Premium Plan",
                             Enabled = true,
                             Name = "Premium",
                             Price = 150L,
-                            UpdatedAt = new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5454),
+                            UpdatedAt = new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3637),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });
@@ -417,7 +429,7 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("Enabled");
 
-                    b.Property<Guid>("GeographicInfoId")
+                    b.Property<Guid?>("GeographicInfoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -441,7 +453,7 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.Property<Guid>("ServiceTypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TypeOfNutritionId")
+                    b.Property<Guid?>("TypeOfNutritionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -733,6 +745,59 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.ToTable("TrainingPlans", (string)null);
                 });
 
+            modelBuilder.Entity("SportApp.ProductsServices.Domain.Training.TrainingPlanUserTrainingPlans", b =>
+                {
+                    b.Property<Guid>("TrainingPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserTrainingPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TrainingPlanId", "UserTrainingPlanId");
+
+                    b.HasIndex("UserTrainingPlanId");
+
+                    b.ToTable("TrainingPlanUserTrainingPlans", (string)null);
+                });
+
+            modelBuilder.Entity("SportApp.ProductsServices.Domain.Training.UserTrainingPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Enabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Enabled");
+
+                    b.Property<Guid>("SubscribedUser")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("SubscribedUser");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserTrainingPlans", (string)null);
+                });
+
             modelBuilder.Entity("SportApp.ProductsServices.Domain.Activities.ProductServiceActivities", b =>
                 {
                     b.HasOne("SportApp.ProductsServices.Domain.Activities.Activity", "Activity")
@@ -832,9 +897,7 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 {
                     b.HasOne("SportApp.ProductsServices.Domain.ProductService.GeographicInfo", "GeographicInfo")
                         .WithMany()
-                        .HasForeignKey("GeographicInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GeographicInfoId");
 
                     b.HasOne("SportApp.ProductsServices.Domain.ProductService.Plan", "Plan")
                         .WithMany()
@@ -850,9 +913,7 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 
                     b.HasOne("SportApp.ProductsServices.Domain.ProductService.TypeOfNutrition", "TypeOfNutrition")
                         .WithMany()
-                        .HasForeignKey("TypeOfNutritionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeOfNutritionId");
 
                     b.Navigation("GeographicInfo");
 
@@ -888,6 +949,25 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.HasOne("SportApp.ProductsServices.Domain.Training.TrainingPlan", null)
                         .WithMany("Training")
                         .HasForeignKey("TrainingPlanId");
+                });
+
+            modelBuilder.Entity("SportApp.ProductsServices.Domain.Training.TrainingPlanUserTrainingPlans", b =>
+                {
+                    b.HasOne("SportApp.ProductsServices.Domain.Training.TrainingPlan", "TrainingPlan")
+                        .WithMany("TrainingPlanUserTrainingPlans")
+                        .HasForeignKey("TrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SportApp.ProductsServices.Domain.Training.UserTrainingPlan", "UserTrainingPlan")
+                        .WithMany("TrainingPlanUserTrainingPlans")
+                        .HasForeignKey("UserTrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TrainingPlan");
+
+                    b.Navigation("UserTrainingPlan");
                 });
 
             modelBuilder.Entity("SportApp.ProductsServices.Domain.Activities.Activity", b =>
@@ -930,6 +1010,13 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.Navigation("TrainingPlanActivities");
 
                     b.Navigation("TrainingPlanGoals");
+
+                    b.Navigation("TrainingPlanUserTrainingPlans");
+                });
+
+            modelBuilder.Entity("SportApp.ProductsServices.Domain.Training.UserTrainingPlan", b =>
+                {
+                    b.Navigation("TrainingPlanUserTrainingPlans");
                 });
 #pragma warning restore 612, 618
         }

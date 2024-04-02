@@ -50,8 +50,8 @@ using ValueObjects;
         public Price Price { get; private set; }
         public Uri Picture { get; private set; }
         public Plan Plan { get; private set; }
-        public GeographicInfo GeographicInfo { get; private set; }
-        public TypeOfNutrition TypeOfNutrition { get; private set; }
+        public GeographicInfo? GeographicInfo { get; private set; }
+        public TypeOfNutrition? TypeOfNutrition { get; private set; }
         public ServiceType ServiceType { get; private set; }
         public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
         public IReadOnlyCollection<ProductServiceAllergies> ProductServiceAllergies => _productServiceAllergies;
