@@ -5,7 +5,7 @@ using Domain.ProductService.Commands;
 using Domain.ProductService.Repositories;
 using Interfaces;
 
-    public class CreatePlan(
+    public class CreatePlanUseCase(
         [NotNull] IPlanRepository planRepository) : ICreatePlan
     {
         public async ValueTask<Plan> ExecuteAsync(CreatePlanCommand request)

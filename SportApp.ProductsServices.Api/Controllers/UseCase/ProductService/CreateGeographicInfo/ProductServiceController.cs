@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreatePlan ;
+﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreateGeographicInfo ;
 using System.Diagnostics.CodeAnalysis;
 using Domain.ProductService.Commands;
 using MediatR;
@@ -12,20 +12,20 @@ using Middleware;
         ) : ControllerBase
     {
         [HttpPost]
-        [Route("plan")]
+        [Route("geographic")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreatePlanAsync([FromBody] RequestCreatePlan request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateGeographicInfoAsync([FromBody] RequestCreateGeographicInfo request, CancellationToken cancellationToken)
         {
-            var command = new CreatePlanCommand
+            var command = new CreateGeographicInfoCommand
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Description = request.Description,
-                User = request.User,
-                Price = request.Price
+                CityId = request.CityId,
+                CountryId = request.CountryId,
+                StateId = request.StateId,
+                UserId = request.UserId
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();

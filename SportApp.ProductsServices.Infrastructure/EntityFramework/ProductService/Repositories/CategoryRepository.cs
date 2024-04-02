@@ -1,5 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.ProductService.Repositories ;
 using System.Diagnostics.CodeAnalysis;
+using Domain.Common.ValueObjects;
 using Domain.ProductService;
 using Domain.ProductService.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,14 @@ using Microsoft.EntityFrameworkCore;
         {
             var query = context.Categories.AsQueryable();
             var category = await query.FirstOrDefaultAsync(x => x.Enabled && x.Id == id);
+
+            return category;
+        }
+
+        public async Task<Category?> GetByNameAsync(Name name)
+        {
+            var query = context.Categories.AsQueryable();
+            var category = await query.FirstOrDefaultAsync(x => x.Name.Equals(name));
 
             return category;
         }

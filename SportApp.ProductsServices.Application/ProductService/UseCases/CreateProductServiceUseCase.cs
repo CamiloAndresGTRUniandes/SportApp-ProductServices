@@ -6,7 +6,7 @@ using Domain.ProductService.Repositories;
 using Exceptions;
 using Interfaces;
 
-    public class CreateProductService(
+    public class CreateProductServiceUseCase(
         [NotNull] IProductServiceRepository productServiceRepository,
         [NotNull] IPlanRepository planRepository) : ICreateProductService
     {

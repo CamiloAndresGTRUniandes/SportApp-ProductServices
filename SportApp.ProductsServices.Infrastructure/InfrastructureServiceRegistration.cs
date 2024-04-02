@@ -1,13 +1,12 @@
-﻿namespace SportApp.ProductsServices.Infrastructure
-{
-    using Application.ProductService.Interfaces;
-    using Application.ProductService.UseCases;
-    using Domain.ProductService.Repositories;
-    using EntityFramework;
-    using EntityFramework.ProductService.Repositories;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
+﻿namespace SportApp.ProductsServices.Infrastructure ;
+using Application.ProductService.Interfaces;
+using Application.ProductService.UseCases;
+using Domain.ProductService.Repositories;
+using EntityFramework;
+using EntityFramework.ProductService.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
     public static class InfrastructureServiceRegistration
     {
@@ -24,12 +23,14 @@
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            services.AddScoped<IGeographicInfoRepository, GeographicInfoRepository>();
 
 
-            services.AddScoped<ICreateCategory, CreateCategory>();
-            services.AddScoped<ICreateProductService, CreateProductService>();
-            services.AddScoped<ICreateServiceType, CreateServiceType>();
-            services.AddScoped<ICreatePlan, CreatePlan>();
+            services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
+            services.AddScoped<ICreateProductService, CreateProductServiceUseCase>();
+            services.AddScoped<ICreateServiceType, CreateServiceTypeUseCase>();
+            services.AddScoped<ICreatePlan, CreatePlanUseCase>();
+            services.AddScoped<ICreateGeographicInfo, CreateGeographicInfoUseCase>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));
@@ -38,4 +39,3 @@
             return services;
         }
     }
-}

@@ -6,7 +6,7 @@ using Domain.ProductService.Repositories;
 using Exceptions;
 using Interfaces;
 
-    public class CreateServiceType(
+    public class CreateServiceTypeUseCase(
         [NotNull] IServiceTypeRepository serviceTypeRepository,
         [NotNull] ICategoryRepository categoryRepository) : ICreateServiceType
     {

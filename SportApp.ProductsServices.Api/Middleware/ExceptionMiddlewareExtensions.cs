@@ -74,6 +74,8 @@ using Microsoft.Net.Http.Headers;
                 //Conflict
                 nameof(PlanNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.PlanNotFoundException),
                 nameof(CategoryNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.CategoryNotFoundException),
+                nameof(CategoryAlreadyExistConflictException) => (HttpStatusCode.Conflict, LoggingEvents.CategoryAlreadyExistException),
+
                 //Service Unavailable
 
                 //Internal Server Error

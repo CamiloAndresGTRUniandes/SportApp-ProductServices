@@ -18,9 +18,7 @@
   <ItemGroup>
     <Folder Include="ProductService\Interfaces\" />
     <Folder Include="ProductService\Commands\" />
-    <Folder Include="ProductService\Handlers\" />
     <Folder Include="ProductService\Dtos\" />
-    <Folder Include="ProductService\UseCases\" />
   </ItemGroup>
 
 </Project>

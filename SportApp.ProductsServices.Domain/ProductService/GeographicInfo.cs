@@ -11,12 +11,15 @@ using Common;
             Guid id,
             Guid countryId,
             Guid stateId,
-            Guid cityId)
+            Guid cityId,
+            Guid user)
         {
             Id = id;
             CountryId = countryId;
             StateId = stateId;
             CityId = cityId;
+            CreatedBy = user;
+            UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Enabled = true;
@@ -30,9 +33,10 @@ using Common;
             Guid id,
             Guid countryId,
             Guid stateId,
-            Guid cityId)
+            Guid cityId,
+            Guid user)
         {
-            var geographicInfo = new GeographicInfo(id, countryId, stateId, cityId);
+            var geographicInfo = new GeographicInfo(id, countryId, stateId, cityId, user);
             geographicInfo.SetAdded();
             return geographicInfo;
         }
