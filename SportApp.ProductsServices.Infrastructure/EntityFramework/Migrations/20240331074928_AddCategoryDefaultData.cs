@@ -36,6 +36,23 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 keyValue: new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"),
                 columns: new[] { "CreatedAt", "UpdatedAt" },
                 values: new object[] { new DateTime(2024, 3, 31, 7, 49, 27, 816, DateTimeKind.Utc).AddTicks(4143), new DateTime(2024, 3, 31, 7, 49, 27, 816, DateTimeKind.Utc).AddTicks(4144) });
+            
+            migrationBuilder.InsertData(
+                table: "ServiceType",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "Description", "Enabled", "Name", "Picture", "UpdatedAt", "UpdatedBy", "CategoryId" },
+                values: new object[,]
+                    {
+                        { new Guid("93fc91b3-47dd-49e8-9589-01671491cc73"), new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Event Service Type", true, "Event", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmeetings.skift.com%2Fselect-perfect-host-city-next-sporting-event%2F&psig=AOvVaw35cRcP9tZumnhT2O2yNcfm&ust=1712110352401000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNik04zBooUDFQAAAAAdAAAAABAE", new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec") }
+                    });
+
+            migrationBuilder.InsertData(
+                table: "ServiceType",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "Description", "Enabled", "Name", "Picture", "UpdatedAt", "UpdatedBy", "CategoryId" },
+                values: new object[,]
+                {
+                    { new Guid("555b7874-cf73-41ad-bbec-e517a646241c"), new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Product Service Type", true, "Product", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmeetings.skift.com%2Fselect-perfect-host-city-next-sporting-event%2F&psig=AOvVaw35cRcP9tZumnhT2O2yNcfm&ust=1712110352401000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNik04zBooUDFQAAAAAdAAAAABAE", new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec") }
+                });
+
         }
 
         /// <inheritdoc />
