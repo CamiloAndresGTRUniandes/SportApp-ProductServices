@@ -10,7 +10,6 @@ using Domain.ProductService.ValueObjects;
 using Domain.Training;
 using Domain.Training.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
     public class ProductServiceContext(DbContextOptions<ProductServiceContext> options) : DbContext(options)
     {
@@ -28,13 +27,13 @@ using Microsoft.Extensions.Logging;
         public DbSet<TrainingPlan> TrainingPlans { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost; 
-                Initial Catalog=SportAppProductsAndServices;user id=sa;password=St3v3n.930102*;Trust Server Certificate=true")
-                .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
-                .EnableSensitiveDataLogging();
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Data Source=localhost; 
+        //        Initial Catalog=SportAppProductsAndServices;user id=sa;password=St3v3n.930102*;Trust Server Certificate=true")
+        //        .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
+        //        .EnableSensitiveDataLogging();
+        //}
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

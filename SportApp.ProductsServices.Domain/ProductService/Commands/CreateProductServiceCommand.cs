@@ -16,4 +16,6 @@ using ValueObjects;
         public Guid? PlanId { get; set; }
         public Guid? TypeOfNutritionId { get; set; }
         public Guid ServiceTypeId { get; set; }
+        public DateTime? StartDateTime { get; set; }
+        public DateTime? EndDateTime { get; set; }
     }

@@ -10,6 +10,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["SportApp.ProductsServices.Api/SportApp.ProductsServices.Api.csproj", "SportApp.ProductsServices.Api/"]
+COPY ["SportApp.ProductsServices.Application/SportApp.ProductsServices.Application.csproj", "SportApp.ProductsServices.Application/"]
+COPY ["SportApp.ProductsServices.Domain/SportApp.ProductsServices.Domain.csproj", "SportApp.ProductsServices.Domain/"]
+COPY ["SportApp.ProductsServices.Infrastructure/SportApp.ProductsServices.Infrastructure.csproj", "SportApp.ProductsServices.Infrastructure/"]
 RUN dotnet restore "./SportApp.ProductsServices.Api/SportApp.ProductsServices.Api.csproj"
 COPY . .
 WORKDIR "/src/SportApp.ProductsServices.Api"

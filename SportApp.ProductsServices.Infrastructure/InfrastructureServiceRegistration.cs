@@ -10,11 +10,22 @@ using Microsoft.Extensions.DependencyInjection;
 
     public static class InfrastructureServiceRegistration
     {
+        private static string EnvironmentName { get; } = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ProductServiceContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ConnectionString"))
-                );
+            if (EnvironmentName == "Development")
+            {
+                services.AddDbContext<ProductServiceContext>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("ConnectionStringLocal"))
+                    );
+            }
+            else
+            {
+                services.AddDbContext<ProductServiceContext>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("ConnectionString"))
+                    );
+            }
 
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
             //services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
@@ -25,6 +36,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
             services.AddScoped<IGeographicInfoRepository, GeographicInfoRepository>();
             services.AddScoped<ITypeOfNutritionRepository, TypeOfNutritionRepository>();
+            services.AddScoped<IGetProductServices, GetProductServicesUseCase>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();

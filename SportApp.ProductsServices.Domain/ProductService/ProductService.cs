@@ -26,7 +26,9 @@ using ValueObjects;
             Plan plan,
             TypeOfNutrition typeOfNutrition,
             ServiceType serviceType,
-            Guid user
+            Guid user,
+            DateTime? starDateTime,
+            DateTime? endDateTime
             )
         {
             Id = id;
@@ -38,6 +40,8 @@ using ValueObjects;
             Plan = plan;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
+            StarDateTime = starDateTime;
+            EndDateTime = endDateTime;
             CreatedBy = user;
             UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
@@ -53,6 +57,8 @@ using ValueObjects;
         public GeographicInfo? GeographicInfo { get; private set; }
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
         public ServiceType ServiceType { get; private set; }
+        public DateTime? StarDateTime { get; set; }
+        public DateTime? EndDateTime { get; set; }
         public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
         public IReadOnlyCollection<ProductServiceAllergies> ProductServiceAllergies => _productServiceAllergies;
         public IReadOnlyCollection<ProductServiceActivities> ProductServiceActivities => _productServiceActivities;
@@ -67,7 +73,9 @@ using ValueObjects;
             Plan plan,
             TypeOfNutrition typeOfNutrition,
             ServiceType serviceType,
-            Guid user
+            Guid user,
+            DateTime? startDateTime,
+            DateTime? endDateTime
             )
         {
             var productService = new ProductService(
@@ -80,7 +88,9 @@ using ValueObjects;
                 plan,
                 typeOfNutrition,
                 serviceType,
-                user);
+                user,
+                startDateTime,
+                endDateTime);
             productService.SetAdded();
             return productService;
         }

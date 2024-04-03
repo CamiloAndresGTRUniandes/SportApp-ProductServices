@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.ProductService.Repositories ;
 using System.Diagnostics.CodeAnalysis;
 using Domain.ProductService;
+using Domain.ProductService.Commands;
 using Domain.ProductService.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,4 +39,71 @@ using Microsoft.EntityFrameworkCore;
         {
             return await context.ProductServices.Where(x => x.Enabled).ToListAsync();
         }
+
+        public async Task<ICollection<ProductService>> GetAllWithParametersAsync(GetProductServiceCommand parameters)
+        {
+            var productServices = new List<ProductService>();
+            var query = context.ProductServices.AsQueryable();
+            if (parameters.Id.HasValue)
+            {
+                query.Where(x => x.Id == parameters.Id.Value);
+                productServices = await query.ToListAsync();
+                await IncludeOperations(productServices);
+                return productServices;
+            }
+            if (parameters.Categories.Count != 0)
+            {
+                query.Where(x => parameters.Categories.Contains(x.ServiceType.Category.Id));
+            }
+            if (parameters.Plans.Count != 0)
+            {
+                query.Where(x => parameters.Plans.Contains(x.Plan.Id));
+            }
+            if (parameters.Activities.Count != 0)
+            {
+                foreach (var activityId in parameters.Activities)
+                {
+                    query.Where(x => x.ProductServiceActivities.Select(a => a.Activity.Id).Contains(activityId));
+                }
+            }
+            if (parameters.Goals.Count != 0)
+            {
+                foreach (var goalId in parameters.Goals)
+                {
+                    query.Where(x => x.ProductServiceGoals.Select(a => a.Goal.Id).Contains(goalId));
+                }
+            }
+            if (parameters.Allergies.Count != 0)
+            {
+                foreach (var allergyId in parameters.Allergies)
+                {
+                    query.Where(x => x.ProductServiceAllergies.Select(a => a.NutritionalAllergy.Id).Contains(allergyId));
+                }
+            }
+            if (parameters.GeographicInfoIds.Count != 0)
+            {
+                query.Where(x => parameters.GeographicInfoIds.Contains(x.GeographicInfo!.Id));
+            }
+
+            productServices = await query.ToListAsync();
+            await IncludeOperations(productServices);
+            return productServices;
+        }
+
+        private async Task IncludeOperations(ICollection<ProductService> productServices)
+        {
+            foreach (var productService in productServices)
+            {
+                await context.Entry(productService).Reference(e => e.Plan).LoadAsync();
+                await context.Entry(productService).Reference(e => e.TypeOfNutrition).LoadAsync();
+                //await context.Entry(productService).Reference(e => e.).LoadAsync();
+                await context.Entry(productService).Reference(e => e.ServiceType).Query().Include(x => x.Category).LoadAsync();
+            }
+        }
     }
+
+    //await context.Entry(evidence)
+    //    .Collection(e => e.Media)
+    //    .Query()
+    //    .Include(m => m.Unit)
+    //    .LoadAsync();

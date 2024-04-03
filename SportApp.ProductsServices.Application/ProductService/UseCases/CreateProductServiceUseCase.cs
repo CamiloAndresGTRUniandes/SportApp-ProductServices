@@ -42,9 +42,7 @@ using Interfaces;
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
 
             var productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
-                plan,
-                typOfNutrition,
-                serviceType, request.User);
+                plan, typOfNutrition, serviceType, request.User, request.StartDateTime, request.EndDateTime);
 
             await productServiceRepository.SaveAndPublishAsync(productService);
             return productService;
