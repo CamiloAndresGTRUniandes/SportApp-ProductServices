@@ -24,7 +24,7 @@ using Middleware;
             {
                 Id = request.Id,
                 User = request.User,
-                Categories = request.Categories,
+                ServiceTypes = request.ServiceTypes,
                 StartDateTime = request.StartDateTime,
                 EndDateTime = request.EndDateTime,
                 Activities = request.Activities,

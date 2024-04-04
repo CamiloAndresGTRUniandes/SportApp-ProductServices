@@ -51,9 +51,9 @@ using Microsoft.EntityFrameworkCore;
                 await IncludeOperations(productServices);
                 return productServices;
             }
-            if (parameters.Categories.Count != 0)
+            if (parameters.ServiceTypes.Count != 0)
             {
-                query.Where(x => parameters.Categories.Contains(x.ServiceType.Category.Id));
+                query.Where(x => parameters.ServiceTypes.Contains(x.ServiceType.Category.Id));
             }
             if (parameters.Plans.Count != 0)
             {
@@ -94,7 +94,7 @@ using Microsoft.EntityFrameworkCore;
                         (c.StartDateTime!.Value > parameters.StartDateTime!.Value && c.EndDateTime!.Value < parameters.EndDateTime!.Value));
             }
 
-        productServices = await query.ToListAsync();
+            productServices = await query.ToListAsync();
             await IncludeOperations(productServices);
             return productServices;
         }
