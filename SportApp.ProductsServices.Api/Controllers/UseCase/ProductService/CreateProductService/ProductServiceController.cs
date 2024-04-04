@@ -29,10 +29,10 @@ using Middleware;
                 Picture = request.Picture,
                 GeographicInfoId = request.GeographicInfoId,
                 PlanId = request.PlanId,
-                Price = request.Price,
+                Price = request.Price ?? 0,
                 ServiceTypeId = request.ServiceTypeId,
                 TypeOfNutritionId = request.TypeOfNutritionId,
-                SportLevel = Enumeration.FromDisplayName<SportLevel>(request.SportLevel),
+                SportLevel = Enumeration.ToEnumerator(request.SportLevel, SportLevel.Basic),
                 User = request.User
             };
             await mediator.Send(command, cancellationToken);

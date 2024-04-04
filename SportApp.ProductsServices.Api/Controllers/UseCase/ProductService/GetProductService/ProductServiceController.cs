@@ -13,7 +13,7 @@ using Middleware;
     {
         [HttpPost]
         [Route("getFilteredList")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ResponseGetProductService>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
@@ -35,6 +35,6 @@ using Middleware;
                 Allergies = request.Allergies
             };
             var productServices = await mediator.Send(command, cancellationToken);
-            return Ok(productServices);
+            return Ok(ResponseGetProductService.Build(productServices));
         }
     }

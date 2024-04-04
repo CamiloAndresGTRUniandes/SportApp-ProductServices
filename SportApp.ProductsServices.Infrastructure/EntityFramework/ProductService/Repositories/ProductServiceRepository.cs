@@ -85,7 +85,16 @@ using Microsoft.EntityFrameworkCore;
                 query.Where(x => parameters.GeographicInfoIds.Contains(x.GeographicInfo!.Id));
             }
 
-            productServices = await query.ToListAsync();
+            if (parameters is { StartDateTime: not null, EndDateTime: not null })
+            {
+                query.Where(c => c.StartDateTime.HasValue && c.EndDateTime.HasValue)
+                    .Where(c =>
+                        (c.StartDateTime!.Value <= parameters.StartDateTime!.Value && c.EndDateTime!.Value >= parameters.StartDateTime!.Value) ||
+                        (c.StartDateTime!.Value <= parameters.EndDateTime!.Value && c.EndDateTime!.Value >= parameters.EndDateTime!.Value) ||
+                        (c.StartDateTime!.Value > parameters.StartDateTime!.Value && c.EndDateTime!.Value < parameters.EndDateTime!.Value));
+            }
+
+        productServices = await query.ToListAsync();
             await IncludeOperations(productServices);
             return productServices;
         }
@@ -96,14 +105,13 @@ using Microsoft.EntityFrameworkCore;
             {
                 await context.Entry(productService).Reference(e => e.Plan).LoadAsync();
                 await context.Entry(productService).Reference(e => e.TypeOfNutrition).LoadAsync();
-                //await context.Entry(productService).Reference(e => e.).LoadAsync();
+                await context.Entry(productService).Reference(e => e.GeographicInfo).LoadAsync();
                 await context.Entry(productService).Reference(e => e.ServiceType).Query().Include(x => x.Category).LoadAsync();
+
+                // Many-To-Many aggregations
+                await context.Entry(productService).Collection(p => p.ProductServiceAllergies).Query().Include(p => p.NutritionalAllergy).LoadAsync();
+                await context.Entry(productService).Collection(p => p.ProductServiceActivities).Query().Include(p => p.Activity).LoadAsync();
+                await context.Entry(productService).Collection(p => p.ProductServiceGoals).Query().Include(p => p.Goal).LoadAsync();
             }
         }
     }
-
-    //await context.Entry(evidence)
-    //    .Collection(e => e.Media)
-    //    .Query()
-    //    .Include(m => m.Unit)
-    //    .LoadAsync();

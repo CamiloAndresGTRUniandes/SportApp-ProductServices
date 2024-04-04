@@ -29,7 +29,7 @@ using ValueObjects;
             ServiceType serviceType,
             SportLevel? sportLevel,
             Guid user,
-            DateTime? starDateTime,
+            DateTime? startDateTime,
             DateTime? endDateTime
             )
         {
@@ -43,7 +43,7 @@ using ValueObjects;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
             SportLevel = sportLevel;
-            StarDateTime = starDateTime;
+            StartDateTime = startDateTime;
             EndDateTime = endDateTime;
             CreatedBy = user;
             UpdatedBy = user;
@@ -61,7 +61,7 @@ using ValueObjects;
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
         public ServiceType ServiceType { get; private set; }
         public SportLevel? SportLevel { get; private set; }
-        public DateTime? StarDateTime { get; set; }
+        public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
         public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
         public IReadOnlyCollection<ProductServiceAllergies> ProductServiceAllergies => _productServiceAllergies;
