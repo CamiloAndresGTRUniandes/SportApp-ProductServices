@@ -1,5 +1,4 @@
-﻿namespace SportApp.ProductsServices.Domain.Training.Enums ;
-using Common;
+﻿namespace SportApp.ProductsServices.Domain.Common.Enums ;
 
     public class SportLevel(int id, string name) : Enumeration(id, name)
     {

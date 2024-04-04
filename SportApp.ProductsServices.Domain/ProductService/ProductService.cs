@@ -2,6 +2,7 @@
 using Activities;
 using Allergies;
 using Common;
+using Common.Enums;
 using Common.ValueObjects;
 using Goals;
 using ValueObjects;
@@ -22,10 +23,11 @@ using ValueObjects;
             Description description,
             Price price,
             Uri picture,
-            GeographicInfo geographicInfo,
+            GeographicInfo? geographicInfo,
             Plan plan,
-            TypeOfNutrition typeOfNutrition,
+            TypeOfNutrition? typeOfNutrition,
             ServiceType serviceType,
+            SportLevel? sportLevel,
             Guid user,
             DateTime? starDateTime,
             DateTime? endDateTime
@@ -40,6 +42,7 @@ using ValueObjects;
             Plan = plan;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
+            SportLevel = sportLevel;
             StarDateTime = starDateTime;
             EndDateTime = endDateTime;
             CreatedBy = user;
@@ -57,6 +60,7 @@ using ValueObjects;
         public GeographicInfo? GeographicInfo { get; private set; }
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
         public ServiceType ServiceType { get; private set; }
+        public SportLevel? SportLevel { get; private set; }
         public DateTime? StarDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
         public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
@@ -73,6 +77,7 @@ using ValueObjects;
             Plan plan,
             TypeOfNutrition typeOfNutrition,
             ServiceType serviceType,
+            SportLevel sportLevel,
             Guid user,
             DateTime? startDateTime,
             DateTime? endDateTime
@@ -88,6 +93,7 @@ using ValueObjects;
                 plan,
                 typeOfNutrition,
                 serviceType,
+                sportLevel,
                 user,
                 startDateTime,
                 endDateTime);

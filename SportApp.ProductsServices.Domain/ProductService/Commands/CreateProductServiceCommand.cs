@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService.Commands ;
 
 using Common.Commands;
+using Common.Enums;
 using Common.ValueObjects;
 using ValueObjects;
 
@@ -12,10 +13,11 @@ using ValueObjects;
         public Price Price { get; set; }
         public Uri Picture { get; set; }
         public Guid User { get; set; }
-        public Guid GeographicInfoId { get; set; }
+        public Guid? GeographicInfoId { get; set; }
         public Guid? PlanId { get; set; }
         public Guid? TypeOfNutritionId { get; set; }
         public Guid ServiceTypeId { get; set; }
+        public SportLevel SportLevel { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
     }

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Training\Enums\" />
+    <Folder Include="Common\Enums\" />
   </ItemGroup>
 
 </Project>

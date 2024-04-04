@@ -1,5 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreateProductService ;
 using System.Diagnostics.CodeAnalysis;
+using Domain.Common;
+using Domain.Common.Enums;
 using Domain.ProductService.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,7 @@ using Middleware;
                 Price = request.Price,
                 ServiceTypeId = request.ServiceTypeId,
                 TypeOfNutritionId = request.TypeOfNutritionId,
+                SportLevel = Enumeration.FromDisplayName<SportLevel>(request.SportLevel),
                 User = request.User
             };
             await mediator.Send(command, cancellationToken);

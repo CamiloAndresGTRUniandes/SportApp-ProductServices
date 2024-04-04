@@ -1,9 +1,9 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Configurations ;
 using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Common.ValueObjects;
 using Domain.ProductService.ValueObjects;
 using Domain.Training;
-using Domain.Training.Enums;
 using Domain.Training.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

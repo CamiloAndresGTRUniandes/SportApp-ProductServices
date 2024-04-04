@@ -35,14 +35,14 @@ using Interfaces;
                 }
             }
 
-            var geographicInfo = await geographicInfoRepository.GetByIdAsync(request.GeographicInfoId) ??
-                                 throw new GeographicInfoNotFoundConflictException(request.GeographicInfoId);
+            var geographicInfo = await geographicInfoRepository.GetByIdAsync(request.GeographicInfoId!.Value) ??
+                                 throw new GeographicInfoNotFoundConflictException(request.GeographicInfoId!.Value);
 
             var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
 
             var productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
-                plan, typOfNutrition, serviceType, request.User, request.StartDateTime, request.EndDateTime);
+                plan, typOfNutrition, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
 
             await productServiceRepository.SaveAndPublishAsync(productService);
             return productService;

@@ -1,8 +1,8 @@
 ﻿namespace SportApp.ProductsServices.Domain.Training ;
 using Activities;
 using Common;
+using Common.Enums;
 using Common.ValueObjects;
-using Enums;
 using Goals;
 using ProductService.ValueObjects;
 using ValueObjects;

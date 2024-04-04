@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 
         public Guid? PlanId { get; set; }
         public Guid? TypeOfNutritionId { get; set; }
+        public string SportLevel { get; set; }
 
         [Required]
         public Guid ServiceTypeId { get; set; }

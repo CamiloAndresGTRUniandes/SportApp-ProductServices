@@ -1,4 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Configurations ;
+using Domain.Common;
+using Domain.Common.Enums;
 using Domain.Common.ValueObjects;
 using Domain.ProductService;
 using Domain.ProductService.ValueObjects;
@@ -30,6 +32,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
                 .HasColumnName(nameof(ProductService.Price))
                 .HasConversion(e => (long)e!, e => new Price(e))
                 .HasMaxLength(50);
+
+            builder.Property(p => p.SportLevel)
+                .HasColumnName(nameof(ProductService.SportLevel))
+                .HasConversion(p => p.Name, p => (string.IsNullOrWhiteSpace(p) ? null : Enumeration.FromDisplayName<SportLevel>(p))!)
+                .HasMaxLength(30)
+                .IsRequired(false);
 
             builder.Property(c => c.CreatedBy)
                 .HasColumnName(nameof(ProductService.CreatedBy))
