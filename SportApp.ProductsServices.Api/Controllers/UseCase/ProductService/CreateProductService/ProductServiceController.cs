@@ -33,7 +33,10 @@ using Middleware;
                 ServiceTypeId = request.ServiceTypeId,
                 TypeOfNutritionId = request.TypeOfNutritionId,
                 SportLevel = Enumeration.ToEnumerator(request.SportLevel, SportLevel.Basic),
-                User = request.User
+                User = request.User,
+                Activities = request.Activities,
+                Goals = request.Goals,
+                Allergies = request.Allergies
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();

@@ -67,6 +67,21 @@ using ValueObjects;
         public IReadOnlyCollection<ProductServiceAllergies> ProductServiceAllergies => _productServiceAllergies;
         public IReadOnlyCollection<ProductServiceActivities> ProductServiceActivities => _productServiceActivities;
 
+        public IReadOnlyCollection<Goal> Goals()
+        {
+            return ProductServiceGoals.Select(e => e.Goal).ToList();
+        }
+
+        public IReadOnlyCollection<Activity> Activities()
+        {
+            return ProductServiceActivities.Select(e => e.Activity).ToList();
+        }
+
+        public IReadOnlyCollection<NutritionalAllergy> Allergies()
+        {
+            return ProductServiceAllergies.Select(e => e.NutritionalAllergy).ToList();
+        }
+
         public static ProductService Build(
             Guid id,
             Name name,
@@ -122,6 +137,69 @@ using ValueObjects;
         internal void AddServiceType(ServiceType serviceType)
         {
             ServiceType = serviceType;
+            SetModifiedIfNotAdded();
+        }
+
+        public void AddGoals(IEnumerable<Goal> newGoals)
+        {
+            if (newGoals != null)
+            {
+                foreach (var goal in newGoals)
+                {
+                    AddGoal(goal);
+                }
+            }
+        }
+
+        private void AddGoal(Goal goal)
+        {
+            if (goal == null || Goals().Any(g => g.Id == goal.Id))
+            {
+                return;
+            }
+            _productServiceGoals.Add(Domain.Goals.ProductServiceGoals.Build(this, goal));
+            SetModifiedIfNotAdded();
+        }
+
+        public void AddActivities(IEnumerable<Activity> newActivities)
+        {
+            if (newActivities != null)
+            {
+                foreach (var activity in newActivities)
+                {
+                    AddActivity(activity);
+                }
+            }
+        }
+
+        private void AddActivity(Activity activity)
+        {
+            if (activity == null || Activities().Any(g => g.Id == activity.Id))
+            {
+                return;
+            }
+            _productServiceActivities.Add(Domain.Activities.ProductServiceActivities.Build(this, activity));
+            SetModifiedIfNotAdded();
+        }
+
+        public void AddAllergies(IEnumerable<NutritionalAllergy> newAllergies)
+        {
+            if (newAllergies != null)
+            {
+                foreach (var allergy in newAllergies)
+                {
+                    AddAllergy(allergy);
+                }
+            }
+        }
+
+        private void AddAllergy(NutritionalAllergy allergy)
+        {
+            if (allergy == null || Allergies().Any(g => g.Id == allergy.Id))
+            {
+                return;
+            }
+            _productServiceAllergies.Add(Domain.Allergies.ProductServiceAllergies.Build(this, allergy));
             SetModifiedIfNotAdded();
         }
     }

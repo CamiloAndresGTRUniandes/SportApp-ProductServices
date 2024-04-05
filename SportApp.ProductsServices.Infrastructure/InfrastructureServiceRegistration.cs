@@ -6,11 +6,13 @@ using Application.Goal.UseCases;
 using Application.ProductService.Interfaces;
 using Application.ProductService.UseCases;
 using Domain.Activities.Repositories;
+using Domain.Allergies.Repositories;
 using Domain.Goals.Repositories;
 using Domain.ProductService.Repositories;
 using EntityFramework;
 using EntityFramework.Activity.Repositories;
 using EntityFramework.Goal.Repositories;
+using EntityFramework.NutritionalAllergy.Repository;
 using EntityFramework.ProductService.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,6 +48,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<ITypeOfNutritionRepository, TypeOfNutritionRepository>();
             services.AddScoped<IGoalRepository, GoalRepository>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddScoped<INutritionalAllergyRepository, NutritionalAllergyRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();

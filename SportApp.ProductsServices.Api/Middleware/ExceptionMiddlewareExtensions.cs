@@ -1,6 +1,9 @@
 namespace SportApp.ProductsServices.Api.Middleware ;
 
 using System.Net;
+using Application.Activity.Exceptions;
+using Application.Goal.Exception;
+using Application.NutritionalAllergy.Exceptions;
 using Application.ProductService.Exceptions;
 using Domain.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -79,6 +82,9 @@ using Microsoft.Net.Http.Headers;
                 nameof(TypeOfNutritionNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.TypeOfNutritionNotFoundException),
                 nameof(GeographicInfoNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.GeographicInfoNotFoundException),
                 nameof(ServiceTypeNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ServiceTypeNotFoundException),
+                nameof(GoalNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.GoalNotFoundException),
+                nameof(ActivityNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ActivityNotFoundException),
+                nameof(NutritionalAllergyNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.NutritionalAllergyNotFoundException),
 
                 //Service Unavailable
 

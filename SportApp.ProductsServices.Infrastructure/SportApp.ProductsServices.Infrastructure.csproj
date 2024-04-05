@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="EntityFramework\Migrations\" />
+    <Folder Include="EntityFramework\NutritionalAllergy\Repository\" />
   </ItemGroup>
 
 </Project>

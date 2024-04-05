@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Domain.ProductService.ProductService> ProductServices { get; set; }
         public DbSet<Domain.Activities.Activity> Activities { get; set; }
         public DbSet<Domain.Goals.Goal> Goals { get; set; }
-        public DbSet<NutritionalAllergy> NutritionalAllergies { get; set; }
+        public DbSet<Domain.Allergies.NutritionalAllergy> NutritionalAllergies { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<GeographicInfo> GeographicInfo { get; set; }
@@ -71,7 +71,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<Domain.ProductService.ProductService>().Configure();
             modelBuilder.Entity<Domain.Activities.Activity>().Configure();
             modelBuilder.Entity<Domain.Goals.Goal>().Configure();
-            modelBuilder.Entity<NutritionalAllergy>().Configure();
+            modelBuilder.Entity<Domain.Allergies.NutritionalAllergy>().Configure();
             modelBuilder.Entity<Category>().Configure();
             modelBuilder.Entity<Plan>().Configure();
             modelBuilder.Entity<ServiceType>().Configure();

@@ -22,4 +22,8 @@ using System.ComponentModel.DataAnnotations;
 
         [Required]
         public Guid ServiceTypeId { get; set; }
+
+        public ICollection<Guid>? Activities { get; set; } = new List<Guid>();
+        public ICollection<Guid>? Goals { get; set; } = new List<Guid>();
+        public ICollection<Guid>? Allergies { get; set; } = new List<Guid>();
     }
