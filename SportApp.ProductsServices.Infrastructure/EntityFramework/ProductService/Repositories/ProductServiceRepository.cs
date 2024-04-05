@@ -89,9 +89,7 @@ using Microsoft.EntityFrameworkCore;
             {
                 query.Where(c => c.StartDateTime.HasValue && c.EndDateTime.HasValue)
                     .Where(c =>
-                        (c.StartDateTime!.Value <= parameters.StartDateTime!.Value && c.EndDateTime!.Value >= parameters.StartDateTime!.Value) ||
-                        (c.StartDateTime!.Value <= parameters.EndDateTime!.Value && c.EndDateTime!.Value >= parameters.EndDateTime!.Value) ||
-                        (c.StartDateTime!.Value > parameters.StartDateTime!.Value && c.EndDateTime!.Value < parameters.EndDateTime!.Value));
+                        c.StartDateTime!.Value >= parameters.StartDateTime!.Value && c.StartDateTime!.Value <= parameters.EndDateTime!.Value);
             }
 
             productServices = await query.ToListAsync();
