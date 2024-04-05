@@ -46,50 +46,52 @@ using Microsoft.EntityFrameworkCore;
             var query = context.ProductServices.AsQueryable();
             if (parameters.Id.HasValue)
             {
-                query.Where(x => x.Id == parameters.Id.Value);
+                query = query.Where(x => x.Id == parameters.Id.Value);
                 productServices = await query.ToListAsync();
                 await IncludeOperations(productServices);
                 return productServices;
             }
             if (parameters.ServiceTypes.Count != 0)
             {
-                query.Where(x => parameters.ServiceTypes.Contains(x.ServiceType.Category.Id));
+                query = query.Where(x => parameters.ServiceTypes.Contains(x.ServiceType.Category.Id));
             }
             if (parameters.Plans.Count != 0)
             {
-                query.Where(x => parameters.Plans.Contains(x.Plan.Id));
+                query = query.Where(x => parameters.Plans.Contains(x.Plan.Id));
             }
             if (parameters.Activities.Count != 0)
             {
                 foreach (var activityId in parameters.Activities)
                 {
-                    query.Where(x => x.ProductServiceActivities.Select(a => a.Activity.Id).Contains(activityId));
+                    query = query.Where(x => x.ProductServiceActivities.Select(a => a.Activity.Id).Contains(activityId));
                 }
             }
             if (parameters.Goals.Count != 0)
             {
                 foreach (var goalId in parameters.Goals)
                 {
-                    query.Where(x => x.ProductServiceGoals.Select(a => a.Goal.Id).Contains(goalId));
+                    query = query.Where(x => x.ProductServiceGoals.Select(a => a.Goal.Id).Contains(goalId));
                 }
             }
             if (parameters.Allergies.Count != 0)
             {
                 foreach (var allergyId in parameters.Allergies)
                 {
-                    query.Where(x => x.ProductServiceAllergies.Select(a => a.NutritionalAllergy.Id).Contains(allergyId));
+                    query = query.Where(x => x.ProductServiceAllergies.Select(a => a.NutritionalAllergy.Id).Contains(allergyId));
                 }
             }
             if (parameters.GeographicInfoIds.Count != 0)
             {
-                query.Where(x => parameters.GeographicInfoIds.Contains(x.GeographicInfo!.Id));
+                query = query.Where(x => parameters.GeographicInfoIds.Contains(x.GeographicInfo!.Id));
             }
 
             if (parameters is { StartDateTime: not null, EndDateTime: not null })
             {
-                query.Where(c => c.StartDateTime.HasValue && c.EndDateTime.HasValue)
-                    .Where(c =>
-                        c.StartDateTime!.Value >= parameters.StartDateTime!.Value && c.StartDateTime!.Value <= parameters.EndDateTime!.Value);
+                query = query.Where(c => c.StartDateTime.HasValue && c.EndDateTime.HasValue);
+
+                query = query.Where(c =>
+                    c.StartDateTime!.Value.Date >= parameters.StartDateTime!.Value.Date &&
+                    c.StartDateTime!.Value.Date <= parameters.EndDateTime!.Value.Date);
             }
 
             productServices = await query.ToListAsync();
