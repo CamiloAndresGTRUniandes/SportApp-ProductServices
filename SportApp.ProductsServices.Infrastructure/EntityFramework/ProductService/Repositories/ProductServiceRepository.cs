@@ -53,7 +53,7 @@ using Microsoft.EntityFrameworkCore;
             }
             if (parameters.ServiceTypes.Count != 0)
             {
-                query = query.Where(x => parameters.ServiceTypes.Contains(x.ServiceType.Category.Id));
+                query = query.Where(x => parameters.ServiceTypes.Contains(x.ServiceType.Id));
             }
             if (parameters.Plans.Count != 0)
             {
