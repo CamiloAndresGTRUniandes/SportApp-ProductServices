@@ -36,18 +36,22 @@ using Domain.ProductService;
                     Description = x.Plan.Description.ToString(),
                     Price = (long)x.Plan.Price!
                 },
-                GeographicInfo = new GeographicInfoDto
-                {
-                    Id = x.GeographicInfo!.Id,
-                    CountryId = x.GeographicInfo!.CountryId,
-                    CityId = x.GeographicInfo!.CityId,
-                    StateId = x.GeographicInfo!.StateId
-                },
-                TypeOfNutrition = new TypeOfNutritionDto
-                {
-                    Id = x.TypeOfNutrition!.Id,
-                    Name = x.TypeOfNutrition!.Name
-                },
+                GeographicInfo = x.GeographicInfo != null
+                    ? new GeographicInfoDto
+                    {
+                        Id = x.GeographicInfo!.Id,
+                        CountryId = x.GeographicInfo!.CountryId,
+                        CityId = x.GeographicInfo!.CityId,
+                        StateId = x.GeographicInfo!.StateId
+                    }
+                    : null,
+                TypeOfNutrition = x.TypeOfNutrition != null
+                    ? new TypeOfNutritionDto
+                    {
+                        Id = x.TypeOfNutrition!.Id,
+                        Name = x.TypeOfNutrition!.Name
+                    }
+                    : null,
                 ServiceType = new ServiceTypeDto
                 {
                     Id = x.ServiceType.Id,
