@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Goal\Handlers\" />
+    <Folder Include="Goal\Interfaces\" />
     <Folder Include="ProductService\Interfaces\" />
     <Folder Include="ProductService\Commands\" />
     <Folder Include="ProductService\Dtos\" />
