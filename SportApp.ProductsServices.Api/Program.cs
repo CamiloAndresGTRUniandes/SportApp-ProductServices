@@ -37,7 +37,7 @@ var builder = WebApplication.CreateBuilder(args);
     }
     app.UseMiddleware<ExceptionMiddleware>();
     app.UseHttpsRedirection();
-    //app.UseCors("CorsPolicy");
+    app.UseCors("CorsPolicy");
     app.UseAuthorization();
     app.MapControllers();
     ApplyMigration();
