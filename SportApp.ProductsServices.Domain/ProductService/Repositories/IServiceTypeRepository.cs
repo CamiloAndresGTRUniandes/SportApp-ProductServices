@@ -4,4 +4,5 @@
     {
         Task SaveAndPublishAsync(ServiceType serviceType);
         Task<ServiceType?> GetByIdAsync(Guid id);
+        Task<ICollection<ServiceType>> GetAllActiveAsync();
     }

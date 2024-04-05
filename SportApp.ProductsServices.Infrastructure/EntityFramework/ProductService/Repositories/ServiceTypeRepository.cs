@@ -26,4 +26,16 @@ using Microsoft.EntityFrameworkCore;
 
             return serviceType;
         }
+
+        public async Task<ICollection<ServiceType>> GetAllActiveAsync()
+        {
+            var query = context.ServiceType.AsQueryable();
+            query = query.Where(x => x.Enabled);
+            var serviceTypes = await query.ToListAsync();
+            foreach (var serviceType in serviceTypes)
+            {
+                await context.Entry(serviceType).Reference(x => x.Category).LoadAsync();
+            }
+            return serviceTypes;
+        }
     }

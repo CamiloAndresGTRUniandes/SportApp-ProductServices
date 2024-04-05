@@ -61,6 +61,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetProductServices, GetProductServicesUseCase>();
             services.AddScoped<ICreateGoal, CreateGoalUseCase>();
             services.AddScoped<ICreateActivity, CreateActivityUseCase>();
+            services.AddScoped<IGetServiceTypes, GetServiceTypesUseCase>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));
