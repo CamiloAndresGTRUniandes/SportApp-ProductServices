@@ -1,14 +1,14 @@
-﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.Goal.CreateGoal ;
+﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.Activity.CreateActivity ;
 
 using System.Diagnostics.CodeAnalysis;
-using Domain.Goals.Commands;
+using Domain.Activities.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Middleware;
 
-    [Route("api/v1/goals")]
+    [Route("api/v1/activities")]
     [ApiController]
-    public class GoalController(
+    public class ActivityController(
         [NotNull] IMediator mediator
         ) : ControllerBase
     {
@@ -17,9 +17,9 @@ using Middleware;
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateGoalAsync([FromBody] RequestCreateGoal request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateActivityAsync([FromBody] RequestCreateActivity request, CancellationToken cancellationToken)
         {
-            var command = new CreateGoalCommand
+            var command = new CreateActivityCommand
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,

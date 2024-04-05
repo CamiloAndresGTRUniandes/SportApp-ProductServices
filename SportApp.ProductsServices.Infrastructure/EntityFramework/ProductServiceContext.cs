@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
     public class ProductServiceContext(DbContextOptions<ProductServiceContext> options) : DbContext(options)
     {
         public DbSet<Domain.ProductService.ProductService> ProductServices { get; set; }
-        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Domain.Activities.Activity> Activities { get; set; }
         public DbSet<Domain.Goals.Goal> Goals { get; set; }
         public DbSet<NutritionalAllergy> NutritionalAllergies { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -69,7 +69,7 @@ using Microsoft.EntityFrameworkCore;
 
             // ProductService
             modelBuilder.Entity<Domain.ProductService.ProductService>().Configure();
-            modelBuilder.Entity<Activity>().Configure();
+            modelBuilder.Entity<Domain.Activities.Activity>().Configure();
             modelBuilder.Entity<Domain.Goals.Goal>().Configure();
             modelBuilder.Entity<NutritionalAllergy>().Configure();
             modelBuilder.Entity<Category>().Configure();

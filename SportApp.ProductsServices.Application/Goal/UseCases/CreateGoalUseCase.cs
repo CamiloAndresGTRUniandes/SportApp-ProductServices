@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Application.Goal ;
+﻿namespace SportApp.ProductsServices.Application.Goal.UseCases ;
 using System.Diagnostics.CodeAnalysis;
 using Domain.Goals;
 using Domain.Goals.Commands;

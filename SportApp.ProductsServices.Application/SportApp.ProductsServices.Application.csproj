@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Activity\Handlers\" />
+    <Folder Include="Activity\Interfaces\" />
+    <Folder Include="Activity\UseCases\" />
     <Folder Include="Goal\Handlers\" />
     <Folder Include="Goal\Interfaces\" />
     <Folder Include="ProductService\Interfaces\" />

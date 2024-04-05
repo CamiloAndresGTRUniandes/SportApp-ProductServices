@@ -1,12 +1,16 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure ;
-using Application.Goal;
+using Application.Activity.Interfaces;
+using Application.Activity.UseCases;
 using Application.Goal.Interfaces;
+using Application.Goal.UseCases;
 using Application.ProductService.Interfaces;
 using Application.ProductService.UseCases;
+using Domain.Activities.Repositories;
 using Domain.Goals.Repositories;
 using Domain.ProductService.Repositories;
 using EntityFramework;
-using EntityFramework.Goal;
+using EntityFramework.Activity.Repositories;
+using EntityFramework.Goal.Repositories;
 using EntityFramework.ProductService.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +45,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGeographicInfoRepository, GeographicInfoRepository>();
             services.AddScoped<ITypeOfNutritionRepository, TypeOfNutritionRepository>();
             services.AddScoped<IGoalRepository, GoalRepository>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
@@ -52,6 +57,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<ICreateTypeOfNutrition, CreateTypeOfNutritionUseCase>();
             services.AddScoped<IGetProductServices, GetProductServicesUseCase>();
             services.AddScoped<ICreateGoal, CreateGoalUseCase>();
+            services.AddScoped<ICreateActivity, CreateActivityUseCase>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

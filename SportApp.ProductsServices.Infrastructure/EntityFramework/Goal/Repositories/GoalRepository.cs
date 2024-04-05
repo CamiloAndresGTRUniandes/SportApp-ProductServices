@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Goal ;
+﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Goal.Repositories ;
 using System.Diagnostics.CodeAnalysis;
 using Domain.Common.ValueObjects;
 using Domain.Goals;
