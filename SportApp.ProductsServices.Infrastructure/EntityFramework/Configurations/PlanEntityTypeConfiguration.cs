@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
                 .HasKey(k => k.Id);
 
             builder.Ignore(b => b.DomainMessages);
-            builder.Ignore(b => b.State);
+            builder.Ignore(b => b.EntityState);
 
             builder.Property(c => c.Name)
                 .HasColumnName(nameof(Plan.Name))

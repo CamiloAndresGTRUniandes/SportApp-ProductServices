@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
     {
         public async Task SaveAndPublishAsync(TypeOfNutrition typeOfNutrition)
         {
-            if (typeOfNutrition.State is EntityState.Added)
+            if (typeOfNutrition.EntityState is EntityState.Added)
             {
                 await context.TypeOfNutrition.AddAsync(typeOfNutrition);
             }

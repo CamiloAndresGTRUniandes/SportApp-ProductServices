@@ -5,7 +5,7 @@ using Domain.ProductService.Queries;
 using Domain.ProductService.Repositories;
 using Interfaces;
 
-    public class GetAllCountries([NotNull] ICountryRepository countryRepository) : IGetAllCountries
+    public class GetAllCountriesUseCase([NotNull] ICountryRepository countryRepository) : IGetAllCountries
     {
         public async ValueTask<ICollection<Country>> ExecuteAsync(GetAllCountryQuery request)
         {

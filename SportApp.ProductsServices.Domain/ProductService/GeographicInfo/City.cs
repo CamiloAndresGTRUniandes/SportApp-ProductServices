@@ -11,12 +11,10 @@ using Common.ValueObjects;
         private City(
             Guid id,
             Name name,
-            State state,
             Guid user)
         {
             Id = id;
             Name = name;
-            CountryState = state;
             CreatedBy = user;
             UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
@@ -25,15 +23,13 @@ using Common.ValueObjects;
         }
 
         public Name Name { get; set; }
-        public State CountryState { get; set; }
 
         public City Build(
             Guid id,
             Name name,
-            State state,
             Guid user)
         {
-            var city = new City(id, name, state, user);
+            var city = new City(id, name, user);
             city.SetAdded();
             return city;
         }

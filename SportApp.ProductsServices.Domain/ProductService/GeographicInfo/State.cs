@@ -13,7 +13,6 @@ using Common.ValueObjects;
         private State(
             Guid id,
             Name name,
-            Country country,
             Guid user)
         {
             Id = id;
@@ -23,20 +22,17 @@ using Common.ValueObjects;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Enabled = true;
-            Country = country;
         }
 
         public Name Name { get; set; }
-        public Country Country { get; set; }
         public IReadOnlyCollection<City> City => _cities;
 
         public State Build(
             Guid id,
             Name name,
-            Country country,
             Guid user)
         {
-            var state = new State(id, name, country, user);
+            var state = new State(id, name, user);
             state.SetAdded();
             return state;
         }

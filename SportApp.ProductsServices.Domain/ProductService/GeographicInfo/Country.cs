@@ -22,7 +22,7 @@ using Common.ValueObjects;
         }
 
         public Name Name { get; set; }
-        public IReadOnlyCollection<State> States => _states;
+        public IReadOnlyCollection<State> State => _states;
 
         public Country Build(Guid id, Name name, Guid user)
         {

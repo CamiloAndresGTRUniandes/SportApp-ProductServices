@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
     {
         public async Task SaveAndPublishAsync(Goal goal)
         {
-            if (goal.State is EntityState.Added)
+            if (goal.EntityState is EntityState.Added)
             {
                 await context.Goals.AddAsync(goal);
             }

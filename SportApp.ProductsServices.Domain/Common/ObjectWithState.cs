@@ -5,36 +5,36 @@ using Microsoft.EntityFrameworkCore;
     {
         protected ObjectWithState()
         {
-            State = EntityState.Unchanged;
+            EntityState = EntityState.Unchanged;
         }
 
-        public EntityState State { get; private set; }
+        public EntityState EntityState { get; private set; }
 
         private protected void SetModifiedIfNotAdded()
         {
-            if (State != EntityState.Added)
+            if (EntityState != EntityState.Added)
             {
-                State = EntityState.Modified;
+                EntityState = EntityState.Modified;
             }
         }
 
         private protected void SetAdded()
         {
-            State = EntityState.Added;
+            EntityState = EntityState.Added;
         }
 
         private protected void SetDeleted()
         {
-            State = EntityState.Deleted;
+            EntityState = EntityState.Deleted;
         }
 
         private protected void SetUnchanged()
         {
-            State = EntityState.Unchanged;
+            EntityState = EntityState.Unchanged;
         }
 
         private protected void SetModified()
         {
-            State = EntityState.Modified;
+            EntityState = EntityState.Modified;
         }
     }

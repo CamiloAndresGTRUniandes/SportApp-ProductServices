@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
     {
         public async Task SaveAndPublishAsync(GeographicInfo geographicInfo)
         {
-            if (geographicInfo.State is EntityState.Added)
+            if (geographicInfo.EntityState is EntityState.Added)
             {
                 await context.GeographicInfo.AddAsync(geographicInfo);
             }

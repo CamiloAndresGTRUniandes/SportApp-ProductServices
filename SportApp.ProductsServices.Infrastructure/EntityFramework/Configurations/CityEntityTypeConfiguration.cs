@@ -14,10 +14,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
             //builder.HasMany(e => e.City).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
             //builder.Metadata.FindNavigation(nameof(City.City));
             // .SetPropertyAccessMode(PropertyAccessMode.Field);
-            builder.HasOne(p => p.CountryState).WithMany().HasForeignKey("StateId").IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(b => b.DomainMessages);
-            builder.Ignore(b => b.State);
+            builder.Ignore(b => b.EntityState);
 
             builder.Property(c => c.Name)
                 .HasColumnName(nameof(City.Name))

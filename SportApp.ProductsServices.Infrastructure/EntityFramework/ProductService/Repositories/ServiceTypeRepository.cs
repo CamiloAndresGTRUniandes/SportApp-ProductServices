@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
     {
         public async Task SaveAndPublishAsync(ServiceType serviceType)
         {
-            if (serviceType.State is EntityState.Added)
+            if (serviceType.EntityState is EntityState.Added)
             {
                 await context.ServiceType.AddAsync(serviceType);
             }

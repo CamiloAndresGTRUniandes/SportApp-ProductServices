@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDataBaseCreation : Migration
+    public partial class InitialCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,23 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Countries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GeographicInfo",
                 columns: table => new
                 {
@@ -56,7 +73,7 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
+                    EntityState = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -203,6 +220,30 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "States",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_States", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_States_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TrainingPlanActivities",
                 columns: table => new
                 {
@@ -311,6 +352,9 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     GeographicInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TypeOfNutritionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ServiceTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SportLevel = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -341,6 +385,29 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         name: "FK_ProductServices_TypeOfNutrition_TypeOfNutritionId",
                         column: x => x.TypeOfNutritionId,
                         principalTable: "TypeOfNutrition",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    StateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_States_StateId",
+                        column: x => x.StateId,
+                        principalTable: "States",
                         principalColumn: "Id");
                 });
 
@@ -448,33 +515,22 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedAt", "CreatedBy", "Description", "Enabled", "Name", "UpdatedAt", "UpdatedBy" },
-                values: new object[] { new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"), new DateTime(2024, 4, 2, 3, 10, 37, 868, DateTimeKind.Utc).AddTicks(7242), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "This is the default category", true, "Default Category", new DateTime(2024, 4, 2, 3, 10, 37, 868, DateTimeKind.Utc).AddTicks(7247), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") });
+                values: new object[] { new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"), new DateTime(2024, 4, 7, 20, 37, 15, 886, DateTimeKind.Utc).AddTicks(2778), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "This is the default category", true, "Default Category", new DateTime(2024, 4, 7, 20, 37, 15, 886, DateTimeKind.Utc).AddTicks(2781), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") });
 
             migrationBuilder.InsertData(
                 table: "Plans",
                 columns: new[] { "Id", "CreatedAt", "CreatedBy", "Description", "Enabled", "Name", "Price", "UpdatedAt", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { new Guid("2c312559-173d-4239-a03d-2fdb3f219fa5"), new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3634), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Intermediate Plan", true, "Intermediate", 50L, new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3634), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") },
-                    { new Guid("672d4087-ac82-42b5-846e-64905d1a09b3"), new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3630), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Basic Plan", true, "Basic", 0L, new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3631), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") },
-                    { new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"), new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3637), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Premium Plan", true, "Premium", 150L, new DateTime(2024, 4, 2, 3, 10, 37, 869, DateTimeKind.Utc).AddTicks(3637), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") }
+                    { new Guid("2c312559-173d-4239-a03d-2fdb3f219fa5"), new DateTime(2024, 4, 7, 20, 37, 15, 887, DateTimeKind.Utc).AddTicks(585), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Intermediate Plan", true, "Intermediate", 50L, new DateTime(2024, 4, 7, 20, 37, 15, 887, DateTimeKind.Utc).AddTicks(586), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") },
+                    { new Guid("672d4087-ac82-42b5-846e-64905d1a09b3"), new DateTime(2024, 4, 7, 20, 37, 15, 887, DateTimeKind.Utc).AddTicks(581), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Basic Plan", true, "Basic", 0L, new DateTime(2024, 4, 7, 20, 37, 15, 887, DateTimeKind.Utc).AddTicks(582), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") },
+                    { new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"), new DateTime(2024, 4, 7, 20, 37, 15, 887, DateTimeKind.Utc).AddTicks(588), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Premium Plan", true, "Premium", 150L, new DateTime(2024, 4, 7, 20, 37, 15, 887, DateTimeKind.Utc).AddTicks(589), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6") }
                 });
 
-            migrationBuilder.InsertData(
-                table: "ServiceType",
-                columns: new[] { "Id", "CreatedAt", "CreatedBy", "Description", "Enabled", "Name", "Picture", "UpdatedAt", "UpdatedBy", "CategoryId" },
-                values: new object[,]
-                {
-                    { new Guid("93fc91b3-47dd-49e8-9589-01671491cc73"), new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Event Service Type", true, "Event", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmeetings.skift.com%2Fselect-perfect-host-city-next-sporting-event%2F&psig=AOvVaw35cRcP9tZumnhT2O2yNcfm&ust=1712110352401000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNik04zBooUDFQAAAAAdAAAAABAE", new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec") }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ServiceType",
-                columns: new[] { "Id", "CreatedAt", "CreatedBy", "Description", "Enabled", "Name", "Picture", "UpdatedAt", "UpdatedBy", "CategoryId" },
-                values: new object[,]
-                {
-                    { new Guid("555b7874-cf73-41ad-bbec-e517a646241c"), new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), "Product Service Type", true, "Product", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmeetings.skift.com%2Fselect-perfect-host-city-next-sporting-event%2F&psig=AOvVaw35cRcP9tZumnhT2O2yNcfm&ust=1712110352401000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNik04zBooUDFQAAAAAdAAAAABAE", new DateTime(2024, 3, 31, 7, 45, 51, 554, DateTimeKind.Utc).AddTicks(5451), new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"), new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec") }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_StateId",
+                table: "Cities",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exercises_TrainingId",
@@ -522,6 +578,11 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_States_CountryId",
+                table: "States",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TrainingPlanActivities_ActivityId",
                 table: "TrainingPlanActivities",
                 column: "ActivityId");
@@ -546,6 +607,9 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
                 name: "Exercises");
 
             migrationBuilder.DropTable(
@@ -567,6 +631,9 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                 name: "TrainingPlanUserTrainingPlans");
 
             migrationBuilder.DropTable(
+                name: "States");
+
+            migrationBuilder.DropTable(
                 name: "Trainings");
 
             migrationBuilder.DropTable(
@@ -583,6 +650,9 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTrainingPlans");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "TrainingPlans");

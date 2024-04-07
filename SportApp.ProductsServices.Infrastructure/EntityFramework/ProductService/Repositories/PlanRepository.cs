@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
     {
         public async Task SaveAndPublishAsync(Plan plan)
         {
-            if (plan.State is EntityState.Added)
+            if (plan.EntityState is EntityState.Added)
             {
                 await context.Plans.AddAsync(plan);
             }

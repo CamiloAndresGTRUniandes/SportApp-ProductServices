@@ -11,12 +11,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
             builder.ToTable("Countries")
                 .HasKey(k => k.Id);
 
-            builder.HasMany(e => e.States).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
-            builder.Metadata.FindNavigation(nameof(Country.States));
-            // .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.HasMany(e => e.State).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.Metadata.FindNavigation(nameof(Country.State));
 
             builder.Ignore(b => b.DomainMessages);
-            builder.Ignore(b => b.State);
+            builder.Ignore(b => b.EntityState);
 
             builder.Property(c => c.Name)
                 .HasColumnName(nameof(Country.Name))
