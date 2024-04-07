@@ -66,6 +66,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetServiceTypes, GetServiceTypesUseCase>();
             services.AddScoped<IGetAllCountries, GetAllCountriesUseCase>();
             services.AddScoped<IGetStatesByCountry, GetStatesByCountryUseCase>();
+            services.AddScoped<IGetCitiesByState, GetCitiesByStateUseCase>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

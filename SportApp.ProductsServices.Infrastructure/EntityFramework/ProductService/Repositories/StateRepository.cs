@@ -31,4 +31,17 @@ using Microsoft.EntityFrameworkCore;
             }
             return country;
         }
+
+        public async Task<State?> GetAllActiveCityByStateAsync(Guid id)
+        {
+            var query = context.States.AsQueryable();
+            query = query.Where(x => x.Enabled && x.Id == id);
+            var state = await query.FirstOrDefaultAsync();
+            if (state != null)
+            {
+                //await context.Entry(country).Reference(x => x.State).LoadAsync();
+                await context.Entry(state).Collection(p => p.City).LoadAsync();
+            }
+            return state;
+        }
     }

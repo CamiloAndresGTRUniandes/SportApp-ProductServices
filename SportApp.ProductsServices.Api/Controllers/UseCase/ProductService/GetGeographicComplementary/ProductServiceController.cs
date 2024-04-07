@@ -26,7 +26,7 @@ using Middleware;
         }
 
         [HttpGet]
-        [HttpGet("StatesByCountry/{countryId}")]
+        [Route("StatesByCountry/{countryId}")]
         [ProducesResponseType(typeof(List<ResponseGetAllGeographic>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
@@ -34,7 +34,20 @@ using Middleware;
         public async Task<IActionResult> GetStatesByCountryAsync(Guid countryId, CancellationToken cancellationToken)
         {
             var query = new GetStatesByCountryQuery { CountryId = countryId };
-            var countries = await mediator.Send(query, cancellationToken);
-            return Ok(ResponseGetAllGeographic.MapResponse(countries));
+            var states = await mediator.Send(query, cancellationToken);
+            return Ok(ResponseGetAllGeographic.MapResponse(states));
+        }
+
+        [HttpGet]
+        [Route("CitiesByState/{stateId}")]
+        [ProducesResponseType(typeof(List<ResponseGetAllGeographic>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetCitiesByStateAsync(Guid stateId, CancellationToken cancellationToken)
+        {
+            var query = new GetCitiesByStateQuery { StateId = stateId };
+            var states = await mediator.Send(query, cancellationToken);
+            return Ok(ResponseGetAllGeographic.MapResponse(states));
         }
     }

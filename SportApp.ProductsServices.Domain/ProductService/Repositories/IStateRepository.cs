@@ -5,4 +5,5 @@ using GeographicInfo;
     {
         Task SaveAndPublishAsync(State state);
         Task<Country?> GetAllActiveByCountryAsync(Guid id);
+        Task<State?> GetAllActiveCityByStateAsync(Guid id);
     }
