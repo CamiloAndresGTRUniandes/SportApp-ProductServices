@@ -1,8 +1,8 @@
 ﻿namespace SportApp.ProductsServices.Application.ProductService.Handlers ;
 using System.Diagnostics.CodeAnalysis;
 using Domain.Common.Commands;
-using Domain.ProductService;
 using Domain.ProductService.Commands;
+using Domain.ProductService.GeographicInfo;
 using Interfaces;
 
     public class CreateGeographicInfoCommandHandler(

@@ -1,6 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework.ProductService.Repositories ;
 using System.Diagnostics.CodeAnalysis;
-using Domain.ProductService;
+using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.Repositories;
 using Microsoft.EntityFrameworkCore;
 

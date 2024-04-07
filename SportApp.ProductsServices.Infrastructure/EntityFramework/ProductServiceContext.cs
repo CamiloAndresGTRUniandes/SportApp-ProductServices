@@ -6,6 +6,7 @@ using Domain.Common;
 using Domain.Common.ValueObjects;
 using Domain.Goals;
 using Domain.ProductService;
+using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.ValueObjects;
 using Domain.Training;
 using Domain.Training.ValueObjects;
@@ -13,18 +14,21 @@ using Microsoft.EntityFrameworkCore;
 
     public class ProductServiceContext(DbContextOptions<ProductServiceContext> options) : DbContext(options)
     {
-        public DbSet<Domain.ProductService.ProductService> ProductServices { get; set; }
-        public DbSet<Domain.Activities.Activity> Activities { get; set; }
-        public DbSet<Domain.Goals.Goal> Goals { get; set; }
-        public DbSet<Domain.Allergies.NutritionalAllergy> NutritionalAllergies { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Plan> Plans { get; set; }
-        public DbSet<GeographicInfo> GeographicInfo { get; set; }
-        public DbSet<TypeOfNutrition> TypeOfNutrition { get; set; }
-        public DbSet<ServiceType> ServiceType { get; set; }
-        public DbSet<Exercise> Exercises { get; set; }
-        public DbSet<Training> Trainings { get; set; }
-        public DbSet<TrainingPlan> TrainingPlans { get; set; }
+        public DbSet<Domain.ProductService.ProductService> ProductServices { get; init; }
+        public DbSet<Domain.Activities.Activity> Activities { get; init; }
+        public DbSet<Domain.Goals.Goal> Goals { get; init; }
+        public DbSet<Domain.Allergies.NutritionalAllergy> NutritionalAllergies { get; init; }
+        public DbSet<Category> Categories { get; init; }
+        public DbSet<Plan> Plans { get; init; }
+        public DbSet<GeographicInfo> GeographicInfo { get; init; }
+        public DbSet<TypeOfNutrition> TypeOfNutrition { get; init; }
+        public DbSet<ServiceType> ServiceType { get; init; }
+        public DbSet<Exercise> Exercises { get; init; }
+        public DbSet<Training> Trainings { get; init; }
+        public DbSet<TrainingPlan> TrainingPlans { get; init; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -80,6 +84,9 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<Training>().Configure();
             modelBuilder.Entity<TrainingPlan>().Configure();
             modelBuilder.Entity<UserTrainingPlan>().Configure();
+            modelBuilder.Entity<Country>().Configure();
+            modelBuilder.Entity<State>().Configure();
+            modelBuilder.Entity<City>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();

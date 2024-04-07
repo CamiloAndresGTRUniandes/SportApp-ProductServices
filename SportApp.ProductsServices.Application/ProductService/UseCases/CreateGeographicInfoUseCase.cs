@@ -1,7 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Application.ProductService.UseCases ;
 using System.Diagnostics.CodeAnalysis;
-using Domain.ProductService;
 using Domain.ProductService.Commands;
+using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.Repositories;
 using Interfaces;
 

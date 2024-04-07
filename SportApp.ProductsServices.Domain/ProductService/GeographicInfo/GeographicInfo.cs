@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Domain.ProductService ;
+﻿namespace SportApp.ProductsServices.Domain.ProductService.GeographicInfo ;
 using Common;
 
     public class GeographicInfo : BaseDomainModel

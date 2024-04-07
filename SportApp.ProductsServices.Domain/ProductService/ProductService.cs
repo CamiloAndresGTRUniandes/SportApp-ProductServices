@@ -23,7 +23,7 @@ using ValueObjects;
             Description description,
             Price price,
             Uri picture,
-            GeographicInfo? geographicInfo,
+            GeographicInfo.GeographicInfo? geographicInfo,
             Plan plan,
             TypeOfNutrition? typeOfNutrition,
             ServiceType serviceType,
@@ -57,7 +57,7 @@ using ValueObjects;
         public Price Price { get; private set; }
         public Uri Picture { get; private set; }
         public Plan Plan { get; private set; }
-        public GeographicInfo? GeographicInfo { get; private set; }
+        public GeographicInfo.GeographicInfo? GeographicInfo { get; private set; }
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
         public ServiceType ServiceType { get; private set; }
         public SportLevel? SportLevel { get; private set; }
@@ -88,7 +88,7 @@ using ValueObjects;
             Description description,
             Price price,
             Uri picture,
-            GeographicInfo geographicInfo,
+            GeographicInfo.GeographicInfo geographicInfo,
             Plan plan,
             TypeOfNutrition typeOfNutrition,
             ServiceType serviceType,
@@ -122,7 +122,7 @@ using ValueObjects;
             SetModifiedIfNotAdded();
         }
 
-        internal void AddGeographicInfo(GeographicInfo geographicInfo)
+        internal void AddGeographicInfo(GeographicInfo.GeographicInfo geographicInfo)
         {
             GeographicInfo = geographicInfo;
             SetModifiedIfNotAdded();

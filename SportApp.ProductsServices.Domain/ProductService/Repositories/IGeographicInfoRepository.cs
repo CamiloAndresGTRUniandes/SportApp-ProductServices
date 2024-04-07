@@ -1,4 +1,5 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService.Repositories ;
+using GeographicInfo;
 
     public interface IGeographicInfoRepository
     {

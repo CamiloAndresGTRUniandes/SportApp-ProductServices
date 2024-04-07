@@ -1,5 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService.Commands ;
 using Common.Commands;
+using GeographicInfo;
 
     public class CreateGeographicInfoCommand : IDomainRequest<GeographicInfo>
     {
