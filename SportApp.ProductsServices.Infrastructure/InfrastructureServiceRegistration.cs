@@ -49,6 +49,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGoalRepository, GoalRepository>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddScoped<INutritionalAllergyRepository, NutritionalAllergyRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
@@ -62,6 +63,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<ICreateGoal, CreateGoalUseCase>();
             services.AddScoped<ICreateActivity, CreateActivityUseCase>();
             services.AddScoped<IGetServiceTypes, GetServiceTypesUseCase>();
+            services.AddScoped<IGetAllCountries, GetAllCountries>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));
