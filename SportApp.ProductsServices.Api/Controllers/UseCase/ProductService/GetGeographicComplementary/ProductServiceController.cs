@@ -14,7 +14,7 @@ using Middleware;
     {
         [HttpGet]
         [Route("AllCountries")]
-        [ProducesResponseType(typeof(List<ResponseGetAllGeographic>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ResponseGetAllReferential>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
@@ -22,12 +22,12 @@ using Middleware;
         {
             var query = new GetAllCountryQuery();
             var countries = await mediator.Send(query, cancellationToken);
-            return Ok(ResponseGetAllGeographic.MapResponse(countries));
+            return Ok(ResponseGetAllReferential.MapResponse(countries));
         }
 
         [HttpGet]
         [Route("StatesByCountry/{countryId}")]
-        [ProducesResponseType(typeof(List<ResponseGetAllGeographic>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ResponseGetAllReferential>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
@@ -35,12 +35,12 @@ using Middleware;
         {
             var query = new GetStatesByCountryQuery { CountryId = countryId };
             var states = await mediator.Send(query, cancellationToken);
-            return Ok(ResponseGetAllGeographic.MapResponse(states));
+            return Ok(ResponseGetAllReferential.MapResponse(states));
         }
 
         [HttpGet]
         [Route("CitiesByState/{stateId}")]
-        [ProducesResponseType(typeof(List<ResponseGetAllGeographic>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ResponseGetAllReferential>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
@@ -48,6 +48,6 @@ using Middleware;
         {
             var query = new GetCitiesByStateQuery { StateId = stateId };
             var states = await mediator.Send(query, cancellationToken);
-            return Ok(ResponseGetAllGeographic.MapResponse(states));
+            return Ok(ResponseGetAllReferential.MapResponse(states));
         }
     }

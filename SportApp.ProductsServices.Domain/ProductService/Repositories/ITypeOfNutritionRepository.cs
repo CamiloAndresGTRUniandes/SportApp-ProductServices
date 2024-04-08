@@ -5,5 +5,6 @@ using Common.ValueObjects;
     {
         Task SaveAndPublishAsync(TypeOfNutrition typeOfNutrition);
         Task<TypeOfNutrition?> GetByIdAsync(Guid id);
+        Task<ICollection<TypeOfNutrition>> GetAllActiveAsync();
         Task<TypeOfNutrition?> GetByNameAsync(Name name);
     }

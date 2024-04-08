@@ -28,6 +28,13 @@ using Microsoft.EntityFrameworkCore;
             return activity;
         }
 
+        public async Task<ICollection<Activity>> GetAllActiveAsync()
+        {
+            var query = context.Activities.AsQueryable();
+            var activities = await query.Where(a => a.Enabled).ToListAsync();
+            return activities;
+        }
+
         public async Task<Activity?> GetByNameAsync(Name name)
         {
             var query = context.Activities.AsQueryable();
