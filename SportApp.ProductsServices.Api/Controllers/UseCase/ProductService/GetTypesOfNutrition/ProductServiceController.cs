@@ -25,4 +25,17 @@ using Middleware;
             var countries = await mediator.Send(query, cancellationToken);
             return Ok(ResponseGetAllReferential.MapResponse(countries));
         }
+
+        [HttpGet]
+        [Route("NutritionalAllergy")]
+        [ProducesResponseType(typeof(List<ResponseGetAllReferential>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllNutritionalAllergiesAsync(CancellationToken cancellationToken)
+        {
+            var query = new GetAllNutritionalAllergiesQuery();
+            var countries = await mediator.Send(query, cancellationToken);
+            return Ok(ResponseGetAllReferential.MapResponse(countries));
+        }
     }

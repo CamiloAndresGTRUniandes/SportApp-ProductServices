@@ -69,6 +69,9 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetCitiesByState, GetCitiesByStateUseCase>();
             services.AddScoped<IGetAllActivities, GetAllActivitiesUseCase>();
             services.AddScoped<IGetAllTypeOfNutrition, GetAllTypeOfNutritionUseCase>();
+            services.AddScoped<IGetAllNutritionalAllergies, GetAllNutritionalAllergiesUseCase>();
+            services.AddScoped<IGetAllGoals, GetAllGoalsUseCase>();
+
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

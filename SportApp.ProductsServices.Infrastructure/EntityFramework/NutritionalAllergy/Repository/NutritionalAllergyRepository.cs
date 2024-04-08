@@ -28,6 +28,13 @@ using Microsoft.EntityFrameworkCore;
             return allergy;
         }
 
+        public async Task<ICollection<NutritionalAllergy>> GetAllActiveAsync()
+        {
+            var query = context.NutritionalAllergies.AsQueryable();
+            var nutritionalAllergies = await query.Where(a => a.Enabled).ToListAsync();
+            return nutritionalAllergies;
+        }
+
         public async Task<NutritionalAllergy?> GetByNameAsync(Name name)
         {
             var query = context.NutritionalAllergies.AsQueryable();

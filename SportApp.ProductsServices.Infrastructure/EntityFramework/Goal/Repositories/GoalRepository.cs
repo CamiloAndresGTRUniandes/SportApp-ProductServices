@@ -20,6 +20,13 @@ using Microsoft.EntityFrameworkCore;
             await context.SaveChangesAsync();
         }
 
+        public async Task<ICollection<Goal>> GetAllActiveAsync()
+        {
+            var query = context.Goals.AsQueryable();
+            var goals = await query.Where(a => a.Enabled).ToListAsync();
+            return goals;
+        }
+
         public async Task<Goal?> GetByIdAsync(Guid id)
         {
             var query = context.Goals.AsQueryable();

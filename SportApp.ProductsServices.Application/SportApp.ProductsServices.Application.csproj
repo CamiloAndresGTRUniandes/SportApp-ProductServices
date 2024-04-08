@@ -18,7 +18,6 @@
   <ItemGroup>
     <Folder Include="Activity\Handlers\" />
     <Folder Include="Activity\Exceptions\" />
-    <Folder Include="Goal\Handlers\" />
     <Folder Include="Goal\Interfaces\" />
     <Folder Include="Goal\Exception\" />
     <Folder Include="NutritionalAllergy\Exceptions\" />
