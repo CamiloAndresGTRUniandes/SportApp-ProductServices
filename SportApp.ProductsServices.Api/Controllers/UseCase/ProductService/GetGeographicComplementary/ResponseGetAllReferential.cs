@@ -62,4 +62,31 @@ using Domain.ProductService.GeographicInfo;
                 Name = x.Name.ToString()
             }));
         }
+
+        public static ICollection<ResponseGetAllReferential> MapResponse(ICollection<Category> categories)
+        {
+            return new List<ResponseGetAllReferential>(categories.Select(x => new ResponseGetAllReferential
+            {
+                Id = x.Id,
+                Name = x.Name.ToString()
+            }));
+        }
+
+        public static ICollection<ResponseGetAllReferential> MapResponse(ICollection<ServiceType> serviceTypes)
+        {
+            return new List<ResponseGetAllReferential>(serviceTypes.Select(x => new ResponseGetAllReferential
+            {
+                Id = x.Id,
+                Name = x.Name.ToString()
+            }));
+        }
+
+        public static ICollection<ResponseGetAllReferential> MapResponse(ICollection<Plan> plans)
+        {
+            return new List<ResponseGetAllReferential>(plans.Select(x => new ResponseGetAllReferential
+            {
+                Id = x.Id,
+                Name = x.Name.ToString()
+            }));
+        }
     }

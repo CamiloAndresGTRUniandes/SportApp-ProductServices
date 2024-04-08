@@ -13,7 +13,9 @@ using ValueObjects;
         public Price Price { get; set; }
         public Uri Picture { get; set; }
         public Guid User { get; set; }
-        public Guid? GeographicInfoId { get; set; }
+        public Guid CountryId { get; set; }
+        public Guid CityId { get; set; }
+        public Guid StateId { get; set; }
         public Guid? PlanId { get; set; }
         public Guid? TypeOfNutritionId { get; set; }
         public Guid ServiceTypeId { get; set; }

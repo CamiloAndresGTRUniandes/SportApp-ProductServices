@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
             builder.ToTable("Categories")
                 .HasKey(k => k.Id);
 
+            //builder.HasMany(e => e.ServiceType).WithOne().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            //builder.Metadata.FindNavigation(nameof(Category.ServiceType));
+
             builder.Ignore(b => b.DomainMessages);
             builder.Ignore(b => b.EntityState);
 

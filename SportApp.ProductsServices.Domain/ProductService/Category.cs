@@ -5,6 +5,8 @@ using ValueObjects;
 
     public class Category : BaseDomainModel
     {
+        private readonly List<ServiceType> _serviceTypes = new();
+
         protected Category()
         {
         }
@@ -27,6 +29,7 @@ using ValueObjects;
 
         public Name Name { get; private set; }
         public Description Description { get; private set; }
+        public IReadOnlyCollection<ServiceType> ServiceType => _serviceTypes;
 
         public static Category Build(
             Guid id,

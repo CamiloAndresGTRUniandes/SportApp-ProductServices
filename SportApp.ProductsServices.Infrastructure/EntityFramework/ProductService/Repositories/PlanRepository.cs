@@ -26,4 +26,13 @@ using Microsoft.EntityFrameworkCore;
 
             return plan;
         }
+
+        public async Task<ICollection<Plan>> GetAllActiveAsync()
+        {
+            var query = context.Plans.AsQueryable();
+            query = query.Where(x => x.Enabled);
+            var plans = await query.ToListAsync();
+
+            return plans;
+        }
     }

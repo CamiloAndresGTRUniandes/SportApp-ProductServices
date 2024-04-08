@@ -9,6 +9,7 @@ using Domain.Goals;
 using Domain.Goals.Repositories;
 using Domain.ProductService;
 using Domain.ProductService.Commands;
+using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.Repositories;
 using Exceptions;
 using Goal.Exception;
@@ -78,8 +79,7 @@ using NutritionalAllergy.Exceptions;
                 }
             }
 
-            var geographicInfo = await geographicInfoRepository.GetByIdAsync(request.GeographicInfoId!.Value) ??
-                                 throw new GeographicInfoNotFoundConflictException(request.GeographicInfoId!.Value);
+            var geographicInfo = GeographicInfo.Build(Guid.NewGuid(), request.CountryId, request.StateId, request.CityId, request.User);
 
             var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);

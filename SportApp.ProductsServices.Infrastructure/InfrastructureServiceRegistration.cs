@@ -71,6 +71,9 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetAllTypeOfNutrition, GetAllTypeOfNutritionUseCase>();
             services.AddScoped<IGetAllNutritionalAllergies, GetAllNutritionalAllergiesUseCase>();
             services.AddScoped<IGetAllGoals, GetAllGoalsUseCase>();
+            services.AddScoped<IGetAllCategories, GetAllCategoriesUseCase>();
+            services.AddScoped<IGetServiceTypesByCategory, GetServiceTypesByCategoryUseCase>();
+            services.AddScoped<IGetAllPlans, GetAllPlansUseCase>();
 
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 

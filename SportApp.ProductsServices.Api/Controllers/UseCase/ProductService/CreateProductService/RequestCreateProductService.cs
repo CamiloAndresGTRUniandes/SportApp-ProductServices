@@ -14,16 +14,22 @@ using System.ComponentModel.DataAnnotations;
         public Guid User { get; set; }
 
         [Required]
-        public Guid GeographicInfoId { get; set; }
+        public Guid CountryId { get; set; }
+
+        [Required]
+        public Guid StateId { get; set; }
+
+        [Required]
+        public Guid CityId { get; set; }
 
         public Guid? PlanId { get; set; }
         public Guid? TypeOfNutritionId { get; set; }
-        public string SportLevel { get; set; }
+        public int SportLevel { get; set; }
 
         [Required]
         public Guid ServiceTypeId { get; set; }
 
         public ICollection<Guid>? Activities { get; set; } = new List<Guid>();
         public ICollection<Guid>? Goals { get; set; } = new List<Guid>();
-        public ICollection<Guid>? Allergies { get; set; } = new List<Guid>();
+        public ICollection<Guid>? NutritionalAllergies { get; set; } = new List<Guid>();
     }

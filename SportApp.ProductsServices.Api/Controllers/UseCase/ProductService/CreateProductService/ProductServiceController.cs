@@ -27,16 +27,18 @@ using Middleware;
                 Name = request.Name,
                 Description = request.Description,
                 Picture = request.Picture,
-                GeographicInfoId = request.GeographicInfoId,
+                CountryId = request.CountryId,
+                CityId = request.CityId,
+                StateId = request.StateId,
                 PlanId = request.PlanId,
                 Price = request.Price ?? 0,
                 ServiceTypeId = request.ServiceTypeId,
                 TypeOfNutritionId = request.TypeOfNutritionId,
-                SportLevel = Enumeration.ToEnumerator(request.SportLevel, SportLevel.Basic),
+                SportLevel = Enumeration.FromValue<SportLevel>(request.SportLevel),
                 User = request.User,
                 Activities = request.Activities,
                 Goals = request.Goals,
-                Allergies = request.Allergies
+                Allergies = request.NutritionalAllergies
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();

@@ -38,4 +38,17 @@ using Microsoft.EntityFrameworkCore;
             }
             return serviceTypes;
         }
+
+        public async Task<Category?> GetAllActiveServiceTypesByCategoryAsync(Guid id)
+        {
+            var query = context.Categories.AsQueryable();
+            query = query.Where(x => x.Enabled && x.Id == id);
+            var category = await query.FirstOrDefaultAsync();
+            if (category != null)
+            {
+                //await context.Entry(country).Reference(x => x.State).LoadAsync();
+                await context.Entry(category).Collection(p => p.ServiceType).LoadAsync();
+            }
+            return category;
+        }
     }

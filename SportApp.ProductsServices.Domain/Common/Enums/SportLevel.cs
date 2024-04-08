@@ -2,7 +2,7 @@
 
     public class SportLevel(int id, string name) : Enumeration(id, name)
     {
-        public static readonly SportLevel Basic = new(1, nameof(Basic));
-        public static readonly SportLevel Intermediate = new(1, nameof(Intermediate));
-        public static readonly SportLevel Advanced = new(1, nameof(Advanced));
+        public static readonly SportLevel Basico = new(1, nameof(Basico));
+        public static readonly SportLevel Intermedio = new(1, nameof(Intermedio));
+        public static readonly SportLevel Avanzado = new(1, nameof(Avanzado));
     }
