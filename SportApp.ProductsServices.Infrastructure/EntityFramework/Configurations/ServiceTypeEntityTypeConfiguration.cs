@@ -23,7 +23,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
             builder.Property(c => c.Description)
                 .HasColumnName(nameof(ServiceType.Description))
                 .HasConversion<string>(e => e, e => new Description(e))
-                .HasMaxLength(50);
+                .HasMaxLength(250);
 
             builder.Property(c => c.CreatedBy)
                 .HasColumnName(nameof(ServiceType.CreatedBy))

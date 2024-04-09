@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportApp.ProductsServices.Infrastructure.EntityFramework;
 
@@ -11,9 +12,11 @@ using SportApp.ProductsServices.Infrastructure.EntityFramework;
 namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(ProductServiceContext))]
-    partial class ProductServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20240409050718_AlterCategoryTable")]
+    partial class AlterCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,45 +265,12 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4403),
+                            CreatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(1078),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "This is the default category",
                             Enabled = true,
                             Name = "Default Category",
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4405),
-                            UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
-                        },
-                        new
-                        {
-                            Id = new Guid("be8e2306-8bc9-49cc-8d43-a76820370994"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4408),
-                            CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
-                            Description = "Categoría para eventos de todo tipo",
-                            Enabled = true,
-                            Name = "Eventos",
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4408),
-                            UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
-                        },
-                        new
-                        {
-                            Id = new Guid("a649e6a9-f667-4e73-b8b6-3816c7e554eb"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4410),
-                            CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
-                            Description = "Categoría para productos de todo tipo",
-                            Enabled = true,
-                            Name = "Productos",
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4411),
-                            UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
-                        },
-                        new
-                        {
-                            Id = new Guid("60d40a85-78ca-4b75-b75f-76cee4896ead"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4413),
-                            CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
-                            Description = "Categoría para servicios de todo tipo",
-                            Enabled = true,
-                            Name = "Servicios",
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 751, DateTimeKind.Utc).AddTicks(4413),
+                            UpdatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(1081),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });
@@ -523,37 +493,37 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("672d4087-ac82-42b5-846e-64905d1a09b3"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 752, DateTimeKind.Utc).AddTicks(1432),
+                            CreatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(8073),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Basic Plan",
                             Enabled = true,
                             Name = "Basic",
                             Price = 0L,
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 752, DateTimeKind.Utc).AddTicks(1434),
+                            UpdatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(8075),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("2c312559-173d-4239-a03d-2fdb3f219fa5"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 752, DateTimeKind.Utc).AddTicks(1437),
+                            CreatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(8078),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Intermediate Plan",
                             Enabled = true,
                             Name = "Intermediate",
                             Price = 50L,
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 752, DateTimeKind.Utc).AddTicks(1437),
+                            UpdatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(8079),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"),
-                            CreatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 752, DateTimeKind.Utc).AddTicks(1440),
+                            CreatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(8081),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Premium Plan",
                             Enabled = true,
                             Name = "Premium",
                             Price = 150L,
-                            UpdatedAt = new DateTime(2024, 4, 9, 5, 11, 52, 752, DateTimeKind.Utc).AddTicks(1440),
+                            UpdatedAt = new DateTime(2024, 4, 9, 5, 7, 18, 19, DateTimeKind.Utc).AddTicks(8082),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });

@@ -85,6 +85,7 @@ using Microsoft.Net.Http.Headers;
                 nameof(GoalNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.GoalNotFoundException),
                 nameof(ActivityNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ActivityNotFoundException),
                 nameof(NutritionalAllergyNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.NutritionalAllergyNotFoundException),
+                nameof(ProductServiceNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ProductServiceNotFoundException),
 
                 //Service Unavailable
 

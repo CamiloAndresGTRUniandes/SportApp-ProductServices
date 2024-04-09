@@ -31,6 +31,7 @@ namespace SportApp.ProductsServices.Api.Middleware ;
         public static readonly int DescriptionMaxLengthException = 1000;
 
         public static readonly int PlanNotFoundException = 7001;
+        public static readonly int ProductServiceNotFoundException = 7002;
         public static readonly int CategoryNotFoundException = 8001;
         public static readonly int CategoryAlreadyExistException = 8002;
         public static readonly int TypeOfNutritionAlreadyExistException = 6001;

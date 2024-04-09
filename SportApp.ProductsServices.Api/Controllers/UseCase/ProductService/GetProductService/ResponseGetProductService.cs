@@ -1,22 +1,24 @@
 ﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.GetProductService ;
-using Domain.Common.Enums;
 using Domain.ProductService;
 
     public class ResponseGetProductService
     {
-        public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
         public string Name { get; init; }
         public string Description { get; init; }
         public long Price { get; init; }
         public string Picture { get; init; }
-        public PlanDto Plan { get; init; }
-        public GeographicInfoDto GeographicInfo { get; init; }
-        public TypeOfNutritionDto TypeOfNutrition { get; init; }
-        public ServiceTypeDto ServiceType { get; init; }
-        public SportLevel SportLevel { get; init; }
-        public ICollection<ActivityDto> Activities { get; init; }
-        public ICollection<GoalDto> Goals { get; init; }
-        public ICollection<AllergyDto> Allergies { get; init; }
+        public Guid PlanId { get; init; }
+        public Guid CountryId { get; set; }
+        public Guid StateId { get; set; }
+        public Guid CityId { get; set; }
+
+        public Guid TypeOfNutritionId { get; init; }
+        public Guid ServiceTypeId { get; init; }
+        public int SportLevel { get; init; }
+        public ICollection<Guid> Activities { get; init; }
+        public ICollection<Guid> Goals { get; init; }
+        public ICollection<Guid> Allergies { get; init; }
         public DateTime? StarDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
 
@@ -24,119 +26,47 @@ using Domain.ProductService;
         {
             return new List<ResponseGetProductService>(productServices.Select(x => new ResponseGetProductService
             {
-                Id = x.Id,
+                ProductId = x.Id,
                 Name = x.Name.ToString(),
                 Description = x.Description.ToString(),
                 Picture = x.Picture.ToString(),
                 Price = (long)x.Price!,
-                Plan = new PlanDto
-                {
-                    Id = x.Plan.Id,
-                    Name = x.Plan.Name,
-                    Description = x.Plan.Description.ToString(),
-                    Price = (long)x.Plan.Price!
-                },
-                GeographicInfo = x.GeographicInfo != null
-                    ? new GeographicInfoDto
-                    {
-                        Id = x.GeographicInfo!.Id,
-                        CountryId = x.GeographicInfo!.CountryId,
-                        CityId = x.GeographicInfo!.CityId,
-                        StateId = x.GeographicInfo!.StateId
-                    }
-                    : null,
-                TypeOfNutrition = x.TypeOfNutrition != null
-                    ? new TypeOfNutritionDto
-                    {
-                        Id = x.TypeOfNutrition!.Id,
-                        Name = x.TypeOfNutrition!.Name
-                    }
-                    : null,
-                ServiceType = new ServiceTypeDto
-                {
-                    Id = x.ServiceType.Id,
-                    Name = x.ServiceType.Name.ToString(),
-                    Description = x.ServiceType.Description.ToString(),
-                    Picture = x.ServiceType.Picture.ToString(),
-                    Category = new CategoryDto
-                    {
-                        Id = x.ServiceType.Category.Id,
-                        Name = x.ServiceType.Category.Name
-                    }
-                },
-                SportLevel = x.SportLevel!,
+                PlanId = x.Plan.Id,
+                CountryId = x.GeographicInfo!.CountryId,
+                StateId = x.GeographicInfo!.StateId,
+                CityId = x.GeographicInfo.CityId,
+                TypeOfNutritionId = x.TypeOfNutrition!.Id,
+                ServiceTypeId = x.ServiceType.Id,
+                SportLevel = x.SportLevel!.Id,
                 StarDateTime = x.StartDateTime!,
                 EndDateTime = x.EndDateTime!,
-                Activities = x.ProductServiceActivities.Select(p => new ActivityDto
-                {
-                    Id = p.Activity.Id,
-                    Name = p.Activity.Name.ToString()
-                }).ToList(),
-                Goals = x.ProductServiceGoals.Select(p => new GoalDto
-                {
-                    Id = p.Goal.Id,
-                    Name = p.Goal.Name.ToString()
-                }).ToList(),
-                Allergies = x.ProductServiceAllergies.Select(p => new AllergyDto
-                {
-                    Id = p.NutritionalAllergy.Id,
-                    Name = p.NutritionalAllergy.Name.ToString()
-                }).ToList()
+                Activities = x.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
+                Goals = x.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
+                Allergies = x.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList()
             }));
         }
 
-        public class PlanDto
+        public static ResponseGetProductService Build(ProductService productService)
         {
-            public Guid Id { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public long Price { get; set; }
-        }
-
-        public class GeographicInfoDto
-        {
-            public Guid Id { get; init; }
-            public Guid CountryId { get; init; }
-            public Guid StateId { get; init; }
-            public Guid CityId { get; init; }
-        }
-
-        public class TypeOfNutritionDto
-        {
-            public Guid Id { get; init; }
-            public string Name { get; init; }
-        }
-
-        public class ServiceTypeDto
-        {
-            public Guid Id { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public string Picture { get; set; }
-            public CategoryDto Category { get; set; }
-        }
-
-        public class CategoryDto
-        {
-            public Guid Id { get; init; }
-            public string Name { get; init; }
-        }
-
-        public class ActivityDto
-        {
-            public Guid Id { get; init; }
-            public string Name { get; init; }
-        }
-
-        public class GoalDto
-        {
-            public Guid Id { get; init; }
-            public string Name { get; init; }
-        }
-
-        public class AllergyDto
-        {
-            public Guid Id { get; init; }
-            public string Name { get; init; }
+            return new ResponseGetProductService
+            {
+                ProductId = productService.Id,
+                Name = productService.Name.ToString(),
+                Description = productService.Description.ToString(),
+                Picture = productService.Picture.ToString(),
+                Price = (long)productService.Price!,
+                PlanId = productService.Plan.Id,
+                CountryId = productService.GeographicInfo!.CountryId,
+                StateId = productService.GeographicInfo!.StateId,
+                CityId = productService.GeographicInfo.CityId,
+                TypeOfNutritionId = productService.TypeOfNutrition!.Id,
+                ServiceTypeId = productService.ServiceType.Id,
+                SportLevel = productService.SportLevel!.Id,
+                StarDateTime = productService.StartDateTime!,
+                EndDateTime = productService.EndDateTime!,
+                Activities = productService.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
+                Goals = productService.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
+                Allergies = productService.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList()
+            };
         }
     }

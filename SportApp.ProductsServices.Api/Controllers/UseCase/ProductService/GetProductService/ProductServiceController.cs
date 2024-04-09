@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.GetProductService ;
 using System.Diagnostics.CodeAnalysis;
 using Domain.ProductService.Commands;
+using Domain.ProductService.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Middleware;
@@ -36,5 +37,22 @@ using Middleware;
             };
             var productServices = await mediator.Send(command, cancellationToken);
             return Ok(ResponseGetProductService.Build(productServices));
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        [ProducesResponseType(typeof(List<ResponseGetProductService>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetProductServicesAsync(Guid id,
+            CancellationToken cancellationToken)
+        {
+            var command = new GetProductServiceQuery
+            {
+                Id = id
+            };
+            var productService = await mediator.Send(command, cancellationToken);
+            return Ok(ResponseGetProductService.Build(productService));
         }
     }

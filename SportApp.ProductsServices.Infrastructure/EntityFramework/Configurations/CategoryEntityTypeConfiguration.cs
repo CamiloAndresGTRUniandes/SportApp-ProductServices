@@ -26,7 +26,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
             builder.Property(c => c.Description)
                 .HasColumnName(nameof(Category.Description))
                 .HasConversion<string>(e => e, e => new Description(e))
-                .HasMaxLength(50);
+                .HasMaxLength(250);
 
             builder.Property(c => c.CreatedBy)
                 .HasColumnName(nameof(Category.CreatedBy))
@@ -55,6 +55,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
                     Guid.Parse("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"),
                     "Default Category",
                     "This is the default category",
+                    Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")),
+                Category.Build(
+                    Guid.Parse("be8e2306-8bc9-49cc-8d43-a76820370994"),
+                    "Eventos",
+                    "Categoría para eventos de todo tipo",
+                    Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")),
+                Category.Build(
+                    Guid.Parse("a649e6a9-f667-4e73-b8b6-3816c7e554eb"),
+                    "Productos",
+                    "Categoría para productos de todo tipo",
+                    Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")),
+                Category.Build(
+                    Guid.Parse("60d40a85-78ca-4b75-b75f-76cee4896ead"),
+                    "Servicios",
+                    "Categoría para servicios de todo tipo",
                     Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"))
                 );
         }
