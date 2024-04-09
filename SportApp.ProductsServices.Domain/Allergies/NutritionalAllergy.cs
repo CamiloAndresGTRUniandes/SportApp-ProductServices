@@ -4,7 +4,7 @@ using Common.ValueObjects;
 
     public class NutritionalAllergy : BaseDomainModel
     {
-        private readonly List<ProductServiceAllergies> _productsServiceAllergies;
+        private readonly List<ProductServiceNutritionalAllergies> _productServiceAllergies;
 
         protected NutritionalAllergy()
         {
@@ -25,7 +25,7 @@ using Common.ValueObjects;
         }
 
         public Name Name { get; set; }
-        public IReadOnlyCollection<ProductServiceAllergies> ProductServiceAllergies => _productsServiceAllergies;
+        public IReadOnlyCollection<ProductServiceNutritionalAllergies> ProductServiceAllergies => _productServiceAllergies;
 
         public static NutritionalAllergy Build(
             Guid id,

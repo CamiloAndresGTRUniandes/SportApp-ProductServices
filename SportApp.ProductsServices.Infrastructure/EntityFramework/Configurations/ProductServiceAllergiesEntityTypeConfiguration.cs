@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     internal static class ProductServiceAllergiesEntityTypeConfiguration
     {
-        internal static void Configure(this EntityTypeBuilder<ProductServiceAllergies> builder)
+        internal static void Configure(this EntityTypeBuilder<ProductServiceNutritionalAllergies> builder)
         {
-            builder.ToTable("ProductServiceAllergies");
+            builder.ToTable("ProductServiceNutritionalAllergies");
             builder.HasKey("ProductServiceId", "NutritionalAllergyId"); //#A
             //-----------------------------
             //Relationships

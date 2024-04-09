@@ -91,7 +91,7 @@ using Microsoft.EntityFrameworkCore;
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();
             modelBuilder.Entity<ProductServiceGoals>().Configure();
-            modelBuilder.Entity<ProductServiceAllergies>().Configure();
+            modelBuilder.Entity<ProductServiceNutritionalAllergies>().Configure();
             modelBuilder.Entity<TrainingPlanGoals>().Configure();
             modelBuilder.Entity<TrainingPlanActivities>().Configure();
             modelBuilder.Entity<TrainingPlanUserTrainingPlans>().Configure();

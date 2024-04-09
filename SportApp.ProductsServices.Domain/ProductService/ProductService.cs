@@ -10,7 +10,7 @@ using ValueObjects;
     public class ProductService : BaseDomainModel
     {
         private readonly List<ProductServiceActivities> _productServiceActivities = new();
-        private readonly List<ProductServiceAllergies> _productServiceAllergies = new();
+        private readonly List<ProductServiceNutritionalAllergies> _productServiceAllergies = new();
         private readonly List<ProductServiceGoals> _productServiceGoals = new();
 
         private ProductService()
@@ -64,7 +64,7 @@ using ValueObjects;
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
         public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
-        public IReadOnlyCollection<ProductServiceAllergies> ProductServiceAllergies => _productServiceAllergies;
+        public IReadOnlyCollection<ProductServiceNutritionalAllergies> ProductServiceAllergies => _productServiceAllergies;
         public IReadOnlyCollection<ProductServiceActivities> ProductServiceActivities => _productServiceActivities;
 
         public IReadOnlyCollection<Goal> Goals()
@@ -199,7 +199,7 @@ using ValueObjects;
             {
                 return;
             }
-            _productServiceAllergies.Add(Domain.Allergies.ProductServiceAllergies.Build(this, allergy));
+            _productServiceAllergies.Add(ProductServiceNutritionalAllergies.Build(this, allergy));
             SetModifiedIfNotAdded();
         }
     }
