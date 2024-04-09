@@ -23,7 +23,7 @@ using System.ComponentModel.DataAnnotations;
         public Guid CityId { get; set; }
 
         public Guid? PlanId { get; set; }
-        public Guid? TypeOfNutritionId { get; set; }
+        public string TypeOfNutritionId { get; set; }
         public int SportLevel { get; set; }
 
         [Required]
@@ -32,4 +32,6 @@ using System.ComponentModel.DataAnnotations;
         public ICollection<Guid>? Activities { get; set; } = new List<Guid>();
         public ICollection<Guid>? Goals { get; set; } = new List<Guid>();
         public ICollection<Guid>? NutritionalAllergies { get; set; } = new List<Guid>();
+        public DateTime? StartDateTime { get; set; }
+        public DateTime? EndDateTime { get; set; }
     }

@@ -41,7 +41,7 @@ using Middleware;
 
         [HttpGet]
         [Route("{id:guid}")]
-        [ProducesResponseType(typeof(List<ResponseGetProductService>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseGetProductService), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]

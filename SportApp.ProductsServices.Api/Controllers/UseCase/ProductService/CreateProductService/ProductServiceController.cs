@@ -33,12 +33,14 @@ using Middleware;
                 PlanId = request.PlanId,
                 Price = request.Price ?? 0,
                 ServiceTypeId = request.ServiceTypeId,
-                TypeOfNutritionId = request.TypeOfNutritionId,
+                TypeOfNutritionId = request.TypeOfNutritionId != string.Empty ? Guid.Parse(request.TypeOfNutritionId) : null,
                 SportLevel = Enumeration.FromValue<SportLevel>(request.SportLevel),
                 User = request.User,
                 Activities = request.Activities,
                 Goals = request.Goals,
-                Allergies = request.NutritionalAllergies
+                Allergies = request.NutritionalAllergies,
+                StartDateTime = request.StartDateTime,
+                EndDateTime = request.EndDateTime
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();
