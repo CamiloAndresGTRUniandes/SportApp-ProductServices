@@ -75,6 +75,8 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetServiceTypesByCategory, GetServiceTypesByCategoryUseCase>();
             services.AddScoped<IGetAllPlans, GetAllPlansUseCase>();
             services.AddScoped<IGetProductService, GetProductServiceUseCase>();
+            services.AddScoped<IGetPlanById, GetPlanByIdUseCase>();
+            services.AddScoped<IGetServiceTypeById, GetServiceTypeByIdUseCase>();
 
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 

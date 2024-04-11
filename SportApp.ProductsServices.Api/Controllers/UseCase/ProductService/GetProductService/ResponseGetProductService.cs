@@ -13,12 +13,12 @@ using Domain.ProductService;
         public Guid StateId { get; set; }
         public Guid CityId { get; set; }
 
-        public Guid TypeOfNutritionId { get; init; }
+        public Guid? TypeOfNutritionId { get; init; }
         public Guid ServiceTypeId { get; init; }
         public int SportLevel { get; init; }
-        public ICollection<Guid> Activities { get; init; }
-        public ICollection<Guid> Goals { get; init; }
-        public ICollection<Guid> Allergies { get; init; }
+        public ICollection<Guid>? Activities { get; init; }
+        public ICollection<Guid>? Goals { get; init; }
+        public ICollection<Guid>? Allergies { get; init; }
         public DateTime? StarDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
 
@@ -35,7 +35,7 @@ using Domain.ProductService;
                 CountryId = x.GeographicInfo!.CountryId,
                 StateId = x.GeographicInfo!.StateId,
                 CityId = x.GeographicInfo.CityId,
-                TypeOfNutritionId = x.TypeOfNutrition!.Id,
+                TypeOfNutritionId = x.TypeOfNutrition != null ? x.TypeOfNutrition.Id : null,
                 ServiceTypeId = x.ServiceType.Id,
                 SportLevel = x.SportLevel!.Id,
                 StarDateTime = x.StartDateTime!,

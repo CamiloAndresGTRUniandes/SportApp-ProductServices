@@ -89,4 +89,22 @@ using Domain.ProductService.GeographicInfo;
                 Name = x.Name.ToString()
             }));
         }
+
+        public static ResponseGetAllReferential MapResponse(Plan plan)
+        {
+            return new ResponseGetAllReferential
+            {
+                Id = plan.Id,
+                Name = plan.Name
+            };
+        }
+
+        public static ResponseGetAllReferential MapResponse(ServiceType serviceType)
+        {
+            return new ResponseGetAllReferential
+            {
+                Id = serviceType.Id,
+                Name = serviceType.Name
+            };
+        }
     }
