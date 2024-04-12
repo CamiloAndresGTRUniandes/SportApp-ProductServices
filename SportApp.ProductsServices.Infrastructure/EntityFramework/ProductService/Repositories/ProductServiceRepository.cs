@@ -23,7 +23,7 @@ using Microsoft.EntityFrameworkCore;
         public async Task<ProductService?> GetByIdAsync(Guid id)
         {
             var query = context.ProductServices.AsQueryable();
-            query.Where(x => x.Enabled && x.Id == id);
+            query = query.Where(x => x.Enabled && x.Id == id);
             var productService = await query.FirstOrDefaultAsync();
             if (productService != null)
             {
@@ -31,6 +31,11 @@ using Microsoft.EntityFrameworkCore;
                 await context.Entry(productService).Reference(x => x.GeographicInfo).LoadAsync();
                 await context.Entry(productService).Reference(x => x.TypeOfNutrition).LoadAsync();
                 await context.Entry(productService).Reference(x => x.ServiceType).Query().Include(c => c.Category).LoadAsync();
+
+                // Many-To-Many aggregations
+                await context.Entry(productService).Collection(p => p.ProductServiceAllergies).Query().Include(p => p.NutritionalAllergy).LoadAsync();
+                await context.Entry(productService).Collection(p => p.ProductServiceActivities).Query().Include(p => p.Activity).LoadAsync();
+                await context.Entry(productService).Collection(p => p.ProductServiceGoals).Query().Include(p => p.Goal).LoadAsync();
             }
             return productService;
         }

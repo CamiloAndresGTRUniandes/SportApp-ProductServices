@@ -12,14 +12,16 @@ using Domain.ProductService;
         public Guid CountryId { get; set; }
         public Guid StateId { get; set; }
         public Guid CityId { get; set; }
-
+        public Guid CategoryId { get; set; }
+        public ReferentialDto? Plan { get; set; }
+        public ReferentialDto? ServiceType { get; set; }
         public Guid? TypeOfNutritionId { get; init; }
         public Guid ServiceTypeId { get; init; }
         public int SportLevel { get; init; }
         public ICollection<Guid>? Activities { get; init; }
         public ICollection<Guid>? Goals { get; init; }
         public ICollection<Guid>? Allergies { get; init; }
-        public DateTime? StarDateTime { get; set; }
+        public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
 
         public static ICollection<ResponseGetProductService> Build(ICollection<ProductService> productServices)
@@ -32,13 +34,24 @@ using Domain.ProductService;
                 Picture = x.Picture.ToString(),
                 Price = (long)x.Price!,
                 PlanId = x.Plan.Id,
+                Plan = new ReferentialDto
+                {
+                    Id = x.Plan.Id,
+                    Name = x.Name.ToString()
+                },
+                CategoryId = x.ServiceType.Category.Id,
                 CountryId = x.GeographicInfo!.CountryId,
                 StateId = x.GeographicInfo!.StateId,
                 CityId = x.GeographicInfo.CityId,
                 TypeOfNutritionId = x.TypeOfNutrition != null ? x.TypeOfNutrition.Id : null,
                 ServiceTypeId = x.ServiceType.Id,
+                ServiceType = new ReferentialDto
+                {
+                    Id = x.ServiceType.Id,
+                    Name = x.ServiceType.Name.ToString()
+                },
                 SportLevel = x.SportLevel!.Id,
-                StarDateTime = x.StartDateTime!,
+                StartDateTime = x.StartDateTime!,
                 EndDateTime = x.EndDateTime!,
                 Activities = x.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
                 Goals = x.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
@@ -56,17 +69,24 @@ using Domain.ProductService;
                 Picture = productService.Picture.ToString(),
                 Price = (long)productService.Price!,
                 PlanId = productService.Plan.Id,
+                CategoryId = productService.ServiceType.Category.Id,
                 CountryId = productService.GeographicInfo!.CountryId,
                 StateId = productService.GeographicInfo!.StateId,
                 CityId = productService.GeographicInfo.CityId,
-                TypeOfNutritionId = productService.TypeOfNutrition!.Id,
+                TypeOfNutritionId = productService.TypeOfNutrition != null ? productService.TypeOfNutrition.Id : null,
                 ServiceTypeId = productService.ServiceType.Id,
                 SportLevel = productService.SportLevel!.Id,
-                StarDateTime = productService.StartDateTime!,
+                StartDateTime = productService.StartDateTime!,
                 EndDateTime = productService.EndDateTime!,
                 Activities = productService.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
                 Goals = productService.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
                 Allergies = productService.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList()
             };
         }
+    }
+
+    public class ReferentialDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
