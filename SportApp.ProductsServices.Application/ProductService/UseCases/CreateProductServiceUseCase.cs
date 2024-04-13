@@ -28,6 +28,7 @@ using NutritionalAllergy.Exceptions;
     {
         public async ValueTask<ProductService> ExecuteAsync(CreateProductServiceCommand request)
         {
+            var productService = await productServiceRepository.GetByIdAsync(request.Id);
             Plan? plan = null;
             TypeOfNutrition? typOfNutrition = null;
             var newGoals = new List<Goal>();
@@ -83,9 +84,16 @@ using NutritionalAllergy.Exceptions;
 
             var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
+            if (productService is null)
+            {
+                productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
+                    plan, typOfNutrition, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
+            }
+            else
+            {
+                productService.UpdateProductService(request, plan, typOfNutrition, serviceType);
+            }
 
-            var productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
-                plan, typOfNutrition, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
             productService.AddGoals(newGoals);
             productService.AddActivities(newActivities);
             productService.AddAllergies(newAllergies);

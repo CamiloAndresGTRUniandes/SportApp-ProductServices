@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.ProductService ;
 using Activities;
 using Allergies;
+using Commands;
 using Common;
 using Common.Enums;
 using Common.ValueObjects;
@@ -200,6 +201,50 @@ using ValueObjects;
                 return;
             }
             _productServiceAllergies.Add(ProductServiceNutritionalAllergies.Build(this, allergy));
+            SetModifiedIfNotAdded();
+        }
+
+        public void UpdateProductService(CreateProductServiceCommand request, Plan plan, TypeOfNutrition typeOfNutrition, ServiceType serviceType)
+        {
+            if (!Name.Equals(request.Name) && request.Name != null && request.Name != string.Empty)
+            {
+                Name = request.Name;
+            }
+            if (!Description.Equals(request.Description) && request.Description != null && request.Description != string.Empty)
+            {
+                Description = request.Description;
+            }
+            if (!Description.Equals(request.Description) && request.Description != null && request.Description != string.Empty)
+            {
+                Description = request.Description;
+            }
+            if (!Price.Equals(request.Price) && request.Price != null)
+            {
+                Price = request.Price;
+            }
+            if (!Picture.Equals(request.Picture) && request.Picture != null)
+            {
+                Picture = request.Picture;
+            }
+            if (Plan != plan)
+            {
+                Plan = plan;
+            }
+            if (TypeOfNutrition != typeOfNutrition && typeOfNutrition != null)
+            {
+                TypeOfNutrition = typeOfNutrition;
+            }
+            if (ServiceType != serviceType)
+            {
+                ServiceType = serviceType;
+            }
+            if (SportLevel != request.SportLevel)
+            {
+                SportLevel = request.SportLevel;
+            }
+            UpdatedBy = request.User;
+            StartDateTime = request.StartDateTime;
+            EndDateTime = request.EndDateTime;
             SetModifiedIfNotAdded();
         }
     }

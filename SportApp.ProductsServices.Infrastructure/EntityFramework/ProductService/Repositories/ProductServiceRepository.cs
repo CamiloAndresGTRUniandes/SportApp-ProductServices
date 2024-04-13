@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
             await context.SaveChangesAsync();
         }
 
-        public async Task<ProductService?> GetByIdAsync(Guid id)
+        public async Task<ProductService> GetByIdAsync(Guid id)
         {
             var query = context.ProductServices.AsQueryable();
             query = query.Where(x => x.Enabled && x.Id == id);
