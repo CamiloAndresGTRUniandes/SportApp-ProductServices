@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SportApp.ProductsServices.Domain\SportApp.ProductsServices.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Activity\Handlers\" />
+    <Folder Include="Activity\Exceptions\" />
+    <Folder Include="Goal\Interfaces\" />
+    <Folder Include="Goal\Exception\" />
+    <Folder Include="NutritionalAllergy\Exceptions\" />
+    <Folder Include="ProductService\Interfaces\" />
+    <Folder Include="ProductService\Commands\" />
+    <Folder Include="ProductService\Dtos\" />
+  </ItemGroup>
+
+</Project>
