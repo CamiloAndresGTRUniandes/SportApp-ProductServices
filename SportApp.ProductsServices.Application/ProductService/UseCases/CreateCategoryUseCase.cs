@@ -10,7 +10,7 @@ using Interfaces;
         [NotNull] ICategoryRepository categoryRepository
         ) : ICreateCategory
     {
-        public async ValueTask<Category> ExecuteAsync(CreateCategoryCommand request)
+        public async Task<Category> ExecuteAsync(CreateCategoryCommand request)
         {
             var category = await categoryRepository.GetByNameAsync(request.Name);
 
