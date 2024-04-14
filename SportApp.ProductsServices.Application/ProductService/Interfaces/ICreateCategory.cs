@@ -4,5 +4,5 @@ using Domain.ProductService.Commands;
 
     public interface ICreateCategory
     {
-        ValueTask<Category> ExecuteAsync(CreateCategoryCommand request);
+        Task<Category> ExecuteAsync(CreateCategoryCommand request);
     }
