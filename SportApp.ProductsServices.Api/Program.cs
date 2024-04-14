@@ -41,6 +41,7 @@ var builder = WebApplication.CreateBuilder(args);
     app.UseAuthorization();
     app.MapControllers();
     ApplyMigration();
+    app.MapGet("/", () => "Working fine!");
     app.Run();
     void ApplyMigration()
     {
