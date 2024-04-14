@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
     public class RequestCreateProductService
     {
+        public Guid? ProductId { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -23,7 +25,7 @@ using System.ComponentModel.DataAnnotations;
         public Guid CityId { get; set; }
 
         public Guid? PlanId { get; set; }
-        public string TypeOfNutritionId { get; set; }
+        public Guid? TypeOfNutritionId { get; set; }
         public int SportLevel { get; set; }
 
         [Required]

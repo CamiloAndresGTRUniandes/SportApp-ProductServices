@@ -23,7 +23,7 @@ using Middleware;
         {
             var command = new CreateProductServiceCommand
             {
-                Id = Guid.NewGuid(),
+                Id = request.ProductId.HasValue && request.ProductId != Guid.Empty ? request.ProductId.Value : Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
                 Picture = request.Picture,
@@ -33,7 +33,8 @@ using Middleware;
                 PlanId = request.PlanId,
                 Price = request.Price ?? 0,
                 ServiceTypeId = request.ServiceTypeId,
-                TypeOfNutritionId = request.TypeOfNutritionId != string.Empty ? Guid.Parse(request.TypeOfNutritionId) : null,
+                TypeOfNutritionId =
+                    request.TypeOfNutritionId.HasValue && request.TypeOfNutritionId != Guid.Empty ? request.TypeOfNutritionId.Value : null,
                 SportLevel = Enumeration.FromValue<SportLevel>(request.SportLevel),
                 User = request.User,
                 Activities = request.Activities,
