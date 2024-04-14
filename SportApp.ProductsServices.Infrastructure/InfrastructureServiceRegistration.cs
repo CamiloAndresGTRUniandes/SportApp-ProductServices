@@ -37,8 +37,6 @@ using Microsoft.Extensions.DependencyInjection;
                     );
             }
 
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
 
             services.AddScoped<IProductServiceRepository, ProductServiceRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
