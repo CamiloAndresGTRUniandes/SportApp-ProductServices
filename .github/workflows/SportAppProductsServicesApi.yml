@@ -41,7 +41,7 @@ jobs:
     - name: Generate Coverage Report
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator -reports:**/*.coverage.xml -targetdir:coverage -reporttypes:"HtmlInline_AzurePipelines"
+        reportgenerator -reports:**/*.cobertura.xml -targetdir:coverage -reporttypes:"HtmlInline_AzurePipelines"
     - name: Upload Coverage Report
       uses: actions/upload-artifact@v2
       with:
