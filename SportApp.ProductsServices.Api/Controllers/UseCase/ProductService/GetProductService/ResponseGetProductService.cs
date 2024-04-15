@@ -37,7 +37,7 @@ using Domain.ProductService;
                 Plan = new ReferentialDto
                 {
                     Id = x.Plan.Id,
-                    Name = x.Name.ToString()
+                    Name = x.Plan.Name.ToString()
                 },
                 CategoryId = x.ServiceType.Category.Id,
                 CountryId = x.GeographicInfo!.CountryId,
