@@ -37,7 +37,16 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
-      run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+      run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build --collect:"XPlat Code Coverage"
+    - name: Generate Coverage Report
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:**/*.coverage.xml -targetdir:coverage -reporttypes:"HtmlInline_AzurePipelines"
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: coverage
     - name: Publish
       run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Install Swashbuckle CLI .NET Global Tool
@@ -50,6 +59,26 @@ jobs:
       with:
         name: webapp
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+  coverage-check:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+    - name: Download Coverage Report
+      uses: actions/download-artifact@v2
+      with:
+        name: coverage-report
+
+    - name: Check Coverage Threshold
+      run: |
+        threshold=$(bash <(curl -s https://codecov.io/bash) -f ./coverage/coverage.opencover.xml -q)
+        if [[ $(echo "$threshold >= 90" | bc -l) -eq 1 ]]; then
+          echo "Coverage meets the threshold."
+        else
+          echo "Coverage does not meet the threshold."
+          exit 1
+        fi     
   # deploy to azure
   deploy:
     runs-on: ubuntu-latest
