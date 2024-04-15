@@ -41,6 +41,7 @@ var builder = WebApplication.CreateBuilder(args);
     app.UseAuthorization();
     app.MapControllers();
     ApplyMigration();
+    app.MapGet("/health", () => "Working fine!");
     app.Run();
     void ApplyMigration()
     {
