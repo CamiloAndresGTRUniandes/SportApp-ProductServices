@@ -5,6 +5,7 @@ using Domain.Allergies;
 using Domain.Common;
 using Domain.Common.ValueObjects;
 using Domain.Goals;
+using Domain.Nutrition;
 using Domain.ProductService;
 using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.ValueObjects;
@@ -87,6 +88,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<Country>().Configure();
             modelBuilder.Entity<State>().Configure();
             modelBuilder.Entity<City>().Configure();
+            modelBuilder.Entity<Meal>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();

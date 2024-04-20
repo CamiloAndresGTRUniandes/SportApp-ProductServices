@@ -6,6 +6,7 @@ using Common;
 using Common.Enums;
 using Common.ValueObjects;
 using Goals;
+using Nutrition;
 using ValueObjects;
 
     public class ProductService : BaseDomainModel
@@ -27,6 +28,7 @@ using ValueObjects;
             GeographicInfo.GeographicInfo? geographicInfo,
             Plan plan,
             TypeOfNutrition? typeOfNutrition,
+            NutritionalPlan? nutritionalPlan,
             ServiceType serviceType,
             SportLevel? sportLevel,
             Guid user,
@@ -43,6 +45,7 @@ using ValueObjects;
             Plan = plan;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
+            NutritionalPlan = nutritionalPlan;
             SportLevel = sportLevel;
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
@@ -60,6 +63,7 @@ using ValueObjects;
         public Plan Plan { get; private set; }
         public GeographicInfo.GeographicInfo? GeographicInfo { get; private set; }
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
+        public NutritionalPlan? NutritionalPlan { get; }
         public ServiceType ServiceType { get; private set; }
         public SportLevel? SportLevel { get; private set; }
         public DateTime? StartDateTime { get; set; }
@@ -92,6 +96,7 @@ using ValueObjects;
             GeographicInfo.GeographicInfo geographicInfo,
             Plan plan,
             TypeOfNutrition typeOfNutrition,
+            NutritionalPlan nutritionalPlan,
             ServiceType serviceType,
             SportLevel sportLevel,
             Guid user,
@@ -108,6 +113,7 @@ using ValueObjects;
                 geographicInfo,
                 plan,
                 typeOfNutrition,
+                nutritionalPlan,
                 serviceType,
                 sportLevel,
                 user,

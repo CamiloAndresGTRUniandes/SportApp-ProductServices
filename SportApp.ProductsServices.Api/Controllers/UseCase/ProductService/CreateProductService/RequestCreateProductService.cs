@@ -1,5 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.CreateProductService ;
 using System.ComponentModel.DataAnnotations;
+using Domain.ProductService.Commands;
 
     public class RequestCreateProductService
     {
@@ -31,6 +32,7 @@ using System.ComponentModel.DataAnnotations;
         [Required]
         public Guid ServiceTypeId { get; set; }
 
+        public NutritionalPlanDto? NutritionalPlan { get; set; }
         public ICollection<Guid>? Activities { get; set; } = new List<Guid>();
         public ICollection<Guid>? Goals { get; set; } = new List<Guid>();
         public ICollection<Guid>? NutritionalAllergies { get; set; } = new List<Guid>();

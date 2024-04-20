@@ -3,6 +3,7 @@
 using Common.Commands;
 using Common.Enums;
 using Common.ValueObjects;
+using Nutrition;
 using ValueObjects;
 
     public class CreateProductServiceCommand : IDomainRequest<ProductService>
@@ -18,6 +19,7 @@ using ValueObjects;
         public Guid StateId { get; set; }
         public Guid? PlanId { get; set; }
         public Guid? TypeOfNutritionId { get; set; }
+        public NutritionalPlanDto? NutritionalPlan { get; set; }
         public Guid ServiceTypeId { get; set; }
         public SportLevel SportLevel { get; set; }
         public DateTime? StartDateTime { get; set; }
@@ -25,4 +27,27 @@ using ValueObjects;
         public ICollection<Guid>? Activities { get; set; }
         public ICollection<Guid>? Goals { get; set; }
         public ICollection<Guid>? Allergies { get; set; }
+    }
+
+    public class NutritionalPlanDto
+    {
+        public Guid? Id { get; set; }
+        public ICollection<DayDto> Days { get; set; }
+    }
+
+    public abstract class DayDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public ICollection<MealDto> Meals { get; set; }
+    }
+
+    public abstract class MealDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Calories { get; set; }
+        public DishType DishType { get; set; }
+        public Uri Picture { get; set; }
     }

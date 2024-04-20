@@ -19,6 +19,7 @@
     <Folder Include="Common\Enums\" />
     <Folder Include="Goals\Commands\" />
     <Folder Include="Goals\Repositories\" />
+    <Folder Include="Nutrition\ValueObjects\" />
   </ItemGroup>
 
 </Project>
