@@ -37,7 +37,7 @@ using Goals;
             return nutritionalPlan;
         }
 
-        internal void AddDays(ICollection<Day> days)
+        public void AddDays(ICollection<Day> days)
         {
             foreach (var day in days)
             {

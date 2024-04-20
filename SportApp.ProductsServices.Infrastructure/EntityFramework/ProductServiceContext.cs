@@ -30,6 +30,9 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<NutritionalPlan> NutritionalPlans { get; set; }
+        public DbSet<Day> Days { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -89,6 +92,8 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<State>().Configure();
             modelBuilder.Entity<City>().Configure();
             modelBuilder.Entity<Meal>().Configure();
+            modelBuilder.Entity<Day>().Configure();
+            modelBuilder.Entity<NutritionalPlan>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();
@@ -97,5 +102,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<TrainingPlanGoals>().Configure();
             modelBuilder.Entity<TrainingPlanActivities>().Configure();
             modelBuilder.Entity<TrainingPlanUserTrainingPlans>().Configure();
+            modelBuilder.Entity<NutritionalPlanGoals>().Configure();
+            modelBuilder.Entity<NutritionalPlanUserNutritionalPlans>().Configure();
         }
     }

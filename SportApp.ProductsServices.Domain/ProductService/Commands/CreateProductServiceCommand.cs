@@ -3,7 +3,6 @@
 using Common.Commands;
 using Common.Enums;
 using Common.ValueObjects;
-using Nutrition;
 using ValueObjects;
 
     public class CreateProductServiceCommand : IDomainRequest<ProductService>
@@ -48,6 +47,6 @@ using ValueObjects;
         public string Name { get; set; }
         public string Description { get; set; }
         public int Calories { get; set; }
-        public DishType DishType { get; set; }
+        public int DishType { get; set; }
         public Uri Picture { get; set; }
     }
