@@ -1,26 +1,28 @@
 ﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.ProductService.GetProductService ;
 using Domain.ProductService;
+using Domain.ProductService.Commands;
 
     public class ResponseGetProductService
     {
-        public Guid ProductId { get; set; }
+        public Guid ProductId { get; init; }
         public string Name { get; init; }
         public string Description { get; init; }
         public long Price { get; init; }
         public string Picture { get; init; }
-        public Guid CountryId { get; set; }
-        public Guid StateId { get; set; }
-        public Guid CityId { get; set; }
-        public ReferentialDto? Category { get; set; }
-        public ReferentialDto? Plan { get; set; }
-        public ReferentialDto? ServiceType { get; set; }
+        public Guid CountryId { get; init; }
+        public Guid StateId { get; init; }
+        public Guid CityId { get; init; }
+        public ReferentialDto? Category { get; init; }
+        public ReferentialDto? Plan { get; init; }
+        public ReferentialDto? ServiceType { get; init; }
+        public NutritionalPlanDto? NutritionalPlan { get; init; }
         public Guid? TypeOfNutritionId { get; init; }
         public int SportLevel { get; init; }
         public ICollection<Guid>? Activities { get; init; }
         public ICollection<Guid>? Goals { get; init; }
         public ICollection<Guid>? Allergies { get; init; }
-        public DateTime? StartDateTime { get; set; }
-        public DateTime? EndDateTime { get; set; }
+        public DateTime? StartDateTime { get; init; }
+        public DateTime? EndDateTime { get; init; }
 
         public static ICollection<ResponseGetProductService> Build(ICollection<ProductService> productServices)
         {
@@ -55,7 +57,26 @@ using Domain.ProductService;
                 EndDateTime = x.EndDateTime!,
                 Activities = x.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
                 Goals = x.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
-                Allergies = x.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList()
+                Allergies = x.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList(),
+                NutritionalPlan = x.NutritionalPlan != null
+                    ? new NutritionalPlanDto
+                    {
+                        Days = x.NutritionalPlan.Day.Select(d => new DayDto
+                        {
+                            Id = d.Id,
+                            Name = d.Name.ToString(),
+                            Meals = d.Meal.Select(m => new MealDto
+                            {
+                                Id = m.Id,
+                                Name = m.Name.ToString(),
+                                Calories = m.Calories,
+                                Description = m.Description.ToString(),
+                                DishType = m.DishType.Id,
+                                Picture = m.Picture
+                            }).ToList()
+                        }).ToList()
+                    }
+                    : null
             }));
         }
 
@@ -92,7 +113,26 @@ using Domain.ProductService;
                 EndDateTime = productService.EndDateTime!,
                 Activities = productService.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
                 Goals = productService.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
-                Allergies = productService.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList()
+                Allergies = productService.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList(),
+                NutritionalPlan = productService.NutritionalPlan != null
+                    ? new NutritionalPlanDto
+                    {
+                        Days = productService.NutritionalPlan.Day.Select(d => new DayDto
+                        {
+                            Id = d.Id,
+                            Name = d.Name.ToString(),
+                            Meals = d.Meal.Select(m => new MealDto
+                            {
+                                Id = m.Id,
+                                Name = m.Name.ToString(),
+                                Calories = m.Calories,
+                                Description = m.Description.ToString(),
+                                DishType = m.DishType.Id,
+                                Picture = m.Picture
+                            }).ToList()
+                        }).ToList()
+                    }
+                    : null
             };
         }
     }
