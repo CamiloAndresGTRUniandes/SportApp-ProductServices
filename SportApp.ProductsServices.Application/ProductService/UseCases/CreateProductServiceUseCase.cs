@@ -91,20 +91,14 @@ using NutritionalAllergy.Exceptions;
             if (request.NutritionalPlan != null)
             {
                 nutritionalPlan = NutritionalPlan.Build(Guid.NewGuid(), request.User);
-                var days = new List<Day>();
-                foreach (var dayDto in request.NutritionalPlan.Days)
-                {
-                    var day = Day.Build(Guid.NewGuid(), dayDto.Name, request.User);
-                    var meals = new List<Meal>();
-                    foreach (var mealDto in dayDto.Meals)
-                    {
-                        var meal = Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
-                            Enumeration.FromValue<DishType>(mealDto.DishType), mealDto.Picture,
-                            request.User);
-                        meals.Add(meal);
-                    }
-                    days.Add(day);
-                }
+                var days = (from dayDto in request.NutritionalPlan.Days
+                    let day = Day.Build(Guid.NewGuid(), dayDto.Name, request.User)
+                    let meals =
+                        dayDto.Meals.Select(
+                            mealDto =>
+                                Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
+                                    Enumeration.FromValue<DishType>(mealDto.DishType), mealDto.Picture, request.User)).ToList()
+                    select day).ToList();
                 if (days.Any())
                 {
                     nutritionalPlan.AddDays(days);
