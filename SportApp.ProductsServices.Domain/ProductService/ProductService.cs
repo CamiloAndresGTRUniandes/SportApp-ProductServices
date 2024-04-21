@@ -63,7 +63,7 @@ using ValueObjects;
         public Plan Plan { get; private set; }
         public GeographicInfo.GeographicInfo? GeographicInfo { get; private set; }
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
-        public NutritionalPlan? NutritionalPlan { get; }
+        public NutritionalPlan? NutritionalPlan { get; private set; }
         public ServiceType ServiceType { get; private set; }
         public SportLevel? SportLevel { get; private set; }
         public DateTime? StartDateTime { get; set; }
