@@ -46,6 +46,6 @@ using ValueObjects;
         public string Name { get; set; }
         public string Description { get; set; }
         public int Calories { get; set; }
-        public int DishType { get; set; }
+        public string DishType { get; set; }
         public Uri Picture { get; set; }
     }
