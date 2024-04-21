@@ -113,7 +113,7 @@ using Microsoft.EntityFrameworkCore;
             foreach (var productService in productServices)
             {
                 await context.Entry(productService).Reference(e => e.Plan).LoadAsync();
-                await context.Entry(productService).Reference(e => e.NutritionalPlan).LoadAsync();
+                await context.Entry(productService).Reference(e => e.NutritionalPlan).Query().Include(x => x.Day).ThenInclude(x => x.Meal).LoadAsync();
                 await context.Entry(productService).Reference(e => e.TypeOfNutrition).LoadAsync();
                 await context.Entry(productService).Reference(e => e.GeographicInfo).LoadAsync();
                 await context.Entry(productService).Reference(e => e.ServiceType).Query().Include(x => x.Category).LoadAsync();
