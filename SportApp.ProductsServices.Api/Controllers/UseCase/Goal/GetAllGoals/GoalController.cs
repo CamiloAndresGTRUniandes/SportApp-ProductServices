@@ -18,10 +18,26 @@ using ProductService.GetGeographicComplementary;
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllNutritionTypesAsync(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllGoalsAsync(CancellationToken cancellationToken)
         {
             var query = new GetAllGoalsQuery();
-            var countries = await mediator.Send(query, cancellationToken);
-            return Ok(ResponseGetAllReferential.MapResponse(countries));
+            var goals = await mediator.Send(query, cancellationToken);
+            return Ok(ResponseGetAllReferential.MapResponse(goals));
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        [ProducesResponseType(typeof(List<ResponseGetAllReferential>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetGoalByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var query = new GetGoalByIdQuery
+            {
+                Id = id
+            };
+            var goal = await mediator.Send(query, cancellationToken);
+            return Ok(ResponseGetAllReferential.MapResponse(goal));
         }
     }

@@ -107,4 +107,13 @@ using Domain.ProductService.GeographicInfo;
                 Name = serviceType.Name
             };
         }
+
+        public static ResponseGetAllReferential MapResponse(Goal goal)
+        {
+            return new ResponseGetAllReferential
+            {
+                Id = goal.Id,
+                Name = goal.Name
+            };
+        }
     }
