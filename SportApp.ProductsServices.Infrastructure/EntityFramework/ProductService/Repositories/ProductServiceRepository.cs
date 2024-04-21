@@ -28,6 +28,7 @@ using Microsoft.EntityFrameworkCore;
             if (productService != null)
             {
                 await context.Entry(productService).Reference(x => x.Plan).LoadAsync();
+                await context.Entry(productService).Reference(e => e.NutritionalPlan).Query().Include(x => x.Day).ThenInclude(x => x.Meal).LoadAsync();
                 await context.Entry(productService).Reference(x => x.GeographicInfo).LoadAsync();
                 await context.Entry(productService).Reference(x => x.TypeOfNutrition).LoadAsync();
                 await context.Entry(productService).Reference(x => x.ServiceType).Query().Include(c => c.Category).LoadAsync();
