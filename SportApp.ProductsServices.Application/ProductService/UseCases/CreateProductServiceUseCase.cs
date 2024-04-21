@@ -99,7 +99,7 @@ using NutritionalAllergy.Exceptions;
                     foreach (var mealDto in dayDto.Meals)
                     {
                         var meal = Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
-                            Enumeration.FromValue<DishType>(mealDto.DishType), mealDto.Picture,
+                            Enumeration.ToEnumerator(mealDto.DishType, DishType.Breakfast), mealDto.Picture,
                             request.User);
                         meals.Add(meal);
                     }

@@ -71,7 +71,7 @@ using Domain.ProductService.Commands;
                                 Name = m.Name.ToString(),
                                 Calories = m.Calories,
                                 Description = m.Description.ToString(),
-                                DishType = m.DishType.Id,
+                                DishType = m.DishType.Name,
                                 Picture = m.Picture
                             }).ToList()
                         }).ToList()
@@ -127,7 +127,7 @@ using Domain.ProductService.Commands;
                                 Name = m.Name.ToString(),
                                 Calories = m.Calories,
                                 Description = m.Description.ToString(),
-                                DishType = m.DishType.Id,
+                                DishType = m.DishType.Name,
                                 Picture = m.Picture
                             }).ToList()
                         }).ToList()
