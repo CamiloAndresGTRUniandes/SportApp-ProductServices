@@ -30,18 +30,17 @@ using ValueObjects;
 
     public class NutritionalPlanDto
     {
-        public Guid? Id { get; set; }
         public ICollection<DayDto> Days { get; set; }
     }
 
-    public abstract class DayDto
+    public class DayDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public ICollection<MealDto> Meals { get; set; }
     }
 
-    public abstract class MealDto
+    public class MealDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -36,7 +36,7 @@ using Common.ValueObjects;
             return day;
         }
 
-        internal void AddMeals(ICollection<Meal> meals)
+        public void AddMeals(ICollection<Meal> meals)
         {
             foreach (var meal in meals)
             {
@@ -44,7 +44,7 @@ using Common.ValueObjects;
             }
         }
 
-        internal void AddMeal(Meal meal)
+        private void AddMeal(Meal meal)
         {
             if (meal is null)
             {
