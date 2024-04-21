@@ -12,7 +12,7 @@ using Domain.ProductService;
         public Guid CountryId { get; set; }
         public Guid StateId { get; set; }
         public Guid CityId { get; set; }
-        public Guid CategoryId { get; set; }
+        public ReferentialDto? Category { get; set; }
         public ReferentialDto? Plan { get; set; }
         public ReferentialDto? ServiceType { get; set; }
         public Guid? TypeOfNutritionId { get; init; }
@@ -39,7 +39,11 @@ using Domain.ProductService;
                     Id = x.Plan.Id,
                     Name = x.Plan.Name.ToString()
                 },
-                CategoryId = x.ServiceType.Category.Id,
+                Category = new ReferentialDto
+                {
+                    Id = x.ServiceType.Category.Id,
+                    Name = x.ServiceType.Category.Name.ToString()
+                },
                 CountryId = x.GeographicInfo!.CountryId,
                 StateId = x.GeographicInfo!.StateId,
                 CityId = x.GeographicInfo.CityId,
@@ -69,7 +73,11 @@ using Domain.ProductService;
                 Picture = productService.Picture.ToString(),
                 Price = (long)productService.Price!,
                 PlanId = productService.Plan.Id,
-                CategoryId = productService.ServiceType.Category.Id,
+                Category = new ReferentialDto
+                {
+                    Id = productService.ServiceType.Category.Id,
+                    Name = productService.ServiceType.Category.Name.ToString()
+                },
                 CountryId = productService.GeographicInfo!.CountryId,
                 StateId = productService.GeographicInfo!.StateId,
                 CityId = productService.GeographicInfo.CityId,

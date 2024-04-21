@@ -70,6 +70,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
                     Guid.Parse("60d40a85-78ca-4b75-b75f-76cee4896ead"),
                     "Servicios",
                     "Categoría para servicios de todo tipo",
+                    Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")),
+                Category.Build(
+                    Guid.Parse("03388722-321f-4b6a-963e-104eb73d17c2"),
+                    "Planes",
+                    "Categoría para planes de todo tipo",
                     Guid.Parse("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"))
                 );
         }

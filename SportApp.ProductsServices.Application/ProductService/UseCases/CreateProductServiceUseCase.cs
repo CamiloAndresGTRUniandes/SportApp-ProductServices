@@ -5,8 +5,10 @@ using Domain.Activities;
 using Domain.Activities.Repositories;
 using Domain.Allergies;
 using Domain.Allergies.Repositories;
+using Domain.Common;
 using Domain.Goals;
 using Domain.Goals.Repositories;
+using Domain.Nutrition;
 using Domain.ProductService;
 using Domain.ProductService.Commands;
 using Domain.ProductService.GeographicInfo;
@@ -84,10 +86,29 @@ using NutritionalAllergy.Exceptions;
 
             var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
+
+            NutritionalPlan nutritionalPlan = null;
+            if (request.NutritionalPlan != null)
+            {
+                nutritionalPlan = NutritionalPlan.Build(Guid.NewGuid(), request.User);
+                var days = (from dayDto in request.NutritionalPlan.Days
+                    let day = Day.Build(Guid.NewGuid(), dayDto.Name, request.User)
+                    let meals =
+                        dayDto.Meals.Select(
+                            mealDto =>
+                                Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
+                                    Enumeration.FromValue<DishType>(mealDto.DishType), mealDto.Picture, request.User)).ToList()
+                    select day).ToList();
+                if (days.Any())
+                {
+                    nutritionalPlan.AddDays(days);
+                }
+            }
+
             if (productService is null)
             {
                 productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
-                    plan, typOfNutrition, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
+                    plan, typOfNutrition, nutritionalPlan, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
             }
             else
             {

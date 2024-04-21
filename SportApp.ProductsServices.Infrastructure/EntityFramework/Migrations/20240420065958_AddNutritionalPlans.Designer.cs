@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportApp.ProductsServices.Infrastructure.EntityFramework;
 
@@ -11,9 +12,11 @@ using SportApp.ProductsServices.Infrastructure.EntityFramework;
 namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(ProductServiceContext))]
-    partial class ProductServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20240420065958_AddNutritionalPlans")]
+    partial class AddNutritionalPlans
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -464,56 +467,45 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("b56a2dd5-fbca-4892-9a4e-b621c40f83ec"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1248),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1101),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "This is the default category",
                             Enabled = true,
                             Name = "Default Category",
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1250),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1104),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("be8e2306-8bc9-49cc-8d43-a76820370994"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1253),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1108),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Categoría para eventos de todo tipo",
                             Enabled = true,
                             Name = "Eventos",
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1253),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1108),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("a649e6a9-f667-4e73-b8b6-3816c7e554eb"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1256),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1111),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Categoría para productos de todo tipo",
                             Enabled = true,
                             Name = "Productos",
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1256),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1111),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("60d40a85-78ca-4b75-b75f-76cee4896ead"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1259),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1113),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Categoría para servicios de todo tipo",
                             Enabled = true,
                             Name = "Servicios",
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1259),
-                            UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
-                        },
-                        new
-                        {
-                            Id = new Guid("03388722-321f-4b6a-963e-104eb73d17c2"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1262),
-                            CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
-                            Description = "Categoría para planes de todo tipo",
-                            Enabled = true,
-                            Name = "Planes",
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(1262),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(1114),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });
@@ -736,37 +728,37 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             Id = new Guid("672d4087-ac82-42b5-846e-64905d1a09b3"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(8051),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(7631),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Basic Plan",
                             Enabled = true,
                             Name = "Basic",
                             Price = 0L,
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(8052),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(7632),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("2c312559-173d-4239-a03d-2fdb3f219fa5"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(8055),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(7635),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Intermediate Plan",
                             Enabled = true,
                             Name = "Intermediate",
                             Price = 50L,
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(8056),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(7635),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         },
                         new
                         {
                             Id = new Guid("7ee7db76-77c2-4353-a509-ebe4fbe4aed4"),
-                            CreatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(8058),
+                            CreatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(7638),
                             CreatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6"),
                             Description = "Premium Plan",
                             Enabled = true,
                             Name = "Premium",
                             Price = 150L,
-                            UpdatedAt = new DateTime(2024, 4, 21, 6, 17, 2, 173, DateTimeKind.Utc).AddTicks(8059),
+                            UpdatedAt = new DateTime(2024, 4, 20, 6, 59, 58, 341, DateTimeKind.Utc).AddTicks(7638),
                             UpdatedBy = new Guid("3bfc0e87-e3bb-46b4-9f0a-b0d264fcd6b6")
                         });
                 });
@@ -811,9 +803,6 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<Guid?>("NutritionalPlanId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -851,8 +840,6 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GeographicInfoId");
-
-                    b.HasIndex("NutritionalPlanId");
 
                     b.HasIndex("PlanId");
 
@@ -1357,10 +1344,6 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("GeographicInfoId");
 
-                    b.HasOne("SportApp.ProductsServices.Domain.Nutrition.NutritionalPlan", "NutritionalPlan")
-                        .WithMany()
-                        .HasForeignKey("NutritionalPlanId");
-
                     b.HasOne("SportApp.ProductsServices.Domain.ProductService.Plan", "Plan")
                         .WithMany()
                         .HasForeignKey("PlanId")
@@ -1378,8 +1361,6 @@ namespace SportApp.ProductsServices.Infrastructure.EntityFramework.Migrations
                         .HasForeignKey("TypeOfNutritionId");
 
                     b.Navigation("GeographicInfo");
-
-                    b.Navigation("NutritionalPlan");
 
                     b.Navigation("Plan");
 

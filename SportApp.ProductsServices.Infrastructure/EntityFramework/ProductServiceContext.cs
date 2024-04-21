@@ -5,6 +5,7 @@ using Domain.Allergies;
 using Domain.Common;
 using Domain.Common.ValueObjects;
 using Domain.Goals;
+using Domain.Nutrition;
 using Domain.ProductService;
 using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.ValueObjects;
@@ -29,6 +30,9 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<NutritionalPlan> NutritionalPlans { get; set; }
+        public DbSet<Day> Days { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -87,6 +91,9 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<Country>().Configure();
             modelBuilder.Entity<State>().Configure();
             modelBuilder.Entity<City>().Configure();
+            modelBuilder.Entity<Meal>().Configure();
+            modelBuilder.Entity<Day>().Configure();
+            modelBuilder.Entity<NutritionalPlan>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();
@@ -95,5 +102,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<TrainingPlanGoals>().Configure();
             modelBuilder.Entity<TrainingPlanActivities>().Configure();
             modelBuilder.Entity<TrainingPlanUserTrainingPlans>().Configure();
+            modelBuilder.Entity<NutritionalPlanGoals>().Configure();
+            modelBuilder.Entity<NutritionalPlanUserNutritionalPlans>().Configure();
         }
     }
