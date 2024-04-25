@@ -31,14 +31,14 @@ using ValueObjects;
     public class NutritionalPlanDto
     {
         public Guid Id { get; set; }
-        public ICollection<DayDto> Days { get; set; }
+        public ICollection<DayDto>? Days { get; set; }
     }
 
     public class DayDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ICollection<MealDto> Meals { get; set; }
+        public ICollection<MealDto>? Meals { get; set; }
     }
 
     public class MealDto
@@ -46,7 +46,7 @@ using ValueObjects;
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Calories { get; set; }
+        public int Calories { get; set; } = 0;
         public string DishType { get; set; }
         public Uri Picture { get; set; }
     }

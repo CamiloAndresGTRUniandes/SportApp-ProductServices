@@ -50,6 +50,7 @@ using Microsoft.EntityFrameworkCore;
         {
             var productServices = new List<ProductService>();
             var query = context.ProductServices.AsQueryable();
+            query = query.Where(x => x.Enabled);
             if (parameters.Id.HasValue)
             {
                 query = query.Where(x => x.Id == parameters.Id.Value);
