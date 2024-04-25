@@ -23,7 +23,7 @@ using Microsoft.EntityFrameworkCore;
         {
             var query = context.ServiceType.AsQueryable();
             var serviceType = await query.FirstOrDefaultAsync(x => x.Enabled && x.Id == id);
-
+            await context.Entry(serviceType).Reference(x => x.Category).LoadAsync();
             return serviceType;
         }
 

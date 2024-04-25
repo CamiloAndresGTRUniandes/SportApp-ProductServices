@@ -249,13 +249,22 @@ using ValueObjects;
             {
                 SportLevel = request.SportLevel;
             }
-            if (NutritionalPlan!.Id != nutritionalPlan.Id)
-            {
-                NutritionalPlan = nutritionalPlan;
-            }
+            NutritionalPlan = nutritionalPlan;
             UpdatedBy = request.User;
             StartDateTime = request.StartDateTime;
             EndDateTime = request.EndDateTime;
+            SetModifiedIfNotAdded();
+        }
+
+        public void DeleteNutritionalPlan()
+        {
+            NutritionalPlan = null;
+            SetModifiedIfNotAdded();
+        }
+
+        public void Disable()
+        {
+            Enabled = false;
             SetModifiedIfNotAdded();
         }
     }

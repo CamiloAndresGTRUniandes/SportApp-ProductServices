@@ -47,7 +47,7 @@ using Microsoft.EntityFrameworkCore;
         {
             foreach (var entry in ChangeTracker.Entries<BaseDomainModel>())
             {
-                switch (entry.State)
+                switch (entry.Entity.EntityState)
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedAt = DateTime.Now;

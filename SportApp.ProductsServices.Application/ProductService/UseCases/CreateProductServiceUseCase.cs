@@ -9,6 +9,7 @@ using Domain.Common;
 using Domain.Goals;
 using Domain.Goals.Repositories;
 using Domain.Nutrition;
+using Domain.Nutrition.Repositories;
 using Domain.ProductService;
 using Domain.ProductService.Commands;
 using Domain.ProductService.GeographicInfo;
@@ -25,8 +26,11 @@ using NutritionalAllergy.Exceptions;
         [NotNull] IServiceTypeRepository serviceTypeRepository,
         [NotNull] IGoalRepository goalRepository,
         [NotNull] IActivityRepository activityRepository,
-        [NotNull] INutritionalAllergyRepository nutritionalAllergyRepository) : ICreateProductService
+        [NotNull] INutritionalAllergyRepository nutritionalAllergyRepository,
+        [NotNull] INutritionalPlanRepository nutritionalPlanRepository) : ICreateProductService
     {
+        private const string CategoryId = "03388722-321F-4B6A-963E-104EB73D17C2";
+
         public async ValueTask<ProductService> ExecuteAsync(CreateProductServiceCommand request)
         {
             var productService = await productServiceRepository.GetByIdAsync(request.Id);
@@ -41,7 +45,7 @@ using NutritionalAllergy.Exceptions;
             var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
 
-            var nutritionalPlan = CreateOrUpdateNutritionalPlanAsync(productService, request);
+            var nutritionalPlan = await CreateOrUpdateNutritionalPlanAsync(productService, serviceType, request);
 
             if (productService is null)
             {
@@ -50,6 +54,7 @@ using NutritionalAllergy.Exceptions;
             }
             else
             {
+                productService = await productServiceRepository.GetByIdAsync(productService.Id);
                 productService.UpdateProductService(request, plan, typOfNutrition, serviceType, nutritionalPlan);
             }
 
@@ -60,21 +65,26 @@ using NutritionalAllergy.Exceptions;
             return productService;
         }
 
-        private static NutritionalPlan CreateOrUpdateNutritionalPlanAsync(ProductService productService,
+        private async Task<NutritionalPlan> CreateOrUpdateNutritionalPlanAsync(ProductService productService, ServiceType? serviceType,
             CreateProductServiceCommand request)
         {
             NutritionalPlan nutritionalPlan = null;
             if (request.NutritionalPlan != null)
             {
-                if (productService == null)
+                if (productService != null)
+                {
+                    productService.DeleteNutritionalPlan();
+                    await productServiceRepository.SaveAndPublishAsync(productService);
+                }
+                if (serviceType!.Category.Id == Guid.Parse(CategoryId) && request.NutritionalPlan!.Days!.First().Name != string.Empty)
                 {
                     nutritionalPlan = NutritionalPlan.Build(Guid.NewGuid(), request.User);
                     var days = new List<Day>();
-                    foreach (var dayDto in request.NutritionalPlan.Days)
+                    foreach (var dayDto in request.NutritionalPlan.Days!)
                     {
                         var day = Day.Build(Guid.NewGuid(), dayDto.Name, request.User);
                         var meals = new List<Meal>();
-                        foreach (var mealDto in dayDto.Meals)
+                        foreach (var mealDto in dayDto.Meals!)
                         {
                             var meal = Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
                                 Enumeration.ToEnumerator(mealDto.DishType, DishType.Breakfast), mealDto.Picture,
@@ -91,15 +101,9 @@ using NutritionalAllergy.Exceptions;
                     {
                         nutritionalPlan.AddDays(days);
                     }
-                }
-                else
-                {
-                    if (productService.NutritionalPlan != null)
+                    if (productService != null)
                     {
-                        if (productService.NutritionalPlan.Id == request.NutritionalPlan.Id)
-                        {
-                            productService.NutritionalPlan.UpdateNutritionalPlan(request.NutritionalPlan, request.User);
-                        }
+                        await nutritionalPlanRepository.SaveAndPublishAsync(nutritionalPlan);
                     }
                 }
             }
