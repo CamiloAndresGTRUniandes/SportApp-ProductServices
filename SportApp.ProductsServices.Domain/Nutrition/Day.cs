@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.Nutrition ;
 using Common;
 using Common.ValueObjects;
+using ProductService.Commands;
 
     public class Day : BaseDomainModel
     {
@@ -55,6 +56,28 @@ using Common.ValueObjects;
             {
                 _meals.Add(meal);
             }
+            SetModifiedIfNotAdded();
+        }
+
+        public void UpdateDay(DayDto day, Guid user)
+        {
+            Name = day.Name;
+            foreach (var meal in day.Meals)
+            {
+                var existingMeal = _meals.FirstOrDefault(x => x.Id == meal.Id);
+                if (existingMeal != null)
+                {
+                    existingMeal.UpdateMeal(meal, user);
+                }
+                else
+                {
+                    var newMeal = Nutrition.Meal.Build(Guid.NewGuid(), meal.Name, meal.Description, meal.Calories,
+                        Enumeration.ToEnumerator(meal.DishType, DishType.Breakfast), meal.Picture, user);
+                    _meals.Add(newMeal);
+                }
+            }
+            UpdatedBy = user;
+            UpdatedAt = DateTime.Now;
             SetModifiedIfNotAdded();
         }
     }

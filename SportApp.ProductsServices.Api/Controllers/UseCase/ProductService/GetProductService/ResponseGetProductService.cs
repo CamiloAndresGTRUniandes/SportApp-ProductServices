@@ -61,6 +61,7 @@ using Domain.ProductService.Commands;
                 NutritionalPlan = x.NutritionalPlan != null
                     ? new NutritionalPlanDto
                     {
+                        Id = x.NutritionalPlan.Id,
                         Days = x.NutritionalPlan.Day.Select(d => new DayDto
                         {
                             Id = d.Id,
@@ -117,6 +118,7 @@ using Domain.ProductService.Commands;
                 NutritionalPlan = productService.NutritionalPlan != null
                     ? new NutritionalPlanDto
                     {
+                        Id = productService.NutritionalPlan.Id,
                         Days = productService.NutritionalPlan.Day.Select(d => new DayDto
                         {
                             Id = d.Id,

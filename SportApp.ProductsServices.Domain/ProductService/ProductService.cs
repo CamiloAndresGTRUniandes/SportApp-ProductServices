@@ -210,7 +210,8 @@ using ValueObjects;
             SetModifiedIfNotAdded();
         }
 
-        public void UpdateProductService(CreateProductServiceCommand request, Plan plan, TypeOfNutrition typeOfNutrition, ServiceType serviceType)
+        public void UpdateProductService(CreateProductServiceCommand request, Plan plan, TypeOfNutrition typeOfNutrition, ServiceType serviceType,
+            NutritionalPlan nutritionalPlan)
         {
             if (!Name.Equals(request.Name) && request.Name != null && request.Name != string.Empty)
             {
@@ -247,6 +248,10 @@ using ValueObjects;
             if (SportLevel != request.SportLevel)
             {
                 SportLevel = request.SportLevel;
+            }
+            if (NutritionalPlan!.Id != nutritionalPlan.Id)
+            {
+                NutritionalPlan = nutritionalPlan;
             }
             UpdatedBy = request.User;
             StartDateTime = request.StartDateTime;

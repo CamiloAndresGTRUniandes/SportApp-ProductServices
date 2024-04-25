@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.Nutrition ;
 using Common;
 using Goals;
+using ProductService.Commands;
 
     public class NutritionalPlan : BaseDomainModel
     {
@@ -45,7 +46,7 @@ using Goals;
             }
         }
 
-        internal void AddDay(Day day)
+        private void AddDay(Day day)
         {
             if (day == null)
             {
@@ -56,6 +57,31 @@ using Goals;
             {
                 _days.Add(day);
             }
+            SetModifiedIfNotAdded();
+        }
+
+        public void UpdateNutritionalPlan(NutritionalPlanDto newNutritionalPlan, Guid user)
+        {
+            foreach (var day in newNutritionalPlan.Days)
+            {
+                var existingDay = _days.FirstOrDefault(x => x.Id == day.Id);
+                if (existingDay != null)
+                {
+                    existingDay.UpdateDay(day, user);
+                }
+                else
+                {
+                    var newDay = Nutrition.Day.Build(Guid.NewGuid(), day.Name, user);
+                    newDay.AddMeals(
+                        day.Meals.Select(
+                            x =>
+                                Meal.Build(Guid.Empty, x.Name, x.Description, x.Calories, Enumeration.ToEnumerator(x.DishType, DishType.Breakfast),
+                                    x.Picture, user)).ToList());
+                    _days.Add(newDay);
+                }
+            }
+            UpdatedBy = user;
+            UpdatedAt = DateTime.Now;
             SetModifiedIfNotAdded();
         }
     }

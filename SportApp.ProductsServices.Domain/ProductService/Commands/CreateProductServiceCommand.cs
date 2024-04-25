@@ -30,6 +30,7 @@ using ValueObjects;
 
     public class NutritionalPlanDto
     {
+        public Guid Id { get; set; }
         public ICollection<DayDto> Days { get; set; }
     }
 

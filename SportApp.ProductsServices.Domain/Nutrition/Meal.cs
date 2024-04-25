@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Domain.Nutrition ;
 using Common;
 using Common.ValueObjects;
+using ProductService.Commands;
 using ProductService.ValueObjects;
 using ValueObjects;
 
@@ -50,5 +51,17 @@ using ValueObjects;
             var meal = new Meal(id, name, description, calories, dishType, picture, user);
             meal.SetAdded();
             return meal;
+        }
+
+        public void UpdateMeal(MealDto meal, Guid user)
+        {
+            Name = meal.Name;
+            Description = meal.Description;
+            Calories = meal.Calories;
+            Picture = meal.Picture;
+            DishType = Enumeration.ToEnumerator(meal.DishType, DishType.Breakfast);
+            UpdatedBy = user;
+            UpdatedAt = DateTime.UtcNow;
+            SetModifiedIfNotAdded();
         }
     }

@@ -22,7 +22,6 @@ using NutritionalAllergy.Exceptions;
         [NotNull] IProductServiceRepository productServiceRepository,
         [NotNull] IPlanRepository planRepository,
         [NotNull] ITypeOfNutritionRepository typeOfNutritionRepository,
-        [NotNull] IGeographicInfoRepository geographicInfoRepository,
         [NotNull] IServiceTypeRepository serviceTypeRepository,
         [NotNull] IGoalRepository goalRepository,
         [NotNull] IActivityRepository activityRepository,
@@ -31,11 +30,85 @@ using NutritionalAllergy.Exceptions;
         public async ValueTask<ProductService> ExecuteAsync(CreateProductServiceCommand request)
         {
             var productService = await productServiceRepository.GetByIdAsync(request.Id);
-            Plan? plan = null;
-            TypeOfNutrition? typOfNutrition = null;
-            var newGoals = new List<Goal>();
-            var newActivities = new List<Activity>();
-            var newAllergies = new List<NutritionalAllergy>();
+            var plan = await GetPlanAsync(request);
+            var typOfNutrition = await GetTypeOfNutritionAsync(request);
+            var newGoals = await GetGoalsAsync(request);
+            var newActivities = await GetActivitiesAsync(request);
+            var newAllergies = await GetAllergiesAsync(request);
+
+            var geographicInfo = GeographicInfo.Build(Guid.NewGuid(), request.CountryId, request.StateId, request.CityId, request.User);
+
+            var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
+                              throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
+
+            var nutritionalPlan = CreateOrUpdateNutritionalPlanAsync(productService, request);
+
+            if (productService is null)
+            {
+                productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
+                    plan, typOfNutrition, nutritionalPlan, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
+            }
+            else
+            {
+                productService.UpdateProductService(request, plan, typOfNutrition, serviceType, nutritionalPlan);
+            }
+
+            productService.AddGoals(newGoals);
+            productService.AddActivities(newActivities);
+            productService.AddAllergies(newAllergies);
+            await productServiceRepository.SaveAndPublishAsync(productService);
+            return productService;
+        }
+
+        private static NutritionalPlan CreateOrUpdateNutritionalPlanAsync(ProductService productService,
+            CreateProductServiceCommand request)
+        {
+            NutritionalPlan nutritionalPlan = null;
+            if (request.NutritionalPlan != null)
+            {
+                if (productService == null)
+                {
+                    nutritionalPlan = NutritionalPlan.Build(Guid.NewGuid(), request.User);
+                    var days = new List<Day>();
+                    foreach (var dayDto in request.NutritionalPlan.Days)
+                    {
+                        var day = Day.Build(Guid.NewGuid(), dayDto.Name, request.User);
+                        var meals = new List<Meal>();
+                        foreach (var mealDto in dayDto.Meals)
+                        {
+                            var meal = Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
+                                Enumeration.ToEnumerator(mealDto.DishType, DishType.Breakfast), mealDto.Picture,
+                                request.User);
+                            meals.Add(meal);
+                        }
+                        if (meals.Any())
+                        {
+                            day.AddMeals(meals);
+                        }
+                        days.Add(day);
+                    }
+                    if (days.Any())
+                    {
+                        nutritionalPlan.AddDays(days);
+                    }
+                }
+                else
+                {
+                    if (productService.NutritionalPlan != null)
+                    {
+                        if (productService.NutritionalPlan.Id == request.NutritionalPlan.Id)
+                        {
+                            productService.NutritionalPlan.UpdateNutritionalPlan(request.NutritionalPlan, request.User);
+                        }
+                    }
+                }
+            }
+            return nutritionalPlan;
+        }
+
+        private async Task<Plan> GetPlanAsync(CreateProductServiceCommand request)
+        {
+            Plan plan = null;
             if (request.PlanId.HasValue)
             {
                 plan = await planRepository.GetByIdAsync(request.PlanId.Value);
@@ -44,7 +117,12 @@ using NutritionalAllergy.Exceptions;
                     throw new PlanNotFoundConflictException(request.PlanId.Value);
                 }
             }
+            return plan;
+        }
 
+        private async Task<TypeOfNutrition> GetTypeOfNutritionAsync(CreateProductServiceCommand request)
+        {
+            TypeOfNutrition typOfNutrition = null;
             if (request.TypeOfNutritionId.HasValue)
             {
                 typOfNutrition = await typeOfNutritionRepository.GetByIdAsync(request.TypeOfNutritionId.Value);
@@ -53,7 +131,12 @@ using NutritionalAllergy.Exceptions;
                     throw new TypeOfNutritionNotFoundConflictException(request.TypeOfNutritionId.Value);
                 }
             }
+            return typOfNutrition;
+        }
 
+        private async Task<List<Goal>> GetGoalsAsync(CreateProductServiceCommand request)
+        {
+            var newGoals = new List<Goal>();
             if (request.Goals!.Count != 0)
             {
                 foreach (var goalId in request.Goals)
@@ -62,7 +145,12 @@ using NutritionalAllergy.Exceptions;
                     newGoals.Add(goal);
                 }
             }
+            return newGoals;
+        }
 
+        private async Task<List<Activity>> GetActivitiesAsync(CreateProductServiceCommand request)
+        {
+            var newActivities = new List<Activity>();
             if (request.Activities!.Count != 0)
             {
                 foreach (var activityId in request.Activities)
@@ -71,7 +159,12 @@ using NutritionalAllergy.Exceptions;
                     newActivities.Add(activity);
                 }
             }
+            return newActivities;
+        }
 
+        private async Task<List<NutritionalAllergy>> GetAllergiesAsync(CreateProductServiceCommand request)
+        {
+            var newAllergies = new List<NutritionalAllergy>();
             if (request.Allergies!.Count != 0)
             {
                 foreach (var allergyId in request.Allergies)
@@ -81,54 +174,6 @@ using NutritionalAllergy.Exceptions;
                     newAllergies.Add(allergy);
                 }
             }
-
-            var geographicInfo = GeographicInfo.Build(Guid.NewGuid(), request.CountryId, request.StateId, request.CityId, request.User);
-
-            var serviceType = await serviceTypeRepository.GetByIdAsync(request.ServiceTypeId) ??
-                              throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
-
-            NutritionalPlan nutritionalPlan = null;
-            if (request.NutritionalPlan != null)
-            {
-                nutritionalPlan = NutritionalPlan.Build(Guid.NewGuid(), request.User);
-                var days = new List<Day>();
-                foreach (var dayDto in request.NutritionalPlan.Days)
-                {
-                    var day = Day.Build(Guid.NewGuid(), dayDto.Name, request.User);
-                    var meals = new List<Meal>();
-                    foreach (var mealDto in dayDto.Meals)
-                    {
-                        var meal = Meal.Build(Guid.NewGuid(), mealDto.Name, mealDto.Description, mealDto.Calories,
-                            Enumeration.ToEnumerator(mealDto.DishType, DishType.Breakfast), mealDto.Picture,
-                            request.User);
-                        meals.Add(meal);
-                    }
-                    if (meals.Any())
-                    {
-                        day.AddMeals(meals);
-                    }
-                    days.Add(day);
-                }
-                if (days.Any())
-                {
-                    nutritionalPlan.AddDays(days);
-                }
-            }
-
-            if (productService is null)
-            {
-                productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
-                    plan, typOfNutrition, nutritionalPlan, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
-            }
-            else
-            {
-                productService.UpdateProductService(request, plan, typOfNutrition, serviceType);
-            }
-
-            productService.AddGoals(newGoals);
-            productService.AddActivities(newActivities);
-            productService.AddAllergies(newAllergies);
-            await productServiceRepository.SaveAndPublishAsync(productService);
-            return productService;
+            return newAllergies;
         }
     }
