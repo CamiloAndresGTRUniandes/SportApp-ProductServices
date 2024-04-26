@@ -4,7 +4,7 @@ using Common.Commands;
     public class GetProductServiceCommand : IDomainRequest<ICollection<ProductService>>
     {
         public Guid? Id { get; set; }
-        public Guid User { get; set; }
+        public Guid? User { get; set; }
         public ICollection<Guid> ServiceTypes { get; set; }
         public ICollection<Guid> Categories { get; set; }
         public ICollection<Guid> Activities { get; set; }

@@ -58,7 +58,7 @@ using Microsoft.EntityFrameworkCore;
                 await IncludeOperations(productServices);
                 return productServices;
             }
-            if (parameters.User != Guid.Empty)
+            if (parameters.User.HasValue && parameters.User.Value != Guid.Empty)
             {
                 query = query.Where(x => x.CreatedBy == parameters.User || x.UpdatedBy == parameters.User);
             }
