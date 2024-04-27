@@ -23,6 +23,7 @@ using Domain.ProductService.Commands;
         public ICollection<Guid>? Allergies { get; init; }
         public DateTime? StartDateTime { get; init; }
         public DateTime? EndDateTime { get; init; }
+        public Guid AssociateUserId { get; init; }
 
         public static ICollection<ResponseGetProductService> Build(ICollection<ProductService> productServices)
         {
@@ -58,6 +59,7 @@ using Domain.ProductService.Commands;
                 Activities = x.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
                 Goals = x.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
                 Allergies = x.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList(),
+                AssociateUserId = x.UpdatedBy ?? x.CreatedBy.Value,
                 NutritionalPlan = x.NutritionalPlan != null
                     ? new NutritionalPlanDto
                     {
@@ -115,6 +117,7 @@ using Domain.ProductService.Commands;
                 Activities = productService.ProductServiceActivities.Select(p => p.Activity.Id).ToList(),
                 Goals = productService.ProductServiceGoals.Select(p => p.Goal.Id).ToList(),
                 Allergies = productService.ProductServiceAllergies.Select(p => p.NutritionalAllergy.Id).ToList(),
+                AssociateUserId = productService.UpdatedBy ?? productService.CreatedBy.Value,
                 NutritionalPlan = productService.NutritionalPlan != null
                     ? new NutritionalPlanDto
                     {
