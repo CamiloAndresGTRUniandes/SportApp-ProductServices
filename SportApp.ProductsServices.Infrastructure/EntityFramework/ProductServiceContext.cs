@@ -9,6 +9,7 @@ using Domain.Nutrition;
 using Domain.ProductService;
 using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.ValueObjects;
+using Domain.Subscription;
 using Domain.Training;
 using Domain.Training.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<NutritionalPlan> NutritionalPlans { get; set; }
         public DbSet<Day> Days { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -94,6 +96,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<Meal>().Configure();
             modelBuilder.Entity<Day>().Configure();
             modelBuilder.Entity<NutritionalPlan>().Configure();
+            modelBuilder.Entity<Subscription>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();
