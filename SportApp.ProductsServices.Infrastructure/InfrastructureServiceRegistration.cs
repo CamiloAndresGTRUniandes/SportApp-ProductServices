@@ -5,17 +5,21 @@ using Application.Goal.Interfaces;
 using Application.Goal.UseCases;
 using Application.ProductService.Interfaces;
 using Application.ProductService.UseCases;
+using Application.Subscription.Interfaces;
+using Application.Subscription.UseCases;
 using Domain.Activities.Repositories;
 using Domain.Allergies.Repositories;
 using Domain.Goals.Repositories;
 using Domain.Nutrition.Repositories;
 using Domain.ProductService.Repositories;
+using Domain.Subscription.Repositories;
 using EntityFramework;
 using EntityFramework.Activity.Repositories;
 using EntityFramework.Goal.Repositories;
 using EntityFramework.Nutrition.Repositories;
 using EntityFramework.NutritionalAllergy.Repository;
 using EntityFramework.ProductService.Repositories;
+using EntityFramework.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +56,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
             services.AddScoped<INutritionalPlanRepository, NutritionalPlanRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
@@ -80,6 +85,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetServiceTypeById, GetServiceTypeByIdUseCase>();
             services.AddScoped<IGetGoalById, GetGoalByIdUseCase>();
             services.AddScoped<IDeleteProductService, DeleteProductServiceUseCase>();
+            services.AddScoped<ICreateSubscription, CreateSubscriptionUseCase>();
 
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
