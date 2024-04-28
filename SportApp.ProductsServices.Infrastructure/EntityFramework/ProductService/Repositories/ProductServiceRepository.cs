@@ -109,7 +109,7 @@ using Microsoft.EntityFrameworkCore;
                     c.StartDateTime!.Value.Date <= parameters.EndDateTime!.Value.Date);
             }
 
-            productServices = await query.ToListAsync();
+            productServices = await query.AsNoTracking().ToListAsync();
             await IncludeOperations(productServices);
             return productServices;
         }
