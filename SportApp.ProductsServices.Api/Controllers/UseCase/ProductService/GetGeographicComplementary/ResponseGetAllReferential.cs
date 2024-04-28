@@ -8,6 +8,7 @@ using Domain.ProductService.GeographicInfo;
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public long Price { get; set; }
 
         public static ICollection<ResponseGetAllReferential> MapResponse(ICollection<Country> countries)
         {
@@ -86,7 +87,8 @@ using Domain.ProductService.GeographicInfo;
             return new List<ResponseGetAllReferential>(plans.Select(x => new ResponseGetAllReferential
             {
                 Id = x.Id,
-                Name = x.Name.ToString()
+                Name = x.Name.ToString(),
+                Price = (long)x.Price
             }));
         }
 

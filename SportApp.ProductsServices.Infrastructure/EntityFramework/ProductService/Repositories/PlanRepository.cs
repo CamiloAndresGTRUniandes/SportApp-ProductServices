@@ -30,7 +30,7 @@ using Microsoft.EntityFrameworkCore;
         public async Task<ICollection<Plan>> GetAllActiveAsync()
         {
             var query = context.Plans.AsQueryable();
-            query = query.Where(x => x.Enabled);
+            query = query.Where(x => x.Enabled).OrderBy(x => x.Price);
             var plans = await query.ToListAsync();
 
             return plans;
