@@ -41,6 +41,7 @@ namespace SportApp.ProductsServices.Api.Middleware ;
         public static readonly int GoalNotFoundException = 3001;
         public static readonly int ActivityNotFoundException = 2001;
         public static readonly int NutritionalAllergyNotFoundException = 9001;
+        public static readonly int ExistingSubscriptionConflictException = 9002;
 
         /// <summary>
         /// Invalid Display Name

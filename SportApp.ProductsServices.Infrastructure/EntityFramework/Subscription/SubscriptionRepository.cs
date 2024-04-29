@@ -19,10 +19,16 @@ using Microsoft.EntityFrameworkCore;
             await context.SaveChangesAsync();
         }
 
-        public async Task<Subscription?> GetByUserIdAsync(Guid id)
+        public async Task<bool> GetActiveByUserIdAsync(Guid id, DateTime startDate, DateTime endDate)
         {
             var query = context.Subscriptions.AsQueryable();
-            var subscription = await query.FirstOrDefaultAsync(x => x.Enabled && x.User == id);
+            var subscription = await query.AnyAsync(x =>
+                x.Enabled &&
+                x.User == id &&
+                startDate <= x.EndDate);
+            //((startDate >= x.StartDate && startDate <= x.EndDate) ||
+            // (endDate >= x.StartDate && endDate <= x.EndDate) ||
+            // (startDate <= x.StartDate && endDate >= x.EndDate)));
 
             return subscription;
         }
