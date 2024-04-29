@@ -97,7 +97,8 @@ using Domain.ProductService.GeographicInfo;
             return new ResponseGetAllReferential
             {
                 Id = plan.Id,
-                Name = plan.Name
+                Name = plan.Name,
+                Price = (long)plan.Price
             };
         }
 

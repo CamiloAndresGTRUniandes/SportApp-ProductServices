@@ -5,6 +5,7 @@ using Application.Activity.Exceptions;
 using Application.Goal.Exception;
 using Application.NutritionalAllergy.Exceptions;
 using Application.ProductService.Exceptions;
+using Application.Subscription.Exceptions;
 using Domain.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -86,6 +87,7 @@ using Microsoft.Net.Http.Headers;
                 nameof(ActivityNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ActivityNotFoundException),
                 nameof(NutritionalAllergyNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.NutritionalAllergyNotFoundException),
                 nameof(ProductServiceNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ProductServiceNotFoundException),
+                nameof(ExistingSubscriptionConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ExistingSubscriptionConflictException),
 
                 //Service Unavailable
 

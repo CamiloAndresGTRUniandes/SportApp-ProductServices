@@ -25,7 +25,6 @@
     <Folder Include="ProductService\Commands\" />
     <Folder Include="ProductService\Dtos\" />
     <Folder Include="Subscription\Interfaces\" />
-    <Folder Include="Subscription\Exceptions\" />
     <Folder Include="Subscription\UseCases\" />
   </ItemGroup>
 
