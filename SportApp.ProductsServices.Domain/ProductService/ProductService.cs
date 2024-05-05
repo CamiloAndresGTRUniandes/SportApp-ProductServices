@@ -48,6 +48,7 @@ using ValueObjects;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
             NutritionalPlan = nutritionalPlan;
+            TrainingPlan = trainingPlan;
             SportLevel = sportLevel;
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
