@@ -1,13 +1,9 @@
 ﻿namespace SportApp.ProductsServices.Domain.Training ;
-using Activities;
 using Common;
-using Goals;
 using ValueObjects;
 
     public class TrainingPlan : BaseDomainModel
     {
-        private readonly List<TrainingPlanActivities> _trainingPlanActivities = new();
-        private readonly List<TrainingPlanGoals> _trainingPlanGoals = new();
         private readonly List<TrainingPlanUserTrainingPlans> _trainingPlanUserTrainingPlans = new();
         private readonly List<Training> _trainings = new();
 
@@ -33,8 +29,6 @@ using ValueObjects;
 
         public Age StartAge { get; set; }
         public Age EndAge { get; set; }
-        public IReadOnlyCollection<TrainingPlanActivities> TrainingPlanActivities => _trainingPlanActivities;
-        public IReadOnlyCollection<TrainingPlanGoals> TrainingPlanGoals => _trainingPlanGoals;
         public IReadOnlyCollection<TrainingPlanUserTrainingPlans> TrainingPlanUserTrainingPlans => _trainingPlanUserTrainingPlans;
         public IReadOnlyCollection<Training> Training => _trainings;
 

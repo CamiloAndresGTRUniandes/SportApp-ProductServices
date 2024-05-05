@@ -101,8 +101,6 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<ProductServiceActivities>().Configure();
             modelBuilder.Entity<ProductServiceGoals>().Configure();
             modelBuilder.Entity<ProductServiceNutritionalAllergies>().Configure();
-            modelBuilder.Entity<TrainingPlanGoals>().Configure();
-            modelBuilder.Entity<TrainingPlanActivities>().Configure();
             modelBuilder.Entity<TrainingPlanUserTrainingPlans>().Configure();
             modelBuilder.Entity<NutritionalPlanGoals>().Configure();
             modelBuilder.Entity<NutritionalPlanUserNutritionalPlans>().Configure();
