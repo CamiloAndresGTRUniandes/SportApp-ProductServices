@@ -26,6 +26,7 @@
     <Folder Include="EntityFramework\Migrations\" />
     <Folder Include="EntityFramework\Subscription\" />
     <Folder Include="EntityFramework\NutritionalAllergy\Repository\" />
+    <Folder Include="EntityFramework\Training\Repositories\" />
   </ItemGroup>
 
 </Project>

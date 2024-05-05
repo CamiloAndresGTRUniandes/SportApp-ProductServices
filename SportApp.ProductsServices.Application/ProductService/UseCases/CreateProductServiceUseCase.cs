@@ -14,6 +14,8 @@ using Domain.ProductService;
 using Domain.ProductService.Commands;
 using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.Repositories;
+using Domain.Training;
+using Domain.Training.Repositories;
 using Exceptions;
 using Goal.Exception;
 using Interfaces;
@@ -27,7 +29,8 @@ using NutritionalAllergy.Exceptions;
         [NotNull] IGoalRepository goalRepository,
         [NotNull] IActivityRepository activityRepository,
         [NotNull] INutritionalAllergyRepository nutritionalAllergyRepository,
-        [NotNull] INutritionalPlanRepository nutritionalPlanRepository) : ICreateProductService
+        [NotNull] INutritionalPlanRepository nutritionalPlanRepository,
+        [NotNull] ITrainingPlanRepository trainingPlanRepository) : ICreateProductService
     {
         private const string CategoryId = "03388722-321F-4B6A-963E-104EB73D17C2";
 
@@ -46,16 +49,17 @@ using NutritionalAllergy.Exceptions;
                               throw new ServiceTypeNotFoundConflictException(request.ServiceTypeId);
 
             var nutritionalPlan = await CreateOrUpdateNutritionalPlanAsync(productService, serviceType, request);
-
+            var trainingPlan = await CreateOrUpdateTrainingPlanAsync(productService, serviceType, request);
             if (productService is null)
             {
                 productService = ProductService.Build(request.Id, request.Name, request.Description, request.Price, request.Picture, geographicInfo,
-                    plan, typOfNutrition, nutritionalPlan, serviceType, request.SportLevel, request.User, request.StartDateTime, request.EndDateTime);
+                    plan, typOfNutrition, nutritionalPlan, trainingPlan, serviceType, request.SportLevel, request.User, request.StartDateTime,
+                    request.EndDateTime);
             }
             else
             {
                 productService = await productServiceRepository.GetByIdAsync(productService.Id);
-                productService.UpdateProductService(request, plan, typOfNutrition, serviceType, nutritionalPlan);
+                productService.UpdateProductService(request, plan, typOfNutrition, serviceType, nutritionalPlan, trainingPlan);
             }
 
             productService.AddGoals(newGoals);
@@ -108,6 +112,51 @@ using NutritionalAllergy.Exceptions;
                 }
             }
             return nutritionalPlan;
+        }
+
+        private async Task<TrainingPlan> CreateOrUpdateTrainingPlanAsync(ProductService productService, ServiceType? serviceType,
+            CreateProductServiceCommand request)
+        {
+            TrainingPlan trainingPlan = null;
+            if (request.TrainingPlan != null)
+            {
+                if (productService != null)
+                {
+                    productService.DeleteTrainingPlan();
+                    await productServiceRepository.SaveAndPublishAsync(productService);
+                }
+                if (serviceType!.Category.Id == Guid.Parse(CategoryId) && request.TrainingPlan!.Trainings!.First().Name != string.Empty)
+                {
+                    trainingPlan = TrainingPlan.Build(Guid.NewGuid(), request.TrainingPlan.StartAge, request.TrainingPlan.EndAge,
+                        request.User);
+                    var trainings = new List<Training>();
+                    foreach (var trainingDto in request.TrainingPlan.Trainings!)
+                    {
+                        var training = Training.Build(Guid.NewGuid(), trainingDto.Name, trainingDto.Description, request.User);
+                        var exercises = new List<Exercise>();
+                        foreach (var exerciseDto in trainingDto.Exercises!)
+                        {
+                            var exercise = Exercise.Build(Guid.NewGuid(), exerciseDto.Name, exerciseDto.Description, exerciseDto.Sets,
+                                exerciseDto.Repeats, exerciseDto.Weight, exerciseDto.Picture, request.User);
+                            exercises.Add(exercise);
+                        }
+                        if (exercises.Any())
+                        {
+                            training.AddExercises(exercises);
+                        }
+                        trainings.Add(training);
+                    }
+                    if (trainings.Any())
+                    {
+                        trainingPlan.AddTrainings(trainings);
+                    }
+                    if (productService != null)
+                    {
+                        await trainingPlanRepository.SaveAndPublishAsync(trainingPlan);
+                    }
+                }
+            }
+            return trainingPlan;
         }
 
         private async Task<Plan> GetPlanAsync(CreateProductServiceCommand request)

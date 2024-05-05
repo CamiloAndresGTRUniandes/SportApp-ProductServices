@@ -42,7 +42,8 @@ using Middleware;
                 Allergies = request.NutritionalAllergies,
                 StartDateTime = request.StartDateTime,
                 EndDateTime = request.EndDateTime,
-                NutritionalPlan = request.NutritionalPlan
+                NutritionalPlan = request.NutritionalPlan,
+                TrainingPlan = request.TrainingPlan
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();
