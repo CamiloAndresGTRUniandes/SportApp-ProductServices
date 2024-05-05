@@ -25,7 +25,7 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<TypeOfNutrition> TypeOfNutrition { get; init; }
         public DbSet<ServiceType> ServiceType { get; init; }
         public DbSet<Exercise> Exercises { get; init; }
-        public DbSet<Training> Trainings { get; init; }
+        public DbSet<Domain.Training.Training> Trainings { get; init; }
         public DbSet<TrainingPlan> TrainingPlans { get; init; }
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
@@ -86,7 +86,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<ServiceType>().Configure();
             modelBuilder.Entity<TypeOfNutrition>().Configure();
             modelBuilder.Entity<Exercise>().Configure();
-            modelBuilder.Entity<Training>().Configure();
+            modelBuilder.Entity<Domain.Training.Training>().Configure();
             modelBuilder.Entity<TrainingPlan>().Configure();
             modelBuilder.Entity<UserTrainingPlan>().Configure();
             modelBuilder.Entity<Country>().Configure();

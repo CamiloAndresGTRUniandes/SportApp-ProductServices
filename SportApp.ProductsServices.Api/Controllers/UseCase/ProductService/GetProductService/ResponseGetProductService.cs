@@ -16,6 +16,7 @@ using Domain.ProductService.Commands;
         public ReferentialDto? Plan { get; init; }
         public ReferentialDto? ServiceType { get; init; }
         public NutritionalPlanDto? NutritionalPlan { get; init; }
+        public TrainingPlanDto? TrainingPlan { get; init; }
         public Guid? TypeOfNutritionId { get; init; }
         public int SportLevel { get; init; }
         public ICollection<Guid>? Activities { get; init; }
@@ -79,6 +80,30 @@ using Domain.ProductService.Commands;
                             }).ToList()
                         }).ToList()
                     }
+                    : null,
+                TrainingPlan = x.TrainingPlan != null
+                    ? new TrainingPlanDto
+                    {
+                        Id = x.TrainingPlan.Id,
+                        StartAge = x.TrainingPlan.StartAge,
+                        EndAge = x.TrainingPlan.EndAge,
+                        Trainings = x.TrainingPlan.Training.Select(t => new TrainingDto
+                        {
+                            Id = t.Id,
+                            Name = t.Name,
+                            Description = t.Description,
+                            Exercises = t.Exercise.Select(e => new ExerciseDto
+                            {
+                                Id = e.Id,
+                                Name = e.Name,
+                                Description = e.Description,
+                                Picture = e.Picture,
+                                Repeats = e.Repeats,
+                                Sets = e.Sets,
+                                Weight = (long)e.Weight!
+                            }).ToList()
+                        }).ToList()
+                    }
                     : null
             }));
         }
@@ -134,6 +159,30 @@ using Domain.ProductService.Commands;
                                 Description = m.Description.ToString(),
                                 DishType = m.DishType.Name,
                                 Picture = m.Picture
+                            }).ToList()
+                        }).ToList()
+                    }
+                    : null,
+                TrainingPlan = productService.TrainingPlan != null
+                    ? new TrainingPlanDto
+                    {
+                        Id = productService.TrainingPlan.Id,
+                        StartAge = productService.TrainingPlan.StartAge,
+                        EndAge = productService.TrainingPlan.EndAge,
+                        Trainings = productService.TrainingPlan.Training.Select(t => new TrainingDto
+                        {
+                            Id = t.Id,
+                            Name = t.Name,
+                            Description = t.Description,
+                            Exercises = t.Exercise.Select(e => new ExerciseDto
+                            {
+                                Id = e.Id,
+                                Name = e.Name,
+                                Description = e.Description,
+                                Picture = e.Picture,
+                                Repeats = e.Repeats,
+                                Sets = e.Sets,
+                                Weight = (long)e.Weight!
                             }).ToList()
                         }).ToList()
                     }

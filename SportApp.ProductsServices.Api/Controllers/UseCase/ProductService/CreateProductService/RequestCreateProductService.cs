@@ -33,6 +33,7 @@ using Domain.ProductService.Commands;
         public Guid ServiceTypeId { get; set; }
 
         public NutritionalPlanDto? NutritionalPlan { get; set; }
+        public TrainingPlanDto? TrainingPlan { get; set; }
         public ICollection<Guid>? Activities { get; set; } = new List<Guid>();
         public ICollection<Guid>? Goals { get; set; } = new List<Guid>();
         public ICollection<Guid>? NutritionalAllergies { get; set; } = new List<Guid>();

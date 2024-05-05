@@ -13,6 +13,7 @@ using Domain.Goals.Repositories;
 using Domain.Nutrition.Repositories;
 using Domain.ProductService.Repositories;
 using Domain.Subscription.Repositories;
+using Domain.Training.Repositories;
 using EntityFramework;
 using EntityFramework.Activity.Repositories;
 using EntityFramework.Goal.Repositories;
@@ -20,6 +21,7 @@ using EntityFramework.Nutrition.Repositories;
 using EntityFramework.NutritionalAllergy.Repository;
 using EntityFramework.ProductService.Repositories;
 using EntityFramework.Subscription;
+using EntityFramework.Training.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,6 +59,7 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IStateRepository, StateRepository>();
             services.AddScoped<INutritionalPlanRepository, NutritionalPlanRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
