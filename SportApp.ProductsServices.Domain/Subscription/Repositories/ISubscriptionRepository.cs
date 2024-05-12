@@ -3,5 +3,5 @@
     public interface ISubscriptionRepository
     {
         Task SaveAndPublishAsync(Subscription subscription);
-        Task<bool> GetActiveByUserIdAsync(Guid id, DateTime starDate, DateTime endDate);
+        Task<Subscription> GetActiveByUserIdAsync(Guid id, DateTime starDate, DateTime endDate);
     }

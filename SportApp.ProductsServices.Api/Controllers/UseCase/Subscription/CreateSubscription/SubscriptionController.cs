@@ -1,6 +1,7 @@
 ﻿namespace SportApp.ProductsServices.Api.Controllers.UseCase.Subscription.CreateSubscription ;
 
 using System.Diagnostics.CodeAnalysis;
+using Domain.Subscription;
 using Domain.Subscription.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -29,5 +30,20 @@ using Middleware;
             };
             await mediator.Send(command, cancellationToken);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("{userId:guid}")]
+        [ProducesResponseType(typeof(SubscriptionResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetSubscriptionByUserIdAsync(Guid userId,
+            CancellationToken cancellationToken)
+        {
+            var command = new GetSubscriptionQuery
+            {
+                UserId = userId
+            };
+            var subscription = await mediator.Send(command, cancellationToken);
+            return Ok(SubscriptionResponse.Build(subscription));
         }
     }

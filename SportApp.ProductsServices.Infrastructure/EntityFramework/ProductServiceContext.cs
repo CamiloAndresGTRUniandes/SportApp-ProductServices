@@ -9,6 +9,7 @@ using Domain.Nutrition;
 using Domain.ProductService;
 using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.ValueObjects;
+using Domain.Recommendations;
 using Domain.Training;
 using Domain.Training.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -34,15 +35,16 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Day> Days { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Domain.Subscription.Subscription> Subscriptions { get; set; }
+        public DbSet<Recommendation> Recommendations { get; set; }
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Data Source=localhost; 
-        //        Initial Catalog=SportAppProductsAndServices;user id=sa;password=St3v3n.930102*;Trust Server Certificate=true")
-        //        .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
-        //        .EnableSensitiveDataLogging();
-        //}
+//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//{
+//    optionsBuilder.UseSqlServer(@"Data Source=localhost; 
+//        Initial Catalog=SportAppProductsAndServices;user id=sa;password=St3v3n.930102*;Trust Server Certificate=true")
+//        .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
+//        .EnableSensitiveDataLogging();
+//}
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using SportApp.ProductsServices.Api.Middleware;
 using SportApp.ProductsServices.Application;
+using SportApp.ProductsServices.Application.ProductService.Events;
+using SportApp.ProductsServices.Application.ProductService.Handlers.EventHandlers;
+using SportApp.ProductsServices.Domain.Common.Bus;
 using SportApp.ProductsServices.Infrastructure;
 using SportApp.ProductsServices.Infrastructure.EntityFramework;
+using SportApp.ProductsServices.Infrastructure.MessageBus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddSwaggerGen();
     builder.Services.AddMediatR();
     builder.Services.AddInfrastructureServices(builder.Configuration);
+    builder.Services.Configure<MessageBusSettings>(builder.Configuration.GetSection("MessageBusSettings"));
     builder.Services.AddApplicationServices();
     builder.Services.AddCors(
         options =>
@@ -29,6 +34,10 @@ var builder = WebApplication.CreateBuilder(args);
         }
         );
     var app = builder.Build();
+
+    var eventBus = app.Services.GetRequiredService<IEventBus>();
+    eventBus.Subscribe<UserProfileEventBus, UserProfileEventHandler>("sportapp.users.userupdate");
+
 // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
