@@ -88,6 +88,7 @@ using Microsoft.Net.Http.Headers;
                 nameof(NutritionalAllergyNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.NutritionalAllergyNotFoundException),
                 nameof(ProductServiceNotFoundConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ProductServiceNotFoundException),
                 nameof(ExistingSubscriptionConflictException) => (HttpStatusCode.Conflict, LoggingEvents.ExistingSubscriptionConflictException),
+                nameof(DowngradeSubscriptionConflictException) => (HttpStatusCode.Conflict, LoggingEvents.DowngradeSubscriptionConflictException),
 
                 //Service Unavailable
 
