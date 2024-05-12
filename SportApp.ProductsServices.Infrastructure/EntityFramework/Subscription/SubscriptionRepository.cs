@@ -25,7 +25,7 @@ using Microsoft.EntityFrameworkCore;
             query = query.Where(x => x.Enabled && x.User == id);
             query = query.Where(c =>
                 startDate.Date >= c.StartDate.Date &&
-                startDate.Date <= c.EndDate.Date);
+                startDate.Date <= c.EndDate.Date).OrderByDescending(x => x.EndDate);
 
             var subscription = await query.FirstOrDefaultAsync();
             if (subscription != null)
