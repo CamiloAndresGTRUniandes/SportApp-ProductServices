@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SportApp.ProductsServices.Api.Middleware;
 using SportApp.ProductsServices.Application;
-using SportApp.ProductsServices.Application.ProductService.Events;
 using SportApp.ProductsServices.Application.ProductService.Handlers.EventHandlers;
+using SportApp.ProductsServices.Application.Recommendation.Events;
 using SportApp.ProductsServices.Domain.Common.Bus;
 using SportApp.ProductsServices.Infrastructure;
 using SportApp.ProductsServices.Infrastructure.EntityFramework;

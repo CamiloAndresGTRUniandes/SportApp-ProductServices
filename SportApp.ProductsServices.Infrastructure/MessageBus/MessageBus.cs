@@ -18,7 +18,7 @@ using Newtonsoft.Json;
         private readonly Dictionary<string, string> _queuesClass = new();
 
 
-        public async Task<bool> Publish<T>(T @event) where T : Event
+        public async Task<bool> PublishAsync<T>(T @event) where T : Event
         {
             var client = new ServiceBusClient(_messageBusSettings.ConnectionString);
             var sender = client.CreateSender(@event.Queue);

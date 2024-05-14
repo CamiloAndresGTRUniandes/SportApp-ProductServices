@@ -1,7 +1,7 @@
-﻿namespace SportApp.ProductsServices.Application.ProductService.Events ;
+﻿namespace SportApp.ProductsServices.Application.Recommendation.Events ;
 using Constants;
 using Domain.Common.Events;
-using DTO;
+using ProductService.DTO;
 
     public class UserProfileEventBus : Event
     {
