@@ -1,11 +1,13 @@
 ﻿namespace SportApp.ProductsServices.Application.ProductService.Handlers.EventHandlers ;
+using System.Diagnostics.CodeAnalysis;
 using Domain.Common.Bus;
-using Events;
+using Recommendation.Events;
+using Recommendation.Interfaces;
 
-    public class UserProfileEventHandler : IEventHandler<UserProfileEventBus>
+    public class UserProfileEventHandler([NotNull] IProcessUserProfileEvent processUserProfileEvent) : IEventHandler<UserProfileEventBus>
     {
         public async Task Handle(UserProfileEventBus @event)
         {
-            throw new NotImplementedException();
+            await processUserProfileEvent.ExecuteAsync(@event);
         }
     }

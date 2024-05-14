@@ -3,10 +3,12 @@ using Application.Activity.Interfaces;
 using Application.Activity.UseCases;
 using Application.Goal.Interfaces;
 using Application.Goal.UseCases;
-using Application.ProductService.Events;
 using Application.ProductService.Handlers.EventHandlers;
 using Application.ProductService.Interfaces;
 using Application.ProductService.UseCases;
+using Application.Recommendation.Events;
+using Application.Recommendation.Interfaces;
+using Application.Recommendation.UseCases;
 using Application.Subscription.Interfaces;
 using Application.Subscription.UseCases;
 using Domain.Activities.Repositories;
@@ -15,6 +17,7 @@ using Domain.Common.Bus;
 using Domain.Goals.Repositories;
 using Domain.Nutrition.Repositories;
 using Domain.ProductService.Repositories;
+using Domain.Recommendations.Repositories;
 using Domain.Subscription.Repositories;
 using Domain.Training.Repositories;
 using EntityFramework;
@@ -23,6 +26,7 @@ using EntityFramework.Goal.Repositories;
 using EntityFramework.Nutrition.Repositories;
 using EntityFramework.NutritionalAllergy.Repository;
 using EntityFramework.ProductService.Repositories;
+using EntityFramework.Recommendation;
 using EntityFramework.Subscription;
 using EntityFramework.Training.Repositories;
 using MediatR;
@@ -78,6 +82,7 @@ using Microsoft.Extensions.Options;
             services.AddScoped<INutritionalPlanRepository, NutritionalPlanRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+            services.AddScoped<IRecommendationRepository, RecommendationRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
@@ -108,6 +113,7 @@ using Microsoft.Extensions.Options;
             services.AddScoped<IDeleteProductService, DeleteProductServiceUseCase>();
             services.AddScoped<ICreateSubscription, CreateSubscriptionUseCase>();
             services.AddScoped<IGetSubscription, GetSubscriptionUseCase>();
+            services.AddScoped<IProcessUserProfileEvent, ProcessUserProfileEventUseCase>();
 
             //MessageBus
             services.AddSingleton<IEventBus, MessageBus.MessageBus>(sp =>

@@ -19,7 +19,6 @@
     <Folder Include="Common\Enums\" />
     <Folder Include="Goals\Commands\" />
     <Folder Include="Goals\Repositories\" />
-    <Folder Include="Recommendations\" />
     <Folder Include="Nutrition\Repositories\" />
     <Folder Include="Nutrition\ValueObjects\" />
     <Folder Include="Subscription\Repositories\" />
