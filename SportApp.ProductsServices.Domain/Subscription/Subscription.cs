@@ -1,5 +1,6 @@
 ﻿namespace SportApp.ProductsServices.Domain.Subscription ;
 using Common;
+using Events;
 using ProductService;
 
     public class Subscription : BaseDomainModel
@@ -40,6 +41,25 @@ using ProductService;
         {
             var subscription = new Subscription(id, startDate, endDate, user, plan);
             subscription.SetAdded();
+            subscription.RaisePlanEnrollmentEvent();
             return subscription;
+        }
+
+        private void RaisePlanEnrollmentEvent()
+        {
+            var @event = new PlanEnrollmentEvent
+            {
+                SubscriptionId = Id,
+                StartDate = StartDate,
+                EndDate = EndDate,
+                UserId = CreatedBy!.Value,
+                Plan = new PlanDto
+                {
+                    Id = Plan.Id,
+                    Name = Plan.Name.ToString(),
+                    Price = (long)Plan.Price
+                }
+            };
+            RaiseDomainEvent(@event);
         }
     }

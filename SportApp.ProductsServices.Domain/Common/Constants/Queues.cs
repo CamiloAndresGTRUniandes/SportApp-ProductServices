@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Application.Constants ;
+﻿namespace SportApp.ProductsServices.Domain.Common.Constants ;
 
     public class Queues
     {
