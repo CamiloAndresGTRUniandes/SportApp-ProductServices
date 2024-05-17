@@ -1,8 +1,8 @@
-﻿namespace SportApp.ProductsServices.Application.Recommendation.Events ;
-using Constants;
+﻿namespace SportApp.ProductsServices.Application.Recommendation.Events;
+using Domain.Common.Constants;
 using Domain.Common.Events;
 
-    public class EventsUsersEventBus : Event
+public class EventsUsersEventBus : Event
     {
         public EventsUsersEventBus()
         {
