@@ -1,8 +1,10 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework ;
+using System.Diagnostics.CodeAnalysis;
 using Configurations;
 using Domain.Activities;
 using Domain.Allergies;
 using Domain.Common;
+using Domain.Common.Bus;
 using Domain.Common.ValueObjects;
 using Domain.Goals;
 using Domain.Nutrition;
@@ -13,7 +15,9 @@ using Domain.Training;
 using Domain.Training.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-    public class ProductServiceContext(DbContextOptions<ProductServiceContext> options) : DbContext(options)
+    public class ProductServiceContext(
+        DbContextOptions<ProductServiceContext> options,
+        [NotNull] IEventBus bus) : DbContext(options)
     {
         public DbSet<Domain.ProductService.ProductService> ProductServices { get; init; }
         public DbSet<Domain.Activities.Activity> Activities { get; init; }
@@ -45,7 +49,7 @@ using Microsoft.EntityFrameworkCore;
 //        .EnableSensitiveDataLogging();
 //}
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries<BaseDomainModel>())
             {
@@ -59,9 +63,13 @@ using Microsoft.EntityFrameworkCore;
                         entry.Entity.UpdatedAt = DateTime.Now;
                         break;
                 }
+                foreach (var message in entry.Entity.DomainMessages)
+                {
+                    await bus.PublishAsync(message);
+                }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,8 @@
 ﻿namespace SportApp.ProductsServices.Application.Recommendation.UseCases ;
 using System.Diagnostics.CodeAnalysis;
+using Domain.Common;
 using Domain.Common.Bus;
+using Domain.Common.Enums;
 using Domain.ProductService;
 using Domain.ProductService.Commands;
 using Domain.ProductService.Repositories;
@@ -64,8 +66,10 @@ using Interfaces;
             events =
                 events.Where(
                     x =>
-                        x.GeographicInfo!.CountryId == @event.CountryId && x.GeographicInfo.StateId == @event.StateId &&
-                        x.GeographicInfo.CityId == @event.CityId).ToList();
+                        x.GeographicInfo!.CountryId == @event.Country.Id && x.GeographicInfo.StateId == @event.State.Id &&
+                        x.GeographicInfo.CityId == @event.City.Id &&
+                        x.SportLevel! == Enumeration.ToEnumerator(@event.PhisicalLevel.Name, SportLevel.Basico))
+                    .ToList();
             return events;
         }
 
@@ -92,7 +96,12 @@ using Interfaces;
                 Goals = @event.Goals
             };
             var nutritionalPlans = await productServiceRepository.GetAllWithParametersAsync(parameters);
-            nutritionalPlans = nutritionalPlans.Where(x => @event.Age >= x.TrainingPlan!.StartAge && @event.Age <= x.TrainingPlan!.EndAge).ToList();
+            nutritionalPlans =
+                nutritionalPlans.Where(
+                    x =>
+                        @event.Age >= x.TrainingPlan!.StartAge && @event.Age <= x.TrainingPlan!.EndAge &&
+                        x.SportLevel! == Enumeration.ToEnumerator(@event.PhisicalLevel.Name, SportLevel.Basico))
+                    .ToList();
             return nutritionalPlans;
         }
     }
