@@ -21,6 +21,7 @@
     <Folder Include="Goals\Repositories\" />
     <Folder Include="Nutrition\Repositories\" />
     <Folder Include="Nutrition\ValueObjects\" />
+    <Folder Include="ProductService\Events\" />
     <Folder Include="Subscription\Repositories\" />
   </ItemGroup>
 

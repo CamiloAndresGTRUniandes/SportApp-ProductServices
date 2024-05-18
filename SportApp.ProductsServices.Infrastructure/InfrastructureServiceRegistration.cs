@@ -16,6 +16,7 @@ using Domain.Allergies.Repositories;
 using Domain.Common.Bus;
 using Domain.Goals.Repositories;
 using Domain.Nutrition.Repositories;
+using Domain.ProductService.Events;
 using Domain.ProductService.Repositories;
 using Domain.Recommendations.Repositories;
 using Domain.Subscription.Repositories;
@@ -123,7 +124,9 @@ using Microsoft.Extensions.Options;
                 return new MessageBus.MessageBus(sp.GetService<IMediator>(), scopeFactory, optionsFactory);
             });
             services.AddTransient<IEventHandler<UserProfileEventBus>, UserProfileEventHandler>();
+            services.AddTransient<IEventHandler<ProductServiceRecommendationCommand>, ProductServiceRecommendationCommandHandler>();
             services.AddTransient<UserProfileEventHandler>();
+            services.AddTransient<ProductServiceRecommendationCommandHandler>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

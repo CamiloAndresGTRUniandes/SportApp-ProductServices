@@ -5,6 +5,7 @@ using Commands;
 using Common;
 using Common.Enums;
 using Common.ValueObjects;
+using Events;
 using Goals;
 using Nutrition;
 using Training;
@@ -279,5 +280,15 @@ using ValueObjects;
         {
             Enabled = false;
             SetModifiedIfNotAdded();
+        }
+
+
+        public void RaiseProductServiceRecommendationCommand()
+        {
+            var @event = new ProductServiceRecommendationCommand
+            {
+                ProductId = Id
+            };
+            RaiseDomainEvent(@event);
         }
     }

@@ -4,6 +4,8 @@ using SportApp.ProductsServices.Application;
 using SportApp.ProductsServices.Application.ProductService.Handlers.EventHandlers;
 using SportApp.ProductsServices.Application.Recommendation.Events;
 using SportApp.ProductsServices.Domain.Common.Bus;
+using SportApp.ProductsServices.Domain.Common.Constants;
+using SportApp.ProductsServices.Domain.ProductService.Events;
 using SportApp.ProductsServices.Infrastructure;
 using SportApp.ProductsServices.Infrastructure.EntityFramework;
 using SportApp.ProductsServices.Infrastructure.MessageBus;
@@ -37,6 +39,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     var eventBus = app.Services.GetRequiredService<IEventBus>();
     eventBus.Subscribe<UserProfileEventBus, UserProfileEventHandler>("sportapp.users.userupdate");
+    eventBus.Subscribe<ProductServiceRecommendationCommand, ProductServiceRecommendationCommandHandler>("sportapp.productservice.commands");
 
 // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
