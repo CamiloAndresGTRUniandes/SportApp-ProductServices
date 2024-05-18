@@ -65,6 +65,7 @@ using NutritionalAllergy.Exceptions;
             productService.AddGoals(newGoals);
             productService.AddActivities(newActivities);
             productService.AddAllergies(newAllergies);
+            productService.RaiseProductServiceRecommendationCommand();
             await productServiceRepository.SaveAndPublishAsync(productService);
             return productService;
         }
