@@ -36,6 +36,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Services;
 
     public static class InfrastructureServiceRegistration
     {
@@ -115,6 +116,8 @@ using Microsoft.Extensions.Options;
             services.AddScoped<ICreateSubscription, CreateSubscriptionUseCase>();
             services.AddScoped<IGetSubscription, GetSubscriptionUseCase>();
             services.AddScoped<IProcessUserProfileEvent, ProcessUserProfileEventUseCase>();
+            services.AddScoped<IProcessProductServiceRecommendation, ProcessProductServiceRecommendationUseCase>();
+            services.AddScoped<IUsersService, UsersService>();
 
             //MessageBus
             services.AddSingleton<IEventBus, MessageBus.MessageBus>(sp =>

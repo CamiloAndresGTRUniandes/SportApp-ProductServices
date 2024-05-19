@@ -1,4 +1,4 @@
-﻿namespace SportApp.ProductsServices.Application.ProductService.DTO ;
+﻿namespace SportApp.ProductsServices.Domain.Common.DTO ;
 
     public class NutrionalProfileDTO
     {

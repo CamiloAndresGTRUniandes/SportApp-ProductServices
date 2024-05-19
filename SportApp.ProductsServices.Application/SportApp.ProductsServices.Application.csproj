@@ -25,7 +25,6 @@
     <Folder Include="ProductService\Commands\" />
     <Folder Include="ProductService\Dtos\" />
     <Folder Include="ProductService\DTO\" />
-    <Folder Include="Recommendation\Interfaces\" />
     <Folder Include="Recommendation\UseCases\" />
     <Folder Include="Subscription\Interfaces\" />
     <Folder Include="Subscription\UseCases\" />

@@ -30,6 +30,7 @@
     <Folder Include="EntityFramework\Subscription\" />
     <Folder Include="EntityFramework\NutritionalAllergy\Repository\" />
     <Folder Include="EntityFramework\Training\Repositories\" />
+    <Folder Include="Services\Constants\" />
   </ItemGroup>
 
 </Project>
