@@ -2,6 +2,6 @@
 
     public interface IRecommendationRepository
     {
-        Task SaveAndPublishAsync(ICollection<Recommendation> recommendationList);
+        Task SaveAndPublishAsync(Recommendation recommendation);
         Task<ICollection<Recommendation>> GetAllActiveAsync();
     }

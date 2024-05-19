@@ -6,10 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
     public class RecommendationRepository([NotNull] ProductServiceContext context) : IRecommendationRepository
     {
-        public async Task SaveAndPublishAsync(ICollection<Recommendation> recommendationList)
+        public async Task SaveAndPublishAsync(Recommendation recommendation)
         {
-            foreach (var recommendation in recommendationList)
-            {
+
                 if (recommendation.EntityState is EntityState.Added)
                 {
                     await context.Recommendations.AddAsync(recommendation);
@@ -18,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
                 {
                     context.Recommendations.Attach(recommendation);
                 }
-            }
+            
             await context.SaveChangesAsync();
         }
 
