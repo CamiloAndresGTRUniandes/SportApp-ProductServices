@@ -105,6 +105,7 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<Day>().Configure();
             modelBuilder.Entity<NutritionalPlan>().Configure();
             modelBuilder.Entity<Domain.Subscription.Subscription>().Configure();
+            modelBuilder.Entity<Domain.Recommendations.Recommendation>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();

@@ -48,8 +48,8 @@ using Interfaces;
                         Type = "Suggestion",
                         UserId = recommendation.User.ToString()
                     });
+                await recommendationRepository.SaveAndPublishAsync(recommendation);
             }
-            await recommendationRepository.SaveAndPublishAsync(recommendations);
         }
 
         private async Task<IEnumerable<ProductService>> GetEventsAsync(UserProfileEventBus @event)
