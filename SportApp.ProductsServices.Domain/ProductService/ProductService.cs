@@ -5,7 +5,10 @@ using Commands;
 using Common;
 using Common.Enums;
 using Common.ValueObjects;
+using Events;
 using Goals;
+using Nutrition;
+using Training;
 using ValueObjects;
 
     public class ProductService : BaseDomainModel
@@ -27,6 +30,8 @@ using ValueObjects;
             GeographicInfo.GeographicInfo? geographicInfo,
             Plan plan,
             TypeOfNutrition? typeOfNutrition,
+            NutritionalPlan? nutritionalPlan,
+            TrainingPlan? trainingPlan,
             ServiceType serviceType,
             SportLevel? sportLevel,
             Guid user,
@@ -43,6 +48,8 @@ using ValueObjects;
             Plan = plan;
             ServiceType = serviceType;
             TypeOfNutrition = typeOfNutrition;
+            NutritionalPlan = nutritionalPlan;
+            TrainingPlan = trainingPlan;
             SportLevel = sportLevel;
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
@@ -60,6 +67,8 @@ using ValueObjects;
         public Plan Plan { get; private set; }
         public GeographicInfo.GeographicInfo? GeographicInfo { get; private set; }
         public TypeOfNutrition? TypeOfNutrition { get; private set; }
+        public NutritionalPlan? NutritionalPlan { get; private set; }
+        public TrainingPlan? TrainingPlan { get; private set; }
         public ServiceType ServiceType { get; private set; }
         public SportLevel? SportLevel { get; private set; }
         public DateTime? StartDateTime { get; set; }
@@ -92,6 +101,8 @@ using ValueObjects;
             GeographicInfo.GeographicInfo geographicInfo,
             Plan plan,
             TypeOfNutrition typeOfNutrition,
+            NutritionalPlan nutritionalPlan,
+            TrainingPlan trainingPlan,
             ServiceType serviceType,
             SportLevel sportLevel,
             Guid user,
@@ -108,6 +119,8 @@ using ValueObjects;
                 geographicInfo,
                 plan,
                 typeOfNutrition,
+                nutritionalPlan,
+                trainingPlan,
                 serviceType,
                 sportLevel,
                 user,
@@ -204,7 +217,8 @@ using ValueObjects;
             SetModifiedIfNotAdded();
         }
 
-        public void UpdateProductService(CreateProductServiceCommand request, Plan plan, TypeOfNutrition typeOfNutrition, ServiceType serviceType)
+        public void UpdateProductService(CreateProductServiceCommand request, Plan plan, TypeOfNutrition typeOfNutrition, ServiceType serviceType,
+            NutritionalPlan nutritionalPlan, TrainingPlan trainingPlan)
         {
             if (!Name.Equals(request.Name) && request.Name != null && request.Name != string.Empty)
             {
@@ -242,9 +256,39 @@ using ValueObjects;
             {
                 SportLevel = request.SportLevel;
             }
+            NutritionalPlan = nutritionalPlan;
+            TrainingPlan = trainingPlan;
             UpdatedBy = request.User;
             StartDateTime = request.StartDateTime;
             EndDateTime = request.EndDateTime;
             SetModifiedIfNotAdded();
+        }
+
+        public void DeleteNutritionalPlan()
+        {
+            NutritionalPlan = null;
+            SetModifiedIfNotAdded();
+        }
+
+        public void DeleteTrainingPlan()
+        {
+            TrainingPlan = null;
+            SetModifiedIfNotAdded();
+        }
+
+        public void Disable()
+        {
+            Enabled = false;
+            SetModifiedIfNotAdded();
+        }
+
+
+        public void RaiseProductServiceRecommendationCommand()
+        {
+            var @event = new ProductServiceRecommendationCommand
+            {
+                ProductId = Id
+            };
+            RaiseDomainEvent(@event);
         }
     }

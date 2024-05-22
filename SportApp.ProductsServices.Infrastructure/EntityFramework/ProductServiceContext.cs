@@ -1,10 +1,13 @@
 ﻿namespace SportApp.ProductsServices.Infrastructure.EntityFramework ;
+using System.Diagnostics.CodeAnalysis;
 using Configurations;
 using Domain.Activities;
 using Domain.Allergies;
 using Domain.Common;
+using Domain.Common.Bus;
 using Domain.Common.ValueObjects;
 using Domain.Goals;
+using Domain.Nutrition;
 using Domain.ProductService;
 using Domain.ProductService.GeographicInfo;
 using Domain.ProductService.ValueObjects;
@@ -12,7 +15,9 @@ using Domain.Training;
 using Domain.Training.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-    public class ProductServiceContext(DbContextOptions<ProductServiceContext> options) : DbContext(options)
+    public class ProductServiceContext(
+        DbContextOptions<ProductServiceContext> options,
+        [NotNull] IEventBus bus) : DbContext(options)
     {
         public DbSet<Domain.ProductService.ProductService> ProductServices { get; init; }
         public DbSet<Domain.Activities.Activity> Activities { get; init; }
@@ -24,26 +29,31 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<TypeOfNutrition> TypeOfNutrition { get; init; }
         public DbSet<ServiceType> ServiceType { get; init; }
         public DbSet<Exercise> Exercises { get; init; }
-        public DbSet<Training> Trainings { get; init; }
+        public DbSet<Domain.Training.Training> Trainings { get; init; }
         public DbSet<TrainingPlan> TrainingPlans { get; init; }
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<NutritionalPlan> NutritionalPlans { get; set; }
+        public DbSet<Day> Days { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<Domain.Subscription.Subscription> Subscriptions { get; set; }
+        public DbSet<Domain.Recommendations.Recommendation> Recommendations { get; set; }
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Data Source=localhost; 
-        //        Initial Catalog=SportAppProductsAndServices;user id=sa;password=St3v3n.930102*;Trust Server Certificate=true")
-        //        .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
-        //        .EnableSensitiveDataLogging();
-        //}
+//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//{
+//    optionsBuilder.UseSqlServer(@"Data Source=localhost; 
+//        Initial Catalog=SportAppProductsAndServices;user id=sa;password=St3v3n.930102*;Trust Server Certificate=true")
+//        .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
+//        .EnableSensitiveDataLogging();
+//}
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries<BaseDomainModel>())
             {
-                switch (entry.State)
+                switch (entry.Entity.EntityState)
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedAt = DateTime.Now;
@@ -53,9 +63,13 @@ using Microsoft.EntityFrameworkCore;
                         entry.Entity.UpdatedAt = DateTime.Now;
                         break;
                 }
+                foreach (var message in entry.Entity.DomainMessages)
+                {
+                    await bus.PublishAsync(message);
+                }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,19 +95,24 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<ServiceType>().Configure();
             modelBuilder.Entity<TypeOfNutrition>().Configure();
             modelBuilder.Entity<Exercise>().Configure();
-            modelBuilder.Entity<Training>().Configure();
+            modelBuilder.Entity<Domain.Training.Training>().Configure();
             modelBuilder.Entity<TrainingPlan>().Configure();
             modelBuilder.Entity<UserTrainingPlan>().Configure();
             modelBuilder.Entity<Country>().Configure();
             modelBuilder.Entity<State>().Configure();
             modelBuilder.Entity<City>().Configure();
+            modelBuilder.Entity<Meal>().Configure();
+            modelBuilder.Entity<Day>().Configure();
+            modelBuilder.Entity<NutritionalPlan>().Configure();
+            modelBuilder.Entity<Domain.Subscription.Subscription>().Configure();
+            modelBuilder.Entity<Domain.Recommendations.Recommendation>().Configure();
 
             // Many-To-Many
             modelBuilder.Entity<ProductServiceActivities>().Configure();
             modelBuilder.Entity<ProductServiceGoals>().Configure();
             modelBuilder.Entity<ProductServiceNutritionalAllergies>().Configure();
-            modelBuilder.Entity<TrainingPlanGoals>().Configure();
-            modelBuilder.Entity<TrainingPlanActivities>().Configure();
             modelBuilder.Entity<TrainingPlanUserTrainingPlans>().Configure();
+            modelBuilder.Entity<NutritionalPlanGoals>().Configure();
+            modelBuilder.Entity<NutritionalPlanUserNutritionalPlans>().Configure();
         }
     }

@@ -1,16 +1,9 @@
 ﻿namespace SportApp.ProductsServices.Domain.Training ;
-using Activities;
 using Common;
-using Common.Enums;
-using Common.ValueObjects;
-using Goals;
-using ProductService.ValueObjects;
 using ValueObjects;
 
     public class TrainingPlan : BaseDomainModel
     {
-        private readonly List<TrainingPlanActivities> _trainingPlanActivities = new();
-        private readonly List<TrainingPlanGoals> _trainingPlanGoals = new();
         private readonly List<TrainingPlanUserTrainingPlans> _trainingPlanUserTrainingPlans = new();
         private readonly List<Training> _trainings = new();
 
@@ -20,19 +13,13 @@ using ValueObjects;
 
         private TrainingPlan(
             Guid id,
-            Name name,
-            Description description,
             Age startAge,
             Age endAge,
-            SportLevel sportLevel,
             Guid user)
         {
             Id = id;
-            Name = name;
-            Description = description;
             StartAge = startAge;
             EndAge = endAge;
-            SportLevel = sportLevel;
             CreatedBy = user;
             UpdatedBy = user;
             CreatedAt = DateTime.UtcNow;
@@ -40,31 +27,23 @@ using ValueObjects;
             Enabled = true;
         }
 
-        public Name Name { get; set; }
-        public Description Description { get; set; }
         public Age StartAge { get; set; }
         public Age EndAge { get; set; }
-        public SportLevel SportLevel { get; set; }
-        public IReadOnlyCollection<TrainingPlanActivities> TrainingPlanActivities => _trainingPlanActivities;
-        public IReadOnlyCollection<TrainingPlanGoals> TrainingPlanGoals => _trainingPlanGoals;
         public IReadOnlyCollection<TrainingPlanUserTrainingPlans> TrainingPlanUserTrainingPlans => _trainingPlanUserTrainingPlans;
         public IReadOnlyCollection<Training> Training => _trainings;
 
         public static TrainingPlan Build(
             Guid id,
-            Name name,
-            Description description,
             Age startAge,
             Age endAge,
-            SportLevel sportLevel,
             Guid user)
         {
-            var trainingPlan = new TrainingPlan(id, name, description, startAge, endAge, sportLevel, user);
+            var trainingPlan = new TrainingPlan(id, startAge, endAge, user);
             trainingPlan.SetAdded();
             return trainingPlan;
         }
 
-        internal void AddTraining(Training training)
+        private void AddTraining(Training training)
         {
             if (training is null)
             {
@@ -76,5 +55,13 @@ using ValueObjects;
                 _trainings.Add(training);
             }
             SetModifiedIfNotAdded();
+        }
+
+        public void AddTrainings(ICollection<Training> trainings)
+        {
+            foreach (var training in trainings)
+            {
+                AddTraining(training);
+            }
         }
     }

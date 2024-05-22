@@ -1,9 +1,10 @@
 ﻿namespace SportApp.ProductsServices.Domain.Common ;
-using SafeFleet.MediaManagement.Domain.SharedKernel;
+using System.ComponentModel.DataAnnotations.Schema;
+using Events;
 
     public class BaseDomainModel : ObjectWithState, IComparable
     {
-        private readonly List<IDomainMessage> _domainMessages = new();
+        private readonly List<Event> _domainMessages = new();
 
         protected BaseDomainModel()
         {
@@ -25,7 +26,9 @@ using SafeFleet.MediaManagement.Domain.SharedKernel;
             Enabled = enabled;
         }
 
-        public IReadOnlyList<IDomainMessage> DomainMessages => _domainMessages;
+        [NotMapped]
+        public IReadOnlyList<Event> DomainMessages => _domainMessages;
+
         public Guid Id { get; init; }
 
         public DateTime CreatedAt { get; set; }
@@ -43,17 +46,17 @@ using SafeFleet.MediaManagement.Domain.SharedKernel;
             return obj == null ? -1 : Id.CompareTo(((BaseDomainModel)obj).Id);
         }
 
-        internal void RaiseDomainEvent(IDomainMessage domainEvent)
+        internal void RaiseDomainEvent(Event domainEvent)
         {
             _domainMessages.Add(domainEvent);
         }
 
-        internal void InsertAtFirst(IDomainMessage domainEvent)
+        internal void InsertAtFirst(Event domainEvent)
         {
             _domainMessages.Insert(0, domainEvent);
         }
 
-        internal void RemoveDomainEvent(IDomainMessage domainEvent)
+        internal void RemoveDomainEvent(Event domainEvent)
         {
             _domainMessages.Remove(domainEvent);
         }

@@ -41,7 +41,7 @@ using ProductService.ValueObjects;
             return training;
         }
 
-        internal void AddExercise(Exercise exercise)
+        private void AddExercise(Exercise exercise)
         {
             if (exercise is null)
             {
@@ -53,5 +53,13 @@ using ProductService.ValueObjects;
                 _exercises.Add(exercise);
             }
             SetModifiedIfNotAdded();
+        }
+
+        public void AddExercises(ICollection<Exercise> exercises)
+        {
+            foreach (var exercise in exercises)
+            {
+                AddExercise(exercise);
+            }
         }
     }

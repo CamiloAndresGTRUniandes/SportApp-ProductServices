@@ -5,8 +5,8 @@ using Common.ValueObjects;
 
     public class Goal : BaseDomainModel
     {
+        private readonly List<NutritionalPlanGoals> _nutritionalPlanGoals = new();
         private readonly List<ProductServiceGoals> _productServiceGoals = new();
-        private readonly List<TrainingPlanGoals> _trainingPlanGoals = new();
 
         protected Goal()
         {
@@ -27,7 +27,7 @@ using Common.ValueObjects;
 
         public Name Name { get; set; }
         public IReadOnlyCollection<ProductServiceGoals> ProductServiceGoals => _productServiceGoals;
-        public IReadOnlyCollection<TrainingPlanGoals> TrainingPlanGoals => _trainingPlanGoals;
+        public IReadOnlyCollection<NutritionalPlanGoals> NutritionalPlanGoals => _nutritionalPlanGoals;
 
         public static Goal Build(
             Guid id,

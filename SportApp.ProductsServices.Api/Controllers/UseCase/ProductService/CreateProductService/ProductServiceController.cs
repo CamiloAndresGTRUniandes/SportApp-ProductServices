@@ -41,8 +41,24 @@ using Middleware;
                 Goals = request.Goals,
                 Allergies = request.NutritionalAllergies,
                 StartDateTime = request.StartDateTime,
-                EndDateTime = request.EndDateTime
+                EndDateTime = request.EndDateTime,
+                NutritionalPlan = request.NutritionalPlan,
+                TrainingPlan = request.TrainingPlan
             };
+            await mediator.Send(command, cancellationToken);
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(CustomErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteProductServiceAsync(Guid id,
+            CancellationToken cancellationToken)
+        {
+            var command = new DeleteProductServiceCommand { Id = id };
             await mediator.Send(command, cancellationToken);
             return NoContent();
         }

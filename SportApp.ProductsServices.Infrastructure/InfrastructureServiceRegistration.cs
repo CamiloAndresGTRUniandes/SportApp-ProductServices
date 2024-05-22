@@ -3,20 +3,40 @@ using Application.Activity.Interfaces;
 using Application.Activity.UseCases;
 using Application.Goal.Interfaces;
 using Application.Goal.UseCases;
+using Application.ProductService.Handlers.EventHandlers;
 using Application.ProductService.Interfaces;
 using Application.ProductService.UseCases;
+using Application.Recommendation.Events;
+using Application.Recommendation.Interfaces;
+using Application.Recommendation.UseCases;
+using Application.Subscription.Interfaces;
+using Application.Subscription.UseCases;
 using Domain.Activities.Repositories;
 using Domain.Allergies.Repositories;
+using Domain.Common.Bus;
 using Domain.Goals.Repositories;
+using Domain.Nutrition.Repositories;
+using Domain.ProductService.Events;
 using Domain.ProductService.Repositories;
+using Domain.Recommendations.Repositories;
+using Domain.Subscription.Repositories;
+using Domain.Training.Repositories;
 using EntityFramework;
 using EntityFramework.Activity.Repositories;
 using EntityFramework.Goal.Repositories;
+using EntityFramework.Nutrition.Repositories;
 using EntityFramework.NutritionalAllergy.Repository;
 using EntityFramework.ProductService.Repositories;
+using EntityFramework.Recommendation;
+using EntityFramework.Subscription;
+using EntityFramework.Training.Repositories;
+using MediatR;
+using MessageBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Services;
 
     public static class InfrastructureServiceRegistration
     {
@@ -27,14 +47,26 @@ using Microsoft.Extensions.DependencyInjection;
             if (EnvironmentName == "Development")
             {
                 services.AddDbContext<ProductServiceContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("ConnectionStringLocal"))
-                    );
+                    options.UseSqlServer(configuration.GetConnectionString("ConnectionStringLocal"), sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            3,
+                            TimeSpan.FromSeconds(3),
+                            null);
+                    }
+                        ));
             }
             else
             {
                 services.AddDbContext<ProductServiceContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("ConnectionString"))
-                    );
+                    options.UseSqlServer(configuration.GetConnectionString("ConnectionString"), sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            3,
+                            TimeSpan.FromSeconds(3),
+                            null);
+                    }
+                        ));
             }
 
 
@@ -49,6 +81,10 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<INutritionalAllergyRepository, NutritionalAllergyRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
+            services.AddScoped<INutritionalPlanRepository, NutritionalPlanRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+            services.AddScoped<IRecommendationRepository, RecommendationRepository>();
 
 
             services.AddScoped<ICreateCategory, CreateCategoryUseCase>();
@@ -75,7 +111,25 @@ using Microsoft.Extensions.DependencyInjection;
             services.AddScoped<IGetProductService, GetProductServiceUseCase>();
             services.AddScoped<IGetPlanById, GetPlanByIdUseCase>();
             services.AddScoped<IGetServiceTypeById, GetServiceTypeByIdUseCase>();
+            services.AddScoped<IGetGoalById, GetGoalByIdUseCase>();
+            services.AddScoped<IDeleteProductService, DeleteProductServiceUseCase>();
+            services.AddScoped<ICreateSubscription, CreateSubscriptionUseCase>();
+            services.AddScoped<IGetSubscription, GetSubscriptionUseCase>();
+            services.AddScoped<IProcessUserProfileEvent, ProcessUserProfileEventUseCase>();
+            services.AddScoped<IProcessProductServiceRecommendation, ProcessProductServiceRecommendationUseCase>();
+            services.AddScoped<IUsersService, UsersService>();
 
+            //MessageBus
+            services.AddSingleton<IEventBus, MessageBus.MessageBus>(sp =>
+            {
+                var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
+                var optionsFactory = sp.GetService<IOptions<MessageBusSettings>>();
+                return new MessageBus.MessageBus(sp.GetService<IMediator>(), scopeFactory, optionsFactory);
+            });
+            services.AddTransient<IEventHandler<UserProfileEventBus>, UserProfileEventHandler>();
+            services.AddTransient<IEventHandler<ProductServiceRecommendationCommand>, ProductServiceRecommendationCommandHandler>();
+            services.AddTransient<UserProfileEventHandler>();
+            services.AddTransient<ProductServiceRecommendationCommandHandler>();
             //services.AddScoped<IStreamerRepository, StreamerRepository>();
 
             //services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

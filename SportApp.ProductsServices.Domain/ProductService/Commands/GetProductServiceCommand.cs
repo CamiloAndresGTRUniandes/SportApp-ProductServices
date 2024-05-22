@@ -3,15 +3,16 @@ using Common.Commands;
 
     public class GetProductServiceCommand : IDomainRequest<ICollection<ProductService>>
     {
-        public Guid? Id { get; set; }
-        public Guid User { get; set; }
-        public ICollection<Guid> ServiceTypes { get; set; }
-        public ICollection<Guid> Activities { get; set; }
-        public ICollection<Guid> Goals { get; set; }
-        public ICollection<Guid> TypesOfNutrition { get; set; }
-        public ICollection<Guid> Plans { get; set; }
-        public ICollection<Guid> GeographicInfoIds { get; set; }
-        public ICollection<Guid> Allergies { get; set; }
-        public DateTime? StartDateTime { get; set; }
-        public DateTime? EndDateTime { get; set; }
+        public Guid? Id { get; init; }
+        public Guid? User { get; init; }
+        public ICollection<Guid> ServiceTypes { get; init; } = new List<Guid>();
+        public ICollection<Guid> Categories { get; init; } = new List<Guid>();
+        public ICollection<Guid> Activities { get; init; } = new List<Guid>();
+        public ICollection<Guid> Goals { get; init; } = new List<Guid>();
+        public ICollection<Guid> TypesOfNutrition { get; set; } = new List<Guid>();
+        public ICollection<Guid> Plans { get; init; } = new List<Guid>();
+        public ICollection<Guid> GeographicInfoIds { get; init; } = new List<Guid>();
+        public ICollection<Guid> Allergies { get; init; } = new List<Guid>();
+        public DateTime? StartDateTime { get; init; }
+        public DateTime? EndDateTime { get; init; }
     }

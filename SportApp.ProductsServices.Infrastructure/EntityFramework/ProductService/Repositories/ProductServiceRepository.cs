@@ -28,6 +28,9 @@ using Microsoft.EntityFrameworkCore;
             if (productService != null)
             {
                 await context.Entry(productService).Reference(x => x.Plan).LoadAsync();
+                await context.Entry(productService).Reference(e => e.NutritionalPlan).Query().Include(x => x.Day).ThenInclude(x => x.Meal).LoadAsync();
+                await context.Entry(productService).Reference(e => e.TrainingPlan).Query().Include(x => x.Training).ThenInclude(x => x.Exercise)
+                    .LoadAsync();
                 await context.Entry(productService).Reference(x => x.GeographicInfo).LoadAsync();
                 await context.Entry(productService).Reference(x => x.TypeOfNutrition).LoadAsync();
                 await context.Entry(productService).Reference(x => x.ServiceType).Query().Include(c => c.Category).LoadAsync();
@@ -49,6 +52,7 @@ using Microsoft.EntityFrameworkCore;
         {
             var productServices = new List<ProductService>();
             var query = context.ProductServices.AsQueryable();
+            query = query.Where(x => x.Enabled);
             if (parameters.Id.HasValue)
             {
                 query = query.Where(x => x.Id == parameters.Id.Value);
@@ -56,36 +60,44 @@ using Microsoft.EntityFrameworkCore;
                 await IncludeOperations(productServices);
                 return productServices;
             }
-            if (parameters.ServiceTypes.Count != 0)
+            if (parameters.User.HasValue && parameters.User.Value != Guid.Empty)
+            {
+                query = query.Where(x => x.CreatedBy == parameters.User || x.UpdatedBy == parameters.User);
+            }
+            if (parameters.ServiceTypes.Any())
             {
                 query = query.Where(x => parameters.ServiceTypes.Contains(x.ServiceType.Id));
             }
-            if (parameters.Plans.Count != 0)
+            if (parameters.Categories.Any())
+            {
+                query = query.Where(x => parameters.Categories.Contains(x.ServiceType.Category.Id));
+            }
+            if (parameters.Plans.Any())
             {
                 query = query.Where(x => parameters.Plans.Contains(x.Plan.Id));
             }
-            if (parameters.Activities.Count != 0)
+            if (parameters.Activities.Any())
             {
                 foreach (var activityId in parameters.Activities)
                 {
                     query = query.Where(x => x.ProductServiceActivities.Select(a => a.Activity.Id).Contains(activityId));
                 }
             }
-            if (parameters.Goals.Count != 0)
+            if (parameters.Goals.Any())
             {
                 foreach (var goalId in parameters.Goals)
                 {
                     query = query.Where(x => x.ProductServiceGoals.Select(a => a.Goal.Id).Contains(goalId));
                 }
             }
-            if (parameters.Allergies.Count != 0)
+            if (parameters.Allergies.Any())
             {
                 foreach (var allergyId in parameters.Allergies)
                 {
                     query = query.Where(x => x.ProductServiceAllergies.Select(a => a.NutritionalAllergy.Id).Contains(allergyId));
                 }
             }
-            if (parameters.GeographicInfoIds.Count != 0)
+            if (parameters.GeographicInfoIds.Any())
             {
                 query = query.Where(x => parameters.GeographicInfoIds.Contains(x.GeographicInfo!.Id));
             }
@@ -109,6 +121,9 @@ using Microsoft.EntityFrameworkCore;
             foreach (var productService in productServices)
             {
                 await context.Entry(productService).Reference(e => e.Plan).LoadAsync();
+                await context.Entry(productService).Reference(e => e.NutritionalPlan).Query().Include(x => x.Day).ThenInclude(x => x.Meal).LoadAsync();
+                await context.Entry(productService).Reference(e => e.TrainingPlan).Query().Include(x => x.Training).ThenInclude(x => x.Exercise)
+                    .LoadAsync();
                 await context.Entry(productService).Reference(e => e.TypeOfNutrition).LoadAsync();
                 await context.Entry(productService).Reference(e => e.GeographicInfo).LoadAsync();
                 await context.Entry(productService).Reference(e => e.ServiceType).Query().Include(x => x.Category).LoadAsync();

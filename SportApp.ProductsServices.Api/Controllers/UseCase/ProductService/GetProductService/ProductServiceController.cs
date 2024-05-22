@@ -33,7 +33,8 @@ using Middleware;
                 TypesOfNutrition = request.TypesOfNutrition,
                 Plans = request.Plans,
                 GeographicInfoIds = request.GeographicInfoIds,
-                Allergies = request.Allergies
+                Allergies = request.Allergies,
+                Categories = request.Categories
             };
             var productServices = await mediator.Send(command, cancellationToken);
             return Ok(ResponseGetProductService.Build(productServices));

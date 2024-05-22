@@ -1,5 +1,5 @@
-namespace SafeFleet.MediaManagement.Domain.SharedKernel;
+namespace SportApp.ProductsServices.Domain.Common ;
 
-public interface IDomainMessage
-{
-}
+    public interface IDomainMessage
+    {
+    }
