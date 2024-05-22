@@ -24,9 +24,9 @@ using ValueObjects;
         public SportLevel SportLevel { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
-        public ICollection<Guid>? Activities { get; set; }
-        public ICollection<Guid>? Goals { get; set; }
-        public ICollection<Guid>? Allergies { get; set; }
+        public ICollection<Guid>? Activities { get; set; } = [];
+        public ICollection<Guid>? Goals { get; set; } = [];
+        public ICollection<Guid>? Allergies { get; set; } = [];
     }
 
     public class NutritionalPlanDto
