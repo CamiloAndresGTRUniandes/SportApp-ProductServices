@@ -3,6 +3,7 @@ on:
   push:
     branches:
     - develop
+    - main
 env:
   AZURE_WEBAPP_NAME: SportAppProductsServicesApi20240517141244
   AZURE_WEBAPP_PACKAGE_PATH: SportApp.ProductsServices.Api/publish
